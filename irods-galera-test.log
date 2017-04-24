@@ -1,0 +1,133 @@
+irods-galera-1
+irods-galera-2
+irods-galera-3
+irods-galera-1
+irods-galera-2
+irods-galera-3
+253922b48615122b7ad3cd4dfe986361a8ce2d99ebd9742bf4c0a7eebbf09315
+15 ...[0K14 ...[0K13 ...[0K12 ...[0K11 ...[0K10 ...[0K9 ...[0K8 ...[0K7 ...[0K6 ...[0K5 ...[0K4 ...[0K3 ...[0K2 ...[0K1 ...[0Ke7da0d8600967b4b12521aa7bf3f994fd77dcbbfea5b2b7d18274e9434c2d62f
+15 ...[0K14 ...[0K13 ...[0K12 ...[0K11 ...[0K10 ...[0K9 ...[0K8 ...[0K7 ...[0K6 ...[0K5 ...[0K4 ...[0K3 ...[0K2 ...[0K1 ...[0K098f8d1c2abda6388b4e8c7312acd07584fdf682f3ebf86f17e9bb18d0874672
+30 ...[0K29 ...[0K28 ...[0K27 ...[0K26 ...[0K25 ...[0K24 ...[0K23 ...[0K22 ...[0K21 ...[0K20 ...[0K19 ...[0K18 ...[0K17 ...[0K16 ...[0K15 ...[0K14 ...[0K13 ...[0K12 ...[0K11 ...[0K10 ...[0K9 ...[0K8 ...[0K7 ...[0K6 ...[0K5 ...[0K4 ...[0K3 ...[0K2 ...[0K1 ...[0K### Docker ps ###
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                NAMES
+098f8d1c2abd        irods-galera        "/docker-entrypoin..."   31 seconds ago       Up 30 seconds       1247-1248/tcp, 3306/tcp, 4567/tcp, 20000-20199/tcp   irods-galera-3
+e7da0d860096        irods-galera        "/docker-entrypoin..."   46 seconds ago       Up 45 seconds       1247-1248/tcp, 3306/tcp, 4567/tcp, 20000-20199/tcp   irods-galera-2
+253922b48615        irods-galera        "/docker-entrypoin..."   About a minute ago   Up About a minute   1247-1248/tcp, 3306/tcp, 4567/tcp, 20000-20199/tcp   irods-galera-1
+Creating resource:
+Name:		"galera1"
+Type:		"unixfilesystem"
+Host:		"irods-galera-1"
+Path:		"/var/lib/irods/iRODS/Vault"
+Context:	""
+### ienv irods-galera-1 ###
+irods_version - 4.2.0
+irods_server_control_plane_encryption_algorithm - AES-256-CBC
+schema_name - irods_environment
+irods_server_control_plane_encryption_num_hash_rounds - 16
+irods_zone_name - galeraZone
+irods_host - irods-galera-1
+irods_user_name - rods
+irods_transfer_buffer_size_for_parallel_transfer_in_megabytes - 4
+irods_session_environment_file - /var/lib/irods/.irods/irods_environment.json.0
+irods_port - 1247
+irods_encryption_salt_size - 8
+schema_version - v3
+irods_default_resource - galera1
+irods_home - /galeraZone/home/rods
+irods_encryption_num_hash_rounds - 16
+irods_encryption_key_size - 32
+irods_encryption_algorithm - AES-256-CBC
+irods_cwd - /galeraZone/home/rods
+irods_maximum_size_for_single_buffer_in_megabytes - 32
+irods_default_hash_scheme - SHA256
+irods_match_hash_policy - compatible
+irods_client_server_policy - CS_NEG_REFUSE
+irods_environment_file - /var/lib/irods/.irods/irods_environment.json
+irods_default_number_of_transfer_threads - 4
+irods_server_control_plane_port - 1248
+irods_server_control_plane_key - TEMPORARY__32byte_ctrl_plane_key
+irods_client_server_negotiation - request_server_negotiation
+5 ...[0K4 ...[0K3 ...[0K2 ...[0K1 ...[0KCreating resource:
+Name:		"galera2"
+Type:		"unixfilesystem"
+Host:		"irods-galera-2"
+Path:		"/var/lib/irods/iRODS/Vault"
+Context:	""
+### ienv irods-galera-2 ###
+irods_version - 4.2.0
+irods_server_control_plane_encryption_algorithm - AES-256-CBC
+schema_name - irods_environment
+irods_user_name - rods
+irods_host - irods-galera-2
+irods_transfer_buffer_size_for_parallel_transfer_in_megabytes - 4
+irods_zone_name - galeraZone
+irods_server_control_plane_encryption_num_hash_rounds - 16
+irods_session_environment_file - /var/lib/irods/.irods/irods_environment.json.0
+irods_port - 1247
+irods_default_resource - galera2
+irods_encryption_num_hash_rounds - 16
+irods_home - /galeraZone/home/rods
+irods_match_hash_policy - compatible
+schema_version - v3
+irods_encryption_salt_size - 8
+irods_default_hash_scheme - SHA256
+irods_environment_file - /var/lib/irods/.irods/irods_environment.json
+irods_default_number_of_transfer_threads - 4
+irods_client_server_policy - CS_NEG_REFUSE
+irods_cwd - /galeraZone/home/rods
+irods_maximum_size_for_single_buffer_in_megabytes - 32
+irods_encryption_algorithm - AES-256-CBC
+irods_encryption_key_size - 32
+irods_server_control_plane_port - 1248
+irods_server_control_plane_key - TEMPORARY__32byte_ctrl_plane_key
+irods_client_server_negotiation - request_server_negotiation
+5 ...[0K4 ...[0K3 ...[0K2 ...[0K1 ...[0KCreating resource:
+Name:		"galera3"
+Type:		"unixfilesystem"
+Host:		"irods-galera-3"
+Path:		"/var/lib/irods/iRODS/Vault"
+Context:	""
+### ienv irods-galera-3 ###
+irods_version - 4.2.0
+irods_server_control_plane_encryption_num_hash_rounds - 16
+irods_session_environment_file - /var/lib/irods/.irods/irods_environment.json.0
+irods_port - 1247
+irods_maximum_size_for_single_buffer_in_megabytes - 32
+irods_home - /galeraZone/home/rods
+irods_default_resource - galera3
+irods_encryption_num_hash_rounds - 16
+schema_name - irods_environment
+irods_server_control_plane_encryption_algorithm - AES-256-CBC
+irods_zone_name - galeraZone
+irods_host - irods-galera-3
+irods_user_name - rods
+irods_transfer_buffer_size_for_parallel_transfer_in_megabytes - 4
+irods_encryption_key_size - 32
+schema_version - v3
+irods_encryption_salt_size - 8
+irods_match_hash_policy - compatible
+irods_environment_file - /var/lib/irods/.irods/irods_environment.json
+irods_default_number_of_transfer_threads - 4
+irods_cwd - /galeraZone/home/rods
+irods_encryption_algorithm - AES-256-CBC
+irods_default_hash_scheme - SHA256
+irods_client_server_policy - CS_NEG_REFUSE
+irods_server_control_plane_key - TEMPORARY__32byte_ctrl_plane_key
+irods_server_control_plane_port - 1248
+irods_client_server_negotiation - request_server_negotiation
+### list resources in galeraZone ###
+bundleResc
+galera2
+galera3
+galera1
+### demonstrate functionality ###
+create file named irods-galera-1.txt on irods-galera-1 and iput to resource galera2
+create file named irods-galera-2.txt on irods-galera-2 and iput to resource galera3
+create file named irods-galera-3.txt on irods-galera-3 and iput to resource galera1
+list resources as they are seen from irods-galera-1
+/galeraZone/home/rods:
+  rods              0 galera2         1136 2017-04-24.17:37 & irods-galera-1.txt
+        generic    /var/lib/irods/iRODS/Vault/home/rods/irods-galera-1.txt
+  rods              0 galera3         1136 2017-04-24.17:37 & irods-galera-2.txt
+        generic    /var/lib/irods/iRODS/Vault/home/rods/irods-galera-2.txt
+  rods              0 galera1         1136 2017-04-24.17:37 & irods-galera-3.txt
+        generic    /var/lib/irods/iRODS/Vault/home/rods/irods-galera-3.txt
