@@ -91,6 +91,25 @@ docker exec irods-galera-3 gosu irods /irods-galera-3.sh
 echo "### ienv irods-galera-3 ###"
 docker exec irods-galera-3 gosu irods ienv
 
+# list resources
+echo "### list resources in galeraZone ###"
+docker exec irods-galera-1 gosu irods /bin/bash -c 'iadmin lr'
+
 # demonstrate functionality
+echo "### demonstrate functionality ###"
+echo "create file named irods-galera-1.txt on irods-galera-1 and iput to resource galera2"
+docker exec irods-galera-1 gosu irods /bin/bash -c 'ienv > /var/lib/irods/$(hostname).txt'
+docker exec irods-galera-1 gosu irods /bin/bash -c 'iput -R galera2 /var/lib/irods/$(hostname).txt'
+
+echo "create file named irods-galera-2.txt on irods-galera-2 and iput to resource galera3"
+docker exec irods-galera-2 gosu irods /bin/bash -c 'ienv > /var/lib/irods/$(hostname).txt'
+docker exec irods-galera-2 gosu irods /bin/bash -c 'iput -R galera3 /var/lib/irods/$(hostname).txt'
+
+echo "create file named irods-galera-3.txt on irods-galera-3 and iput to resource galera1"
+docker exec irods-galera-3 gosu irods /bin/bash -c 'ienv > /var/lib/irods/$(hostname).txt'
+docker exec irods-galera-3 gosu irods /bin/bash -c 'iput -R galera1 /var/lib/irods/$(hostname).txt'
+
+echo "list resources as they are seen from irods-galera-1"
+docker exec irods-galera-1 gosu irods /bin/bash -c 'ils -Lr'
 
 exit 0;
