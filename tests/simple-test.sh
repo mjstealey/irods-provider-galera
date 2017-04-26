@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+pushd ..
 REPO_DIR=$(pwd)
+popd
 
 # create docker network if it does not exist
 if [[ -n $(docker network inspect galeranet | grep Error) ]]; then
@@ -16,8 +18,9 @@ fi
 # configure irods-galera-1
 docker run -d --name irods-galera-1 -h irods-galera-1 \
     -v ${REPO_DIR}/init:/init \
+    -v /home/${USER}/galera1:/Vault \
     -e MYSQL_ROOT_PASSWORD=password \
-    --env-file=env/irods-galera-1.env \
+    --env-file=${REPO_DIR}/env/irods-galera-1.env \
     --net galeranet \
     --ip 172.18.0.2 \
     --add-host irods-galera-2:172.18.0.3 \
@@ -31,8 +34,9 @@ done
 # configure irods-galera-2
 docker run -d --name irods-galera-2 -h irods-galera-2 \
     -v ${REPO_DIR}/init:/init \
+    -v /home/${USER}/galera2:/Vault \
     -e MYSQL_ROOT_PASSWORD=password \
-    --env-file=env/irods-galera-2.env \
+    --env-file=${REPO_DIR}/env/irods-galera-2.env \
     --net galeranet \
     --ip 172.18.0.3 \
     --add-host irods-galera-1:172.18.0.2 \
@@ -46,8 +50,9 @@ done
 # configure irods-galera-3
 docker run -d --name irods-galera-3 -h irods-galera-3 \
     -v ${REPO_DIR}/init:/init \
+    -v /home/${USER}/galera3:/Vault \
     -e MYSQL_ROOT_PASSWORD=password \
-    --env-file=env/irods-galera-3.env \
+    --env-file=${REPO_DIR}/env/irods-galera-3.env \
     --net galeranet \
     --ip 172.18.0.4 \
     --add-host irods-galera-1:172.18.0.2 \
