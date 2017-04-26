@@ -92,6 +92,7 @@ _lib_mysqludf_preg() {
 
 
 if [[ ${1} = 'setup_irods.py' ]]; then
+    gosu root chown -R irods:irods ${IRODS_VAULT_DIRECTORY}
     gosu root /etc/init.d/mysql start
     _mysql_secure_installation
     if [[ ${2} = '--init' ]]; then
