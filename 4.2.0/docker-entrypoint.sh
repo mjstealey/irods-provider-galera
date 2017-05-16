@@ -68,7 +68,7 @@ _generate_config() {
 
 _initialize_sql() {
     > /initialize.sql
-    echo "CREATE DATABASE ${IRODS_DATABASE_NAME};" >> /initialize.sql
+    echo "CREATE DATABASE ${IRODS_DATABASE_NAME} character set latin1 collate latin1_general_cs;" >> /initialize.sql
     echo "CREATE USER '${IRODS_DATABASE_USER_NAME}'@'${IRODS_DATABASE_SERVER_HOSTNAME}' IDENTIFIED BY '${IRODS_DATABASE_PASSWORD}';" >> /initialize.sql
     echo "GRANT ALL ON ${IRODS_DATABASE_NAME}.* to '${IRODS_DATABASE_USER_NAME}'@'${IRODS_DATABASE_SERVER_HOSTNAME}';" >> /initialize.sql
     echo "SHOW GRANTS FOR '${IRODS_DATABASE_USER_NAME}'@'${IRODS_DATABASE_SERVER_HOSTNAME}';" >> /initialize.sql
