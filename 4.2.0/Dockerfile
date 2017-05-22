@@ -1,17 +1,14 @@
-FROM mjstealey/mariadb-galera:latest
+FROM mjstealey/mariadb-galera:10.1
 MAINTAINER Michael J. Stealey <michael.j.stealey@gmail.com>
 
 # Explicitly set user/group IDs for irods account
 RUN groupadd -r irods --gid=996 \
     && useradd -r -g irods -d /var/lib/irods --uid=996 irods
 
-# iRODS v.4.2.0
-RUN yum install -y sudo \
-    && sudo rpm --import https://packages.irods.org/irods-signing-key.asc \
-    && wget -qO - https://packages.irods.org/renci-irods.yum.repo | \
-    sudo tee /etc/yum.repos.d/renci-irods.yum.repo \
-    && sed -i 's/repo_gpgcheck=1/repo_gpgcheck=0/g' /etc/yum.repos.d/renci-irods.yum.repo \
-    && yum install -y \
+# iRODS v.4.2.x
+ADD ./RENCI-iRODS.repo /etc/yum.repos.d/RENCI-iRODS.repo
+RUN yum makecache fast -y && yum install -y \
+    sudo \
     irods-server \
     irods-database-plugin-mysql
 
@@ -52,8 +49,12 @@ ENV IRODS_VAULT_DIRECTORY=/var/lib/irods/iRODS/Vault
 RUN rm -f /docker-entrypoint.sh
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 
-VOLUME ["var/lib/mysql", "/var/lib/irods"]
+VOLUME ["var/lib/mysql", "/var/lib/irods", "/etc/irods"]
 
-EXPOSE 3306 4567 $IRODS_PORT $IRODS_CONTROL_PLANE_PORT $IRODS_PORT_RANGE_BEGIN-$IRODS_PORT_RANGE_END
+# 3306: MariaDB client connections
+# 4444: State snapshot transfer
+# 4567: Galera Cluster communication
+# 4568: Incremental state transfer
+EXPOSE 3306 4444 4567 4568 $IRODS_PORT $IRODS_CONTROL_PLANE_PORT $IRODS_PORT_RANGE_BEGIN-$IRODS_PORT_RANGE_END
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["setup_irods.py"]
+CMD ["-i", "setup_irods.py"]
