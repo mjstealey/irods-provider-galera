@@ -193,5 +193,8 @@ if $SETUP_IRODS; then
     fi
     gosu root tail -f /dev/null
 else
+    if $USAGE; then
+        _usage
+    fi
     exec "$@"
 fi
