@@ -135,7 +135,7 @@ _lib_mysqludf_preg() {
 _usage() {
     echo "iRODS Provider - Galera Cluster"
     echo " "
-    echo "$package [-hijvd] [-f filename.sql] [arguments]"
+    echo "${PACKAGE} [-hijvd] [-f filename.sql] [arguments]"
     echo " "
     echo "options:"
     echo "-h                    show brief help"
@@ -144,6 +144,11 @@ _usage() {
     echo "-v                    verbose output"
     echo "-d                    dump database as db.sql to volume mounted as /LOCAL/PATH:/init"
     echo "-f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init"
+    echo ""
+    echo "Example:"
+    echo "  $ docker run --rm mjstealey/irods-provider-galera:4.2.0 -h               # show help"
+    echo "  $ docker run -d mjstealey/irods-provider-galera:4.2.0 -iv setup_irods.py # init with default settings"
+    echo ""
     exit 0
 }
 
