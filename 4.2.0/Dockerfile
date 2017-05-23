@@ -48,6 +48,7 @@ ENV IRODS_VAULT_DIRECTORY=/var/lib/irods/iRODS/Vault
 
 RUN rm -f /docker-entrypoint.sh
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./mysql.tar.gz /mysql.tar.gz
 
 VOLUME ["var/lib/mysql", "/var/lib/irods", "/etc/irods"]
 

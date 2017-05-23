@@ -12,11 +12,13 @@ Based on: [mjstealey/mariadb-galera](https://github.com/mjstealey/mariadb-galera
 
 ### Pull image from dockerhub
 
+Reference: [mjstealey/irods-provider-galera/](https://hub.docker.com/r/mjstealey/irods-provider-galera/)
+
 ```bash
 docker pull mjstealey/irods-provider-galera:4.2.0
 ```
 
-### Building
+### Building locally
 
 ```
 $ git clone https://github.com/mjstealey/irods-provider-galera.git
@@ -50,7 +52,7 @@ irods-galera-node-3
 ### show usage ###
 iRODS Provider - Galera Cluster
 
- [-hijvd] [-f filename.sql] [arguments]
+docker-entrypoint.sh [-hijvd] [-f filename.sql] [arguments]
 
 options:
 -h                    show brief help
@@ -59,6 +61,11 @@ options:
 -v                    verbose output
 -d                    dump database as db.sql to volume mounted as /LOCAL/PATH:/init
 -f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init
+
+Example: 
+  $ docker run --rm mjstealey/irods-provider-galera:4.2.0 -h               # show help
+  $ docker run -d mjstealey/irods-provider-galera:4.2.0 -iv setup_irods.py # init with default settings
+  
 ### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###
 c88d3a730157ab47124844288a916a69b5cd172208bea8599b3c3324f289a278
 Waiting for irods-galera-node-1 ........
@@ -223,14 +230,20 @@ IRODS_VAULT_DIRECTORY=/var/lib/irods/iRODS/Vault
 MYSQL_ROOT_PASSWORD=temppassword
 ```
 
-Other nodes defined in a similar fashion, needing only to change the settings for `WSREP_NODE_ADDRESS` and `WSREP_NODE_NAME` accordingly.
+Other nodes are defined in a similar fashion, needing only to change the settings for `WSREP_NODE_ADDRESS` and `WSREP_NODE_NAME` accordingly.
 
 ### WAN
 
-If using over WAN additional configurations parameter for `WSREP_PROVIDER_OPTIONS ` should be added. [Configuration tips](http://galeracluster.com/documentation-webpages/configurationtips.html)
+If using over WAN additional parameters are available for `WSREP_PROVIDER_OPTIONS `, and should be modified according to use case. [Configuration tips](http://galeracluster.com/documentation-webpages/configurationtips.html)
 
-Example:
+Full set of [galera cluster system variables](https://mariadb.com/kb/en/mariadb/galera-cluster-system-variables/)
+
+Example (should appear all in one line, seperated here for readability):
 
 ```
-WSREP_PROVIDER_OPTIONS='evs.keepalive_period=PT3S;evs.suspect_timeout=PT30S;evs.inactive_timeout=PT1M;evs.install_timeout=PT1M;evs.join_retrans_period=PT1.0S'
+WSREP_PROVIDER_OPTIONS='evs.keepalive_period=PT3S;
+  evs.suspect_timeout=PT30S;
+  evs.inactive_timeout=PT1M;
+  evs.install_timeout=PT1M;
+  evs.join_retrans_period=PT1.0S'
 ```
