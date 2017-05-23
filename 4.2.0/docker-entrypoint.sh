@@ -11,6 +11,22 @@ SQLFILE=''
 DUMPDB=false
 SETUP_IRODS=false
 
+_mysql_tgz() {
+    if [ ! "$(ls -A /var/lib/mysql)" ]; then
+        gosu root cp /mysql.tar.gz /var/lib/mysql/mysql.tar.gz
+        cd /var/lib/mysql/
+        if $VERBOSE; then
+            echo "!!! populating /var/lib/mysql with initial contents !!!"
+            gosu root tar -zxvf mysql.tar.gz
+        else
+            gosu root tar -zxf mysql.tar.gz
+        fi
+        cd -
+        gosu root rm -f /var/lib/mysql/mysql.tar.gz
+        gosu root chown -R mysql:mysql /var/lib/mysql
+    fi
+}
+
 _server_cnf() {
     SERVER_CNF=/etc/my.cnf.d/server.cnf
     echo "set ${SERVER_CNF}"
@@ -154,10 +170,11 @@ if $SETUP_IRODS; then
     if $USAGE; then
         _usage
     fi
+    _mysql_tgz
     gosu root /etc/init.d/mysql start
     _mysql_secure_installation
     _generate_config
-    if [[ -e /init/${SQLFILE} ]]; then
+    if [[ -e /init/${SQLFILE} && "${SQLFILE}" != '' ]]; then
         gosu root mysql -uroot -p${MYSQL_ROOT_PASSWORD} < /init/${sqlfile}
     else
         _initialize_sql
