@@ -10,6 +10,7 @@ VERBOSE=false
 SQLFILE=''
 DUMPDB=false
 SETUP_IRODS=false
+REJOIN_IRODS=false
 
 _mysql_tgz() {
     if [ ! "$(ls -A /var/lib/mysql)" ]; then
@@ -24,6 +25,22 @@ _mysql_tgz() {
         cd -
         gosu root rm -f /var/lib/mysql/mysql.tar.gz
         gosu root chown -R mysql:mysql /var/lib/mysql
+    fi
+}
+
+_irods_tgz() {
+    if [ ! "$(ls -A /var/lib/irods)" ]; then
+        gosu root cp /irods.tar.gz /var/lib/irods/irods.tar.gz
+        cd /var/lib/irods/
+        if $VERBOSE; then
+            echo "!!! populating /var/lib/irods with initial contents !!!"
+            gosu root tar -zxvf irods.tar.gz
+        else
+            gosu root tar -zxf irods.tar.gz
+        fi
+        cd -
+        gosu root rm -f /var/lib/irods/irods.tar.gz
+        gosu root chown -R irods:irods /var/lib/irods
     fi
 }
 
@@ -128,7 +145,9 @@ _lib_mysqludf_preg() {
     ./configure
     make
     sudo make install
-    gosu root mysql --user=root --password=${MYSQL_ROOT_PASSWORD} < /lib_mysqludf_preg/installdb.sql
+    if $SETUP_IRODS; then
+        gosu root mysql -uroot -p${MYSQL_ROOT_PASSWORD} < /lib_mysqludf_preg/installdb.sql
+    fi
     cd -
 }
 
@@ -169,6 +188,9 @@ do
     if [[ "${var}" = 'setup_irods.py' ]]; then
         SETUP_IRODS=true
     fi
+    if [[ "${var}" = 'rejoin_irods' ]]; then
+        REJOIN_IRODS=true
+    fi
 done
 
 if $SETUP_IRODS; then
@@ -176,11 +198,12 @@ if $SETUP_IRODS; then
         _usage
     fi
     _mysql_tgz
+    _irods_tgz
     gosu root /etc/init.d/mysql start
     _mysql_secure_installation
     _generate_config
     if [[ -e /init/${SQLFILE} && "${SQLFILE}" != '' ]]; then
-        gosu root mysql -uroot -p${MYSQL_ROOT_PASSWORD} < /init/${sqlfile}
+        gosu root mysql -uroot -p${MYSQL_ROOT_PASSWORD} < /init/${SQLFILE}
     else
         _initialize_sql
         gosu root mysql -uroot -p${MYSQL_ROOT_PASSWORD} < /initialize.sql
@@ -213,6 +236,19 @@ if $SETUP_IRODS; then
         echo "$ ss -lntu"
         gosu root ss -lntu
     fi
+    gosu root tail -f /dev/null
+elif $REJOIN_IRODS; then
+    _server_cnf
+    _my_cnf
+    _lib_mysqludf_preg
+    gosu root ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
+    if $INIT; then
+        gosu root /etc/init.d/mysql start --wsrep-new-cluster
+    fi
+    if $JOIN; then
+        gosu root /etc/init.d/mysql start
+    fi
+    gosu root /etc/init.d/irods start
     gosu root tail -f /dev/null
 else
     if $USAGE; then
