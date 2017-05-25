@@ -18,6 +18,6 @@ docker run -d --name galera -h irods-galera-node-1 \
     -p 4444:4444 \
     -p 4567-4568:4567-4568 \
     -p 20000-20199:20000-20199 \
-    irods-galera -iv rejoin_irods
+    mjstealey/irods-provider-galera:4.2.0 -iv rejoin_irods
 
 exit 0;
