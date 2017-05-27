@@ -45,11 +45,25 @@ ENV IRODS_SERVER_NEGOTIATION_KEY=TEMPORARY_32byte_negotiation_key
 ENV IRODS_CONTROL_PLANE_KEY=TEMPORARY__32byte_ctrl_plane_key
 ENV IRODS_SERVER_ADMINISTRATOR_PASSWORD=rods
 ENV IRODS_VAULT_DIRECTORY=/var/lib/irods/iRODS/Vault
+# UID / GID settings
+ENV UID_MYSQL=997
+ENV GID_MYSQL=997
+ENV UID_IRODS=996
+ENV GID_IRODS=996
 
+# create mysql.tar.gz
+RUN cd /var/lib/mysql \
+    && tar -czvf /mysql.tar.gz . \
+    && cd /
+
+# create irods.tar.gz
+RUN cd /var/lib/irods \
+    && tar -czvf /irods.tar.gz . \
+    && cd /
+
+# add docker-entrypoint script
 RUN rm -f /docker-entrypoint.sh
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
-COPY ./mysql.tar.gz /mysql.tar.gz
-COPY ./irods.tar.gz /irods.tar.gz
 
 VOLUME ["var/lib/mysql", "/var/lib/irods", "/etc/irods"]
 
