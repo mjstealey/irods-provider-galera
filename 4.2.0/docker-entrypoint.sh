@@ -12,6 +12,39 @@ DUMPDB=false
 SETUP_IRODS=false
 REJOIN_IRODS=false
 
+_update_uid_gid() {
+    # if UID_MYSQL = UID_IRODS, exit with error message
+    if [[ ${UID_MYSQL} = ${UID_IRODS} ]]; then
+        echo "ERROR: user irods and user mysql cannot have same UID!!!"
+        exit 1;
+    else
+    # if UID_MYSQL != UID_IRODS, reassign individual UIDs
+        if [[ ${UID_IRODS} = 997 ]]; then
+            gosu root usermod -u 1997 irods
+        fi
+        gosu root usermod -u ${UID_MYSQL} mysql
+        gosu root usermod -u ${UID_IRODS} irods
+    fi
+    # if GID_MYSQL = GID_IRODS, reset GID_MYSQL=GID_IRODS-1 and use GID_IRODS group permissions
+    if [[ ${GID_MYSQL} = ${GID_IRODS} ]]; then
+        gosu root groupmod -g ${GID_IRODS} irods
+        gosu root usermod -a -G ${GID_IRODS} mysql
+        gosu root chown -R mysql:irods /var/lib/mysql
+        gosu root chown -R irods:irods /var/lib/irods
+        gosu root chown -R irods:irods /etc/irods
+    else
+    # if GID_MYSQL != GID_IRODS, reassign individual GIDs
+        if [[ ${GID_IRODS} = 997 ]]; then
+            gosu root groupmod -g 1997 irods
+        fi
+        gosu root groupmod -g ${GID_MYSQL} mysql
+        gosu root groupmod -g ${GID_IRODS} irods
+        gosu root chown -R mysql:mysql /var/lib/mysql
+        gosu root chown -R irods:irods /var/lib/irods
+        gosu root chown -R irods:irods /etc/irods
+     fi
+}
+
 _mysql_tgz() {
     if [ ! "$(ls -A /var/lib/mysql)" ]; then
         gosu root cp /mysql.tar.gz /var/lib/mysql/mysql.tar.gz
@@ -24,7 +57,6 @@ _mysql_tgz() {
         fi
         cd -
         gosu root rm -f /var/lib/mysql/mysql.tar.gz
-        gosu root chown -R mysql:mysql /var/lib/mysql
     fi
 }
 
@@ -40,7 +72,6 @@ _irods_tgz() {
         fi
         cd -
         gosu root rm -f /var/lib/irods/irods.tar.gz
-        gosu root chown -R irods:irods /var/lib/irods
     fi
 }
 
@@ -199,6 +230,7 @@ if $SETUP_IRODS; then
     fi
     _mysql_tgz
     _irods_tgz
+    _update_uid_gid
     gosu root /etc/init.d/mysql start
     _mysql_secure_installation
     _generate_config
@@ -216,6 +248,7 @@ if $SETUP_IRODS; then
     gosu root python /var/lib/irods/scripts/setup_irods.py < ${IRODS_CONFIG_FILE}
     if $DUMPDB; then
         gosu root mysqldump -uroot -p${MYSQL_ROOT_PASSWORD} --all-databases > /init/db.sql
+        gosu root chown -R irods:irods /init
     fi
     gosu root /etc/init.d/mysql stop
     _server_cnf
@@ -236,8 +269,10 @@ if $SETUP_IRODS; then
         echo "$ ss -lntu"
         gosu root ss -lntu
     fi
+    _update_uid_gid
     gosu root tail -f /dev/null
 elif $REJOIN_IRODS; then
+    _update_uid_gid
     _server_cnf
     _my_cnf
     _lib_mysqludf_preg
@@ -249,10 +284,12 @@ elif $REJOIN_IRODS; then
         gosu root /etc/init.d/mysql start
     fi
     gosu root /etc/init.d/irods start
+    _update_uid_gid
     gosu root tail -f /dev/null
 else
     if $USAGE; then
         _usage
     fi
+    _update_uid_gid
     exec "$@"
 fi
