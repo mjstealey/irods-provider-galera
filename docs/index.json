@@ -1,0 +1,57 @@
+[
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/parallel_put_get/",
+	"title": "iput / iget test script",
+	"tags": [],
+	"description": "parallel put get script",
+	"content": "Parallel iput / iget This script required the installation of the parallel package to be installed on the CentOS 7 test VMs being used. Once installed it provided a way to open up 30 parallel threads all performing iput or iget tasks against the target iRODS provider. parallel_put_get.sh #!/bin/bash -e ############################### # # This script will attempt parallel puts and gets # using the environment&#39;s iput/iget iCommands. # # This script will exit only when encountering an error. # # - JOBS is the number of parallel jobs # # - Creates FILES_TO_CREATE FILESIZE_IN_MB MiB files in FILES_FULLPATH # - Puts the files into BENCHMARKS_COLL # - Gets the files into BENCHMARKS_FULLPATH # ############################### SCRIPTPATH=$( cd $(dirname $0) ; pwd -P ) TIMESTAMPISH=$( date +%s )${RANDOM} RELATIVEPATH=&amp;quot;scratch_for_parallelputget/${TIMESTAMPISH}&amp;quot; FILESIZE_IN_MB=40 FILES_TO_CREATE=256 FILES_DIR=&amp;quot;${RELATIVEPATH}/files.dir&amp;quot; BENCHMARKS_COLL=&amp;quot;${RELATIVEPATH}/benchmarks.coll&amp;quot; TARGET_RESOURCE=&amp;quot;demoResc&amp;quot; JOBS=30 FILES_FULLPATH=${SCRIPTPATH}/${FILES_DIR} BENCHMARKS_FULLPATH=${SCRIPTPATH}/${BENCHMARKS_COLL} #################################### # generate files #################################### mkdir -p ${FILES_FULLPATH} for i in `seq -w ${FILES_TO_CREATE}` do truncate -s${FILESIZE_IN_MB}M ${FILES_FULLPATH}/bigfile.${i} echo ${i} &amp;gt;&amp;gt; ${FILES_FULLPATH}/bigfile.${i} done #################################### # generate scripts #################################### mkdir -p ${BENCHMARKS_FULLPATH} for i in `ls ${FILES_FULLPATH}` do echo iput -R ${TARGET_RESOURCE} -K -f ${FILES_FULLPATH}/${i} ${BENCHMARKS_COLL}/ done &amp;gt; ${BENCHMARKS_FULLPATH}/iput-all for i in `ls ${FILES_FULLPATH}` do echo iget -R ${TARGET_RESOURCE} -K -f ${BENCHMARKS_COLL}/${i} ${BENCHMARKS_FULLPATH}/ done &amp;gt; ${BENCHMARKS_FULLPATH}/iget-all #################################### # parallel put and get #################################### imkdir -p ${BENCHMARKS_COLL} irm -rf ${BENCHMARKS_COLL} imkdir -p ${BENCHMARKS_COLL} COUNT=0 time while [ &amp;quot;$?&amp;quot; == &amp;quot;0&amp;quot; ]; do COUNT=$((COUNT+1)) date echo &amp;quot;Starting loop ${COUNT}&amp;quot; echo &amp;quot; put&amp;quot; cat ${BENCHMARKS_FULLPATH}/iput-all | parallel -j ${JOBS} if [ &amp;quot;$?&amp;quot; != &amp;quot;0&amp;quot; ]; then date exit 1 fi echo &amp;quot; get&amp;quot; cat ${BENCHMARKS_FULLPATH}/iget-all | parallel -j ${JOBS} done "
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/_header/",
+	"title": "irods-provider-galera",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/",
+	"title": "Home",
+	"tags": [],
+	"description": "homepage",
+	"content": "WORK IN PROGRESS iRODS Provider Galera The following pages describe the inspiration for, setup &amp;amp; configuration of, and testing methods used to deploy a proof of concept multi-node iRODS provider with ICAT catalog services via MariaDB Galera cluster implemented in Docker. Github repository: mjstealey/irods-provider-galera 1. Introduction 2. Setup 3. Testing "
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/testing/",
+	"title": "Testing",
+	"tags": [],
+	"description": "Testing irods-provider-galera",
+	"content": "Methods of testing run_tests.py on a single node Every installation of iRODS includes a python script that will run various tests located at /var/lib/irods/scripts/run_tests.py $ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help show this help message and exit --run_specific_test=dotted name --run_python_suite --include_auth_tests --run_devtesty --topology_test=&amp;lt;icat|resource&amp;gt; --catch_keyboard_interrupt --use_ssl --no_buffer --xml_output --federation=&amp;lt;remote irods version, remote zone, remote host&amp;gt; run_tests.py on multiple nodes using netem parallel_put_get.sh on multiple nodes parallel_put_get.sh on multiple nodes using netem "
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/introduction/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "Introduction to irods-provider-galera",
+	"content": "Why use MariaDB Galera cluster to service the iRODS catalog provider? An iRODS use case was presented where multiple geographically disparate participants all wanted to belong to the same iRODS Zone for ease of search and discovery. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online. Initial requirements: Every iRODS provider node would contain the ICAT catalog and resource storage space that could be uniquely assigned to that node Large files would be transferred to the storages space of the iRODS provider node closest to the point of file origination All nodes must pass some sort of quality of service testing beyond the standard iRODS test suite The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes. References iRODS What is iRODS: The Integrated Rule-Oriented Data System (iRODS) is open source data management software used by research organizations and government agencies worldwide. iRODS is released as a production-level distribution aimed at deployment in mission critical environments. It virtualizes data storage resources, so users can take control of their data, regardless of where and on what device the data is stored. The development infrastructure supports exhaustive testing on supported platforms. The plugin architecture supports microservices, storage systems, authentication, networking, databases, rule engines, and an extensible API. Learn more at: irods.org MariaDB Why MariaDB: MariaDB is an open source leader, collaborating with innovators like Alibaba, Google and Facebook to develop and incorporate new features and improvements for the whole community, while at the same time helping customers like DBS Bank standardize on MariaDB solutions – ensuring enterprise and architecture requirements are met, now and in the future. Learn more at: mariadb.com Galera cluster What is MariaDB Galera cluster? About MariaDB Galera Cluster is a synchronous multi-master cluster for MariaDB. It is available on Linux only, and only supports the XtraDB/InnoDB storage engines (although there is experimental support for MyISAM - see the wsrep_replicate_myisam system variable). Starting with MariaDB 10.1, the wsrep API for Galera Cluster is included by default. This is available as a separate download for MariaDB 10.0 and MariaDB 5.5. Features Synchronous replication Active-active multi-master topology Read and write to any cluster node Automatic membership control, failed nodes drop from the cluster Automatic node joining True parallel replication, on row level Direct client connections, native MariaDB look &amp;amp; feel Benefits The above features yield several benefits for a DBMS clustering solution, including: No slave lag No lost transactions Both read and write scalability Smaller client latencies The Getting Started with MariaDB Galera Cluster page has instructions on how to get up and running with MariaDB Galera Cluster. Learn more at: what-is-mariadb-galera-cluster "
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/setup/",
+	"title": "Setup &amp; Configuration",
+	"tags": [],
+	"description": "Setup irods-provider-galera",
+	"content": "Docker basics Three node testbed "
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://mjstealey.github.io/irods-provider-galera/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

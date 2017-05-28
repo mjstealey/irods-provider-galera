@@ -2,6 +2,8 @@
 
 **WORK IN PROGRESS**
 
+See complete documentation at: [https://mjstealey.github.io/irods-provider-galera/](https://mjstealey.github.io/irods-provider-galera/)
+
 iRODS provider that has the iCAT database back-ended by MariaDB Galera cluster in Docker
 
 Based on: [mjstealey/mariadb-galera](https://github.com/mjstealey/mariadb-galera) using [centos:7](https://hub.docker.com/_/centos/)
