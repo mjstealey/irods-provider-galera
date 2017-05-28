@@ -1,0 +1,8 @@
+baseURL = "https://mjstealey.github.io/irods-provider-galera/"
+languageCode = "en-us"
+title = "iRODS - MariaDB Galera cluster"
+theme = "docdock"
+publishDir = "../docs"
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]

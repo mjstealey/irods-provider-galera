@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on iRODS - MariaDB Galera cluster</title>
+    <link>https://mjstealey.github.io/irods-provider-galera/</link>
+    <description>Recent content in Home on iRODS - MariaDB Galera cluster</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 May 2017 21:55:52 -0400</lastBuildDate>
+    
+	<atom:link href="https://mjstealey.github.io/irods-provider-galera/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iput / iget test script</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/parallel_put_get/</link>
+      <pubDate>Sat, 27 May 2017 22:33:04 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/parallel_put_get/</guid>
+      <description>Parallel iput / iget This script required the installation of the parallel package to be installed on the CentOS 7 test VMs being used. Once installed it provided a way to open up 30 parallel threads all performing iput or iget tasks against the target iRODS provider.
+parallel_put_get.sh #!/bin/bash -e ############################### # # This script will attempt parallel puts and gets # using the environment&#39;s iput/iget iCommands. # # This script will exit only when encountering an error.</description>
+    </item>
+    
+    <item>
+      <title>irods-provider-galera</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/_header/</link>
+      <pubDate>Sat, 27 May 2017 21:57:00 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/_header/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/testing/</link>
+      <pubDate>Sat, 27 May 2017 20:33:21 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/testing/</guid>
+      <description>Methods of testing  run_tests.py on a single node
+Every installation of iRODS includes a python script that will run various tests located at /var/lib/irods/scripts/run_tests.py
+$ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help show this help message and exit --run_specific_test=dotted name --run_python_suite --include_auth_tests --run_devtesty --topology_test=&amp;lt;icat|resource&amp;gt; --catch_keyboard_interrupt --use_ssl --no_buffer --xml_output --federation=&amp;lt;remote irods version, remote zone, remote host&amp;gt;  run_tests.py on multiple nodes using netem
+ parallel_put_get.sh on multiple nodes</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/introduction/</link>
+      <pubDate>Sat, 27 May 2017 20:33:02 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/introduction/</guid>
+      <description>Why use MariaDB Galera cluster to service the iRODS catalog provider? An iRODS use case was presented where multiple geographically disparate participants all wanted to belong to the same iRODS Zone for ease of search and discovery. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.</description>
+    </item>
+    
+    <item>
+      <title>Setup &amp; Configuration</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/setup/</link>
+      <pubDate>Sat, 27 May 2017 20:23:40 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/setup/</guid>
+      <description> Docker basics Three node testbed </description>
+    </item>
+    
+  </channel>
+</rss>
