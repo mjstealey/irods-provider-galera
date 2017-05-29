@@ -6,3 +6,22 @@ publishDir = "../docs"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
+
+[[menu.shortcuts]]
+pre = "<h3>More</h3>"
+name = "<i class='fa fa-github'></i> Github repository"
+identifier = "repo"
+url = "https://github.com/mjstealey/irods-provider-galera/"
+weight = 1
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-bookmark'></i> iRODS Documentation"
+identifier = "irodsdoc"
+url = "https://irods.org/documentation/"
+weight = 2
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-bookmark'></i> MariaDB Documentation"
+identifier = "mariadoc"
+url = "https://mariadb.com/kb/en/mariadb/documentation/"
+weight = 3
