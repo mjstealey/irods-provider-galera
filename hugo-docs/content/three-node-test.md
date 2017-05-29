@@ -1,49 +1,160 @@
-# irods-provider-galera
++++
+date = "2017-05-28T20:54:43-04:00"
+description = "Three node test script in Docker"
+title = "Three node test script"
 
-## Usage
+creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
-- [Visit the documentation](https://mjstealey.github.io/irods-provider-galera/)
+[menu]
 
-**WORK IN PROGRESS**
+  [menu.main]
+    identifier = "3node"
+    parent = "setup"
+    weight = 6
 
-iRODS provider that has the iCAT database back-ended by MariaDB Galera cluster in Docker
++++
 
-Based on: [mjstealey/mariadb-galera](https://github.com/mjstealey/mariadb-galera) using [centos:7](https://hub.docker.com/_/centos/)
+## Three node test in Docker network
 
-## Supported tags and respective Dockerfile links
+A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.
 
-- 4.2.0, latest ([4.2.0/Dockerfile](https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.0/Dockerfile))
+The script does the following.
 
-### Pull image from dockerhub
+1. Creates a local docker network named **galeranet** so that known IP addresses can be assigned to each node
+2. Stands up the initial **bootstrap** node using mostly defaults as set by the Docker image.
+3. Stands up two additional nodes in series that join the cluster named **galera** as they discover others on the local **galeranet** network.
 
-Reference: [mjstealey/irods-provider-galera/](https://hub.docker.com/r/mjstealey/irods-provider-galera/)
+As each node completes it's stand up routine, it will report back the number of nodes participating as the `wsrep_cluster_size`, show the named databases including `ICAT`, grants for user **'irods'@'localhost'**, and finally print out all tables within the `ICAT` database.
 
-```bash
-docker pull mjstealey/irods-provider-galera:4.2.0
-```
-
-### Building locally
-
-```
-$ git clone https://github.com/mjstealey/irods-provider-galera.git
-$ cd irods-provider-galera/4.2.0/
-$ docker build -t irods-provider-galera .
-```
-
-
-## Example
+Since this initial test was performed on a single VM using a docker network, it was not subjected to any rigorous external testing and only subject to simple iCommands to validate synchronization between nodes and partitioning between named node resource definitions. A dedicated set of [Galera VMs]({{<baseurl>}}/galera-vms) were established for the purpose of vetting the performance of the three node configuration in a more real world setting.
 
 ### three-node-test.sh
 
-This script demonstrates how to stand up a three node iRODS provider Galera cluster in a local docker network named **galeranet**.
+```bash
+#!/usr/bin/env bash
 
-A database named `ICAT` is created and initialized by container **irods-galera-node-1** based on the image defaults. The user could also initialize the ICAT database using a custom sql script shared from the host. As containers **irods-galera-node-2** and **irods-galera-node-3** are created they will join the cluster as defined by `WSREP_CLUSTER_ADDRESS`.
+REPO_DIR=$(pwd)
 
-The definition for each example node can be found in the `env/` directory.
+# create docker network if it does not exist
+GALERANET=$(docker network inspect galeranet)
+echo "### create docker network galeranet if it does not exist ###"
+if [[ "${GALERANET}" = '[]' ]]; then
+    docker network create --subnet=172.18.0.0/16 galeranet
+fi
 
-When the script is run output similar to the following should be observed:
+# stop / remove existing containers
+echo "### stop / remove existing containers ###"
+if [[ -n $(docker ps -a | grep galera-node) ]]; then
+    docker stop irods-galera-node-1 irods-galera-node-2 irods-galera-node-3
+    docker rm -fv irods-galera-node-1 irods-galera-node-2 irods-galera-node-3
+fi
 
+# show usage
+echo "### show usage ###"
+docker run --rm mjstealey/irods-provider-galera:4.2.0 -h setup_irods.py
+
+# init irods-galera-node-1
+echo "### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###"
+docker run -d --name irods-galera-node-1 -h irods-galera-node-1 \
+    --env-file=env/irods-galera-node-1.env \
+    --net galeranet \
+    --ip 172.18.0.2 \
+    --add-host irods-galera-node-2:172.18.0.3 \
+    --add-host irods-galera-node-3:172.18.0.4 \
+    mjstealey/irods-provider-galera:4.2.0 -vi setup_irods.py
+
+exec 3>&2
+exec 2> /dev/null
+CL_SIZE=0
+echo -n "Waiting for irods-galera-node-1 "
+while [ "${CL_SIZE}" != '1' ]; do
+    sleep 2s
+    LINE=$(docker exec irods-galera-node-1 mysql -uroot -ptemppassword -e "SHOW STATUS LIKE 'wsrep_cluster_size';" | grep wsrep_cluster_size)
+    CL_SIZE=$(echo ${LINE} | cut -d ' ' -f 2)
+    echo -n "."
+done
+echo ""
+exec 2>&3
+echo "[node-1 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';"
+docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword -e "SHOW STATUS LIKE 'wsrep_cluster_size';"
+echo "[node-1 MySQL]> SHOW databases;"
+docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword -e "SHOW databases;"
+echo "[node-1 MySQL]> SHOW grants FOR 'irods'@'localhost';"
+docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword ICAT -e \
+"SHOW grants FOR 'irods'@'localhost';"
+
+# init irods-galera-node-2
+echo "### start irods-galera-node-2 and join cluster 'irods-galera' ###"
+docker run -d --name irods-galera-node-2 -h irods-galera-node-2 \
+    --env-file=env/irods-galera-node-2.env \
+    --net galeranet \
+    --ip 172.18.0.3 \
+    --add-host irods-galera-node-1:172.18.0.2 \
+    --add-host irods-galera-node-3:172.18.0.4 \
+    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+
+exec 3>&2
+exec 2> /dev/null
+CL_SIZE=0
+echo -n "Waiting for irods-galera-node-2 "
+while [ "${CL_SIZE}" != '2' ]; do
+    sleep 2s
+    LINE=$(docker exec irods-galera-node-2 mysql -uroot -ptemppassword -e "SHOW STATUS LIKE 'wsrep_cluster_size';" | grep wsrep_cluster_size)
+    CL_SIZE=$(echo ${LINE} | cut -d ' ' -f 2)
+    echo -n "."
+done
+echo ""
+exec 2>&3
+echo "[node-2 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';"
+docker exec -ti irods-galera-node-2 mysql -uroot -ptemppassword -e "SHOW STATUS LIKE 'wsrep_cluster_size';"
+echo "[node-2 MySQL]> SHOW databases;"
+docker exec -ti irods-galera-node-2 mysql -uroot -ptemppassword -e "SHOW databases;"
+echo "[node-2 MySQL]> SHOW grants FOR 'irods'@'localhost';"
+docker exec -ti irods-galera-node-2 mysql -uroot -ptemppassword ICAT -e \
+"SHOW grants FOR 'irods'@'localhost';"
+
+# init irods-galera-node-3
+echo "### start irods-galera-node-3 and join cluster 'galera' ###"
+docker run -d --name irods-galera-node-3 -h irods-galera-node-3 \
+    --env-file=env/irods-galera-node-3.env \
+    --net galeranet \
+    --ip 172.18.0.4 \
+    --add-host irods-galera-node-1:172.18.0.2 \
+    --add-host irods-galera-node-2:172.18.0.3 \
+    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+
+exec 3>&2
+exec 2> /dev/null
+CL_SIZE=0
+echo -n "Waiting for irods-galera-node-3 "
+while [ "${CL_SIZE}" != '3' ]; do
+    sleep 2s
+    LINE=$(docker exec irods-galera-node-3 mysql -uroot -ptemppassword -e "SHOW STATUS LIKE 'wsrep_cluster_size';" | grep wsrep_cluster_size)
+    CL_SIZE=$(echo ${LINE} | cut -d ' ' -f 2)
+    echo -n "."
+done
+echo ""
+exec 2>&3
+echo "[node-3 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';"
+docker exec -ti irods-galera-node-3 mysql -uroot -ptemppassword -e \
+"SHOW STATUS LIKE 'wsrep_cluster_size';"
+echo "[node-3 MySQL]> SHOW databases;"
+docker exec -ti irods-galera-node-3 mysql -uroot -ptemppassword -e "SHOW databases;"
+echo "[node-3 MySQL]> SHOW STATUS LIKE 'wsrep_incoming_addresses';"
+docker exec -ti irods-galera-node-3 mysql -uroot -ptemppassword -e \
+"SHOW STATUS LIKE 'wsrep_incoming_addresses';"
+echo "[node-3 MySQL]> SHOW grants FOR 'irods'@'localhost';"
+docker exec -ti irods-galera-node-3 mysql -uroot -ptemppassword ICAT -e \
+"SHOW grants FOR 'irods'@'localhost';"
+echo "[node-3 MySQL]> SHOW FULL TABLES IN ICAT;"
+docker exec -ti irods-galera-node-3 mysql -uroot -ptemppassword -e "SHOW FULL TABLES IN ICAT;"
+
+exit 0;
 ```
+
+### Expected output
+
+```console
 $ ./three-node-test.sh
 ### create docker network galeranet if it does not exist ###
 ### stop / remove existing containers ###
@@ -66,10 +177,10 @@ options:
 -d                    dump database as db.sql to volume mounted as /LOCAL/PATH:/init
 -f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init
 
-Example: 
+Example:
   $ docker run --rm mjstealey/irods-provider-galera:4.2.0 -h               # show help
   $ docker run -d mjstealey/irods-provider-galera:4.2.0 -iv setup_irods.py # init with default settings
-  
+
 ### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###
 c88d3a730157ab47124844288a916a69b5cd172208bea8599b3c3324f289a278
 Waiting for irods-galera-node-1 ........
@@ -192,62 +303,4 @@ Waiting for irods-galera-node-3 ...........
 | R_USER_SESSION_KEY      | BASE TABLE |
 | R_ZONE_MAIN             | BASE TABLE |
 +-------------------------+------------+
-```
-
-Configuration for **irods-galera-node-1** as `env/irods-galera-node-1.env`:
-
-```
-WSREP_ON=ON
-WSREP_PROVIDER=/usr/lib64/galera/libgalera_smm.so
-WSREP_PROVIDER_OPTIONS=
-WSREP_CLUSTER_ADDRESS='gcomm://172.18.0.2,172.18.0.3,172.18.0.4'
-WSREP_CLUSTER_NAME='galera'
-WSREP_NODE_ADDRESS='172.18.0.2'
-WSREP_NODE_NAME='galera-1'
-WSREP_SST_METHOD=rsync
-BINLOG_FORMAT=row
-DEFAULT_STORAGE_ENGINE=InnoDB
-INNODB_AUTOINC_LOCK_MODE=2
-BIND_ADDRESS=0.0.0.0
-IRODS_SERVICE_ACCOUNT_NAME=irods
-IRODS_SERVICE_ACCOUNT_GROUP=irods
-IRODS_SERVER_ROLE=1
-ODBC_DRIVER_FOR_MYSQL=2
-IRODS_DATABASE_SERVER_HOSTNAME=localhost
-IRODS_DATABASE_SERVER_PORT=3306
-IRODS_DATABASE_NAME=ICAT
-IRODS_DATABASE_USER_NAME=irods
-IRODS_DATABASE_PASSWORD=temppassword
-IRODS_DATABASE_USER_PASSWORD_SALT=tempsalt
-IRODS_ZONE_NAME=tempZone
-IRODS_PORT=1247
-IRODS_PORT_RANGE_BEGIN=20000
-IRODS_PORT_RANGE_END=20199
-IRODS_CONTROL_PLANE_PORT=1248
-IRODS_SCHEMA_VALIDATION=file:///var/lib/irods/configuration_schemas
-IRODS_SERVER_ADMINISTRATOR_USER_NAME=rods
-IRODS_SERVER_ZONE_KEY=TEMPORARY_zone_key
-IRODS_SERVER_NEGOTIATION_KEY=TEMPORARY_32byte_negotiation_key
-IRODS_CONTROL_PLANE_KEY=TEMPORARY__32byte_ctrl_plane_key
-IRODS_SERVER_ADMINISTRATOR_PASSWORD=rods
-IRODS_VAULT_DIRECTORY=/var/lib/irods/iRODS/Vault
-MYSQL_ROOT_PASSWORD=temppassword
-```
-
-Other nodes are defined in a similar fashion, needing only to change the settings for `WSREP_NODE_ADDRESS` and `WSREP_NODE_NAME` accordingly.
-
-### WAN
-
-If using over WAN additional parameters are available for `WSREP_PROVIDER_OPTIONS `, and should be modified according to use case. [Configuration tips](http://galeracluster.com/documentation-webpages/configurationtips.html)
-
-Full set of [galera cluster system variables](https://mariadb.com/kb/en/mariadb/galera-cluster-system-variables/)
-
-Example (should appear all in one line, seperated here for readability):
-
-```
-WSREP_PROVIDER_OPTIONS='evs.keepalive_period=PT3S;
-  evs.suspect_timeout=PT30S;
-  evs.inactive_timeout=PT1M;
-  evs.install_timeout=PT1M;
-  evs.join_retrans_period=PT1.0S'
 ```

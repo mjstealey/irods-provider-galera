@@ -3,6 +3,8 @@ date = "2017-05-27T20:33:02-04:00"
 description = "Introduction to irods-provider-galera"
 title = "Introduction"
 
+creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
+
 [menu]
 
   [menu.main]
@@ -19,10 +21,14 @@ An iRODS use case was presented where multiple geographically disparate particip
 Initial requirements:
 
 - Every iRODS provider node would contain the ICAT catalog and resource storage space that could be uniquely assigned to that node
-- Large files would be transferred to the storages space of the iRODS provider node closest to the point of file origination
+- Large files would be transferred to the storage space of the iRODS provider node closest to the point of file origination
 - All nodes must pass some sort of quality of service testing beyond the standard iRODS test suite
 
 The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.
+
+A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **galeraZone**. Each node within the testbed exists as it's own VM, and can be configured to use various latency values via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
+
+![galeraZone]({{<baseurl>}}/images/galerazone.png)
 
 
 ## References
