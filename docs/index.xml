@@ -12,13 +12,34 @@
     
     
     <item>
-      <title>iput / iget test script</title>
-      <link>https://mjstealey.github.io/irods-provider-galera/parallel_put_get/</link>
+      <title>Galera VMs</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/galera-vms/</link>
+      <pubDate>Sun, 28 May 2017 21:26:16 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/galera-vms/</guid>
+      <description>Three CentOS Linux release 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named galera which has rights to run Docker and not much else.
+galera1.env WSREP_ON=ON WSREP_PROVIDER=/usr/lib64/galera/libgalera_smm.so WSREP_PROVIDER_OPTIONS=&#39;evs.keepalive_period=PT3S; evs.suspect_timeout=PT30S; evs.inactive_timeout=PT1M; evs.install_timeout=PT1M; evs.join_retrans_period=PT1.5S&#39; WSREP_CLUSTER_ADDRESS=&#39;gcomm://172.25.8.171,172.25.8.172,172.25.8.173&#39; WSREP_CLUSTER_NAME=&#39;galera&#39; WSREP_NODE_ADDRESS=&#39;172.25.8.171&#39; WSREP_NODE_NAME=&#39;galera-1&#39; WSREP_SST_METHOD=rsync BINLOG_FORMAT=row DEFAULT_STORAGE_ENGINE=InnoDB INNODB_AUTOINC_LOCK_MODE=2 BIND_ADDRESS=0.0.0.0 IRODS_SERVICE_ACCOUNT_NAME=irods IRODS_SERVICE_ACCOUNT_GROUP=irods IRODS_SERVER_ROLE=1 ODBC_DRIVER_FOR_MYSQL=2 IRODS_DATABASE_SERVER_HOSTNAME=localhost IRODS_DATABASE_SERVER_PORT=3306 IRODS_DATABASE_NAME=ICAT IRODS_DATABASE_USER_NAME=irods IRODS_DATABASE_PASSWORD=temppassword IRODS_DATABASE_USER_PASSWORD_SALT=tempsalt IRODS_ZONE_NAME=tempZone IRODS_PORT=1247 IRODS_PORT_RANGE_BEGIN=20000 IRODS_PORT_RANGE_END=20199 IRODS_CONTROL_PLANE_PORT=1248 IRODS_SCHEMA_VALIDATION=file:///var/lib/irods/configuration_schemas IRODS_SERVER_ADMINISTRATOR_USER_NAME=rods IRODS_SERVER_ZONE_KEY=TEMPORARY_zone_key IRODS_SERVER_NEGOTIATION_KEY=TEMPORARY_32byte_negotiation_key IRODS_CONTROL_PLANE_KEY=TEMPORARY__32byte_ctrl_plane_key IRODS_SERVER_ADMINISTRATOR_PASSWORD=rods IRODS_VAULT_DIRECTORY=/Vault MYSQL_ROOT_PASSWORD=rods  init-galera $ .</description>
+    </item>
+    
+    <item>
+      <title>Three node test script</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/three-node-test/</link>
+      <pubDate>Sun, 28 May 2017 20:54:43 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/three-node-test/</guid>
+      <description>Three node test in Docker network A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.
+The script does the following.
+ Creates a local docker network named galeranet so that known IP addresses can be assigned to each node Stands up the initial bootstrap node using mostly defaults as set by the Docker image.</description>
+    </item>
+    
+    <item>
+      <title>Parallel put / get tests</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/parallel-put-get/</link>
       <pubDate>Sat, 27 May 2017 22:33:04 -0400</pubDate>
       
-      <guid>https://mjstealey.github.io/irods-provider-galera/parallel_put_get/</guid>
-      <description>Parallel iput / iget This script required the installation of the parallel package to be installed on the CentOS 7 test VMs being used. Once installed it provided a way to open up 30 parallel threads all performing iput or iget tasks against the target iRODS provider.
-parallel_put_get.sh #!/bin/bash -e ############################### # # This script will attempt parallel puts and gets # using the environment&#39;s iput/iget iCommands. # # This script will exit only when encountering an error.</description>
+      <guid>https://mjstealey.github.io/irods-provider-galera/parallel-put-get/</guid>
+      <description>Parallel iput / iget This script required the installation of the parallel package (parallel-20160222-1.el7.noarch) to be installed on the CentOS 7 test VMs being used. The configuration shown below would generate 256 40 MB files and transfer them using 30 parallel job threads at a time performing either iput or iget commands against the target iRODS provider.
+The only modification made to this script in the CentOS 7 test environment was to modify the TARGET_RESOURCE=&amp;quot;demoResc&amp;quot; to be either galera1Resc, galera2Resc, or galera3Resc depending on which node was being pointed at.</description>
     </item>
     
     <item>
@@ -57,7 +78,7 @@ $ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help s
       <pubDate>Sat, 27 May 2017 20:23:40 -0400</pubDate>
       
       <guid>https://mjstealey.github.io/irods-provider-galera/setup/</guid>
-      <description> Docker basics Three node testbed </description>
+      <description> Three node testbed Docker network configuration Galera VM configuration </description>
     </item>
     
   </channel>
