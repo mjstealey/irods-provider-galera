@@ -1,8 +1,10 @@
 # irods-provider-galera
 
-**WORK IN PROGRESS**
+## Usage
 
-See complete documentation at: [https://mjstealey.github.io/irods-provider-galera/](https://mjstealey.github.io/irods-provider-galera/)
+- [Visit the documentation](https://mjstealey.github.io/irods-provider-galera/)
+
+**WORK IN PROGRESS**
 
 iRODS provider that has the iCAT database back-ended by MariaDB Galera cluster in Docker
 
