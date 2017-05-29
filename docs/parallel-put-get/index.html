@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.21" />
-    <meta name="description" content="Testing irods-provider-galera">
+    <meta name="description" content="parallel put get test script">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 
-    <title>Testing :: iRODS - MariaDB Galera cluster</title>
+    <title>Parallel put / get tests :: iRODS - MariaDB Galera cluster</title>
     <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
@@ -29,7 +29,7 @@
     
 
   </head>
-  <body class="" data-url="/irods-provider-galera/testing/">
+  <body class="" data-url="/irods-provider-galera/parallel-put-get/">
     
 <nav id="sidebar" class="">
   <div id="header-wrapper">
@@ -171,8 +171,8 @@
     
     
         <li data-nav-id="/irods-provider-galera/testing/" class="dd-item 
-        active 
-        
+         
+        parent
         "
         >
             <a href="/irods-provider-galera/testing/">
@@ -201,7 +201,7 @@
     
     
         <li data-nav-id="/irods-provider-galera/parallel-put-get/" class="dd-item 
-         
+        active 
         
         "
         >
@@ -210,6 +210,10 @@
                 
                 
             </a>
+            
+                
+                
+                
             
             
             
@@ -296,7 +300,7 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
-                   / <a href='/irods-provider-galera/testing/'>Testing</a>
+                   / <a href='/irods-provider-galera/testing/'>Testing</a> / <a href='/irods-provider-galera/parallel-put-get/'>Parallel put / get tests</a>
                 
                 
             </div>
@@ -306,7 +310,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#methods-of-testing">Methods of testing</a></li>
+<li><a href="#parallel-iput-iget">Parallel iput / iget</a>
+<ul>
+<li><a href="#parallel-put-get-sh">parallel_put_get.sh</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -318,42 +325,97 @@
         
         <div id="body-inner">
           
-            <h1>Testing</h1>
+            <h1>Parallel put / get tests</h1>
           
 
 
 
 
-<h2 id="methods-of-testing">Methods of testing</h2>
+<h2 id="parallel-iput-iget">Parallel iput / iget</h2>
 
-<ol>
-<li><p><strong><a href="https://github.com/irods/irods/blob/4-2-stable/scripts/run_tests.py">run_tests.py</a></strong> on a single node</p>
+<p>This script required the installation of the <strong>parallel</strong> package (<a href="https://www.rpmfind.net/linux/RPM/epel/7/aarch64/p/parallel-20160222-1.el7.noarch.html">parallel-20160222-1.el7.noarch</a>) to be installed on the CentOS 7 test VMs being used. The configuration shown below would generate 256 40 MB files and transfer them using 30 parallel job threads at a time performing either <strong>iput</strong> or <strong>iget</strong> commands against the target iRODS provider.</p>
 
-<p>Every installation of iRODS includes a python script that will run various tests located at <code>/var/lib/irods/scripts/run_tests.py</code></p>
+<p>The only modification made to this script in the CentOS 7 test environment was to modify the <code>TARGET_RESOURCE=&quot;demoResc&quot;</code> to be either <code>galera1Resc</code>, <code>galera2Resc</code>, or <code>galera3Resc</code> depending on which node was being pointed at.</p>
 
-<pre><code class="language-bash">$ python run_tests.py --help
-Usage: run_tests.py [options]
+<h3 id="parallel-put-get-sh">parallel_put_get.sh</h3>
 
-Options:
-  -h, --help            show this help message and exit
-  --run_specific_test=dotted name
-  --run_python_suite
-  --include_auth_tests
-  --run_devtesty
-  --topology_test=&lt;icat|resource&gt;
-  --catch_keyboard_interrupt
-  --use_ssl
-  --no_buffer
-  --xml_output
-  --federation=&lt;remote irods version, remote zone, remote host&gt;
-</code></pre></li>
+<pre><code class="language-bash">#!/bin/bash -e
 
-<li><p><strong><a href="https://github.com/irods/irods/blob/4-2-stable/scripts/run_tests.py">run_tests.py</a></strong> on multiple nodes using <strong>netem</strong></p></li>
+###############################
+#
+# This script will attempt parallel puts and gets
+# using the environment's iput/iget iCommands.
+#
+# This script will exit only when encountering an error.
+#
+# - JOBS is the number of parallel jobs
+#
+# - Creates FILES_TO_CREATE FILESIZE_IN_MB MiB files in FILES_FULLPATH
+# - Puts the files into BENCHMARKS_COLL
+# - Gets the files into BENCHMARKS_FULLPATH
+#
+###############################
 
-<li><p><strong><a href="https://mjstealey.github.io/irods-provider-galera//parallel_put_get">parallel_put_get.sh</a></strong> on multiple nodes</p></li>
+SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
+TIMESTAMPISH=$( date +%s )${RANDOM}
+RELATIVEPATH=&quot;scratch_for_parallelputget/${TIMESTAMPISH}&quot;
 
-<li><p><strong><a href="https://mjstealey.github.io/irods-provider-galera//parallel_put_get">parallel_put_get.sh</a></strong> on multiple nodes using <strong>netem</strong></p></li>
-</ol>
+
+FILESIZE_IN_MB=40
+FILES_TO_CREATE=256
+FILES_DIR=&quot;${RELATIVEPATH}/files.dir&quot;
+BENCHMARKS_COLL=&quot;${RELATIVEPATH}/benchmarks.coll&quot;
+TARGET_RESOURCE=&quot;demoResc&quot;
+JOBS=30
+
+
+FILES_FULLPATH=${SCRIPTPATH}/${FILES_DIR}
+BENCHMARKS_FULLPATH=${SCRIPTPATH}/${BENCHMARKS_COLL}
+
+####################################
+# generate files
+####################################
+mkdir -p ${FILES_FULLPATH}
+for i in `seq -w ${FILES_TO_CREATE}`
+do
+    truncate -s${FILESIZE_IN_MB}M ${FILES_FULLPATH}/bigfile.${i}
+    echo ${i} &gt;&gt; ${FILES_FULLPATH}/bigfile.${i}
+done
+
+####################################
+# generate scripts
+####################################
+mkdir -p ${BENCHMARKS_FULLPATH}
+for i in `ls ${FILES_FULLPATH}`
+do
+    echo iput -R ${TARGET_RESOURCE} -K -f ${FILES_FULLPATH}/${i} ${BENCHMARKS_COLL}/
+done &gt; ${BENCHMARKS_FULLPATH}/iput-all
+for i in `ls ${FILES_FULLPATH}`
+do
+    echo iget -R ${TARGET_RESOURCE} -K -f ${BENCHMARKS_COLL}/${i} ${BENCHMARKS_FULLPATH}/
+done &gt; ${BENCHMARKS_FULLPATH}/iget-all
+
+####################################
+# parallel put and get
+####################################
+imkdir -p ${BENCHMARKS_COLL}
+irm -rf ${BENCHMARKS_COLL}
+imkdir -p ${BENCHMARKS_COLL}
+COUNT=0
+time while [ &quot;$?&quot; == &quot;0&quot; ]; do
+    COUNT=$((COUNT+1))
+    date
+    echo &quot;Starting loop ${COUNT}&quot;
+    echo &quot; put&quot;
+    cat ${BENCHMARKS_FULLPATH}/iput-all | parallel -j ${JOBS}
+    if [ &quot;$?&quot; != &quot;0&quot; ]; then
+        date
+        exit 1
+    fi
+    echo &quot; get&quot;
+    cat ${BENCHMARKS_FULLPATH}/iget-all | parallel -j ${JOBS}
+done
+</code></pre>
 
 
 <footer class=" footline" >
@@ -425,7 +487,6 @@ Options:
             
                 
                     
-                    
                 
                 
                 
@@ -434,8 +495,6 @@ Options:
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -451,10 +510,8 @@ Options:
 
 
         
-            <a class="nav nav-prev" href="/irods-provider-galera/galera-vms/" title="Galera VMs"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/irods-provider-galera/testing/" title="Testing"> <i class="fa fa-chevron-left"></i></a>
         
-        
-            <a class="nav nav-next" href="/irods-provider-galera/parallel-put-get/" title="Parallel put / get tests" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

@@ -108,11 +108,63 @@
             <a href="/irods-provider-galera/setup/">
                 <span>Setup &amp; Configuration</span>
                 
+                    
+                        <i class="fa fa-angle-right fa-lg category-icon"></i>
+                    
+                
                 
             </a>
             
             
             
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/three-node-test/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/three-node-test/">
+                <span>Three node test script</span>
+                
+                
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/galera-vms/">
+                <span>Galera VMs</span>
+                
+                
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                </ul>
+             
         </li>
     
 
@@ -146,13 +198,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/parallel_put_get/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/parallel-put-get/" class="dd-item 
          
         
         "
         >
-            <a href="/irods-provider-galera/parallel_put_get/">
-                <span>iput / iget test script</span>
+            <a href="/irods-provider-galera/parallel-put-get/">
+                <span>Parallel put / get tests</span>
                 
                 
             </a>
@@ -175,11 +227,48 @@
         
         
         
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/mjstealey/irods-provider-galera/"><i class='fa fa-github'></i> Github repository</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://irods.org/documentation/"><i class='fa fa-bookmark'></i> iRODS Documentation</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://mariadb.com/kb/en/mariadb/documentation/"><i class='fa fa-bookmark'></i> MariaDB Documentation</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+
+        
     </ul>
     
      
     <section id="footer">
-      
+      <center>
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download mjstealey/irods-provider-galera on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera" data-icon="octicon-star" data-show-count="false" aria-label="Star mjstealey/irods-provider-galera on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork mjstealey/irods-provider-galera on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
     </section>
   </div>
 </nav>
@@ -247,11 +336,15 @@
 
 <ul>
 <li>Every iRODS provider node would contain the ICAT catalog and resource storage space that could be uniquely assigned to that node</li>
-<li>Large files would be transferred to the storages space of the iRODS provider node closest to the point of file origination</li>
+<li>Large files would be transferred to the storage space of the iRODS provider node closest to the point of file origination</li>
 <li>All nodes must pass some sort of quality of service testing beyond the standard iRODS test suite</li>
 </ul>
 
 <p>The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.</p>
+
+<p>A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named <strong>galeraZone</strong>. Each node within the testbed exists as it&rsquo;s own VM, and can be configured to use various latency values via <a href="http://man7.org/linux/man-pages/man8/tc-netem.8.html">NetEm</a> to simulate the kind of network traffic that would be experienced in a WAN configuration.</p>
+
+<p><img src="https://mjstealey.github.io/irods-provider-galera//images/galerazone.png" alt="galeraZone" /></p>
 
 <h2 id="references">References</h2>
 
@@ -313,6 +406,9 @@
 
 <footer class=" footline" >
 	
+	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 27/05/2017
+	    </div>
+	
 </footer>
 
 
@@ -350,6 +446,28 @@
                     
                 
                 
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
                 
             
         

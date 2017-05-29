@@ -3,7 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mjstealey.github.io/irods-provider-galera/parallel_put_get/</loc>
+    <loc>https://mjstealey.github.io/irods-provider-galera/galera-vms/</loc>
+    <lastmod>2017-05-28T21:26:16-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/three-node-test/</loc>
+    <lastmod>2017-05-28T20:54:43-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/parallel-put-get/</loc>
     <lastmod>2017-05-27T22:33:04-04:00</lastmod>
   </url>
   
