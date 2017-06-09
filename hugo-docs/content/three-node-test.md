@@ -9,14 +9,16 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
   [menu.main]
     identifier = "3node"
-    parent = "setup"
+    parent = "usage"
     weight = 6
 
 +++
 
-## Three node test in Docker network
+## Three node Docker network
 
 A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.
+
+![Galera clusture]({{<baseurl>}}/images/galeracluster.png)
 
 The script does the following.
 

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/runttests/</loc>
+    <lastmod>2017-06-03T23:02:40-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mjstealey.github.io/irods-provider-galera/galera-vms/</loc>
     <lastmod>2017-05-28T21:26:16-04:00</lastmod>
   </url>
@@ -28,17 +33,17 @@
   </url>
   
   <url>
-    <loc>https://mjstealey.github.io/irods-provider-galera/testing/</loc>
+    <loc>https://mjstealey.github.io/irods-provider-galera/poc/</loc>
     <lastmod>2017-05-27T20:33:21-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mjstealey.github.io/irods-provider-galera/introduction/</loc>
+    <loc>https://mjstealey.github.io/irods-provider-galera/background/</loc>
     <lastmod>2017-05-27T20:33:02-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mjstealey.github.io/irods-provider-galera/setup/</loc>
+    <loc>https://mjstealey.github.io/irods-provider-galera/usage/</loc>
     <lastmod>2017-05-27T20:23:40-04:00</lastmod>
   </url>
   

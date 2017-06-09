@@ -11,10 +11,9 @@ title = "Home"
 
 The following pages describe the inspiration for, setup & configuration of, and testing methods used to deploy a proof of concept multi-node iRODS provider with ICAT catalog services via MariaDB Galera cluster implemented in Docker.
 
-Github repository: [mjstealey/irods-provider-galera](https://github.com/mjstealey/irods-provider-galera)
 
-### 1. [Introduction]({{<baseurl>}}/introduction)
+### 1. [Background]({{<baseurl>}}/background)
 
-### 2. [Setup]({{<baseurl>}}/setup)
+### 2. [Usage]({{<baseurl>}}/usage)
 
-### 3. [Testing]({{<baseurl>}}/testing)
+### 3. [Proof of concept]({{<baseurl>}}/poc)

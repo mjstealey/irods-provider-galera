@@ -74,13 +74,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/introduction/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
          
         
         "
         >
-            <a href="/irods-provider-galera/introduction/">
-                <span>Introduction</span>
+            <a href="/irods-provider-galera/background/">
+                <span>Background</span>
                 
                 
             </a>
@@ -96,13 +96,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/setup/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
          
         parent
         "
         >
-            <a href="/irods-provider-galera/setup/">
-                <span>Setup &amp; Configuration</span>
+            <a href="/irods-provider-galera/usage/">
+                <span>Usage</span>
                 
                     
                         <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -147,28 +147,6 @@
     
 
                 
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/galera-vms/">
-                <span>Galera VMs</span>
-                
-                
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
                 </ul>
              
         </li>
@@ -180,13 +158,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/testing/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/poc/" class="dd-item 
          
         
         "
         >
-            <a href="/irods-provider-galera/testing/">
-                <span>Testing</span>
+            <a href="/irods-provider-galera/poc/">
+                <span>Proof of concept</span>
                 
                     
                         <i class="fa fa-angle-right fa-lg category-icon"></i>
@@ -198,6 +176,28 @@
             
             
                 <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/runttests/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/runttests/">
+                <span>iRODS run_tests.py</span>
+                
+                
+            </a>
+            
+            
+            
+        </li>
+    
+
                 
                     
     
@@ -224,6 +224,13 @@
                 </ul>
              
         </li>
+    
+
+        
+            
+    
+    
+    
     
 
         
@@ -300,7 +307,7 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
-                   / <a href='/irods-provider-galera/setup/'>Setup & Configuration</a> / <a href='/irods-provider-galera/three-node-test/'>Three node test script</a>
+                   / <a href='/irods-provider-galera/usage/'>Usage</a> / <a href='/irods-provider-galera/three-node-test/'>Three node test script</a>
                 
                 
             </div>
@@ -310,7 +317,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#three-node-test-in-docker-network">Three node test in Docker network</a>
+<li><a href="#three-node-docker-network">Three node Docker network</a>
 <ul>
 <li><a href="#three-node-test-sh">three-node-test.sh</a></li>
 <li><a href="#expected-output">Expected output</a></li>
@@ -332,9 +339,11 @@
 
 
 
-<h2 id="three-node-test-in-docker-network">Three node test in Docker network</h2>
+<h2 id="three-node-docker-network">Three node Docker network</h2>
 
 <p>A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.</p>
+
+<p><img src="https://mjstealey.github.io/irods-provider-galera//images/galeracluster.png" alt="Galera clusture" /></p>
 
 <p>The script does the following.</p>
 
@@ -675,7 +684,10 @@ Waiting for irods-galera-node-3 ...........
             
         
                 
-                    
+            
+        
+        
+            
             
             
                 
@@ -686,19 +698,16 @@ Waiting for irods-galera-node-3 ...........
                 
                 
                 
-            
-        
-                
-            
-        
-        
-            
+                    
             
             
                 
                     
                 
                 
+                
+            
+        
                 
                     
             
@@ -711,6 +720,11 @@ Waiting for irods-galera-node-3 ...........
             
         
                 
+            
+        
+        
+            
+            
             
         
           
@@ -719,10 +733,10 @@ Waiting for irods-galera-node-3 ...........
 
 
         
-            <a class="nav nav-prev" href="/irods-provider-galera/setup/" title="Setup &amp; Configuration"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/irods-provider-galera/usage/" title="Usage"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/irods-provider-galera/galera-vms/" title="Galera VMs" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/irods-provider-galera/poc/" title="Proof of concept" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

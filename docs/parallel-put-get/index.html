@@ -74,13 +74,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/introduction/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
          
         
         "
         >
-            <a href="/irods-provider-galera/introduction/">
-                <span>Introduction</span>
+            <a href="/irods-provider-galera/background/">
+                <span>Background</span>
                 
                 
             </a>
@@ -96,13 +96,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/setup/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
          
         
         "
         >
-            <a href="/irods-provider-galera/setup/">
-                <span>Setup &amp; Configuration</span>
+            <a href="/irods-provider-galera/usage/">
+                <span>Usage</span>
                 
                     
                         <i class="fa fa-angle-right fa-lg category-icon"></i>
@@ -137,28 +137,6 @@
     
 
                 
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/galera-vms/">
-                <span>Galera VMs</span>
-                
-                
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
                 </ul>
              
         </li>
@@ -170,13 +148,13 @@
     
     
     
-        <li data-nav-id="/irods-provider-galera/testing/" class="dd-item 
+        <li data-nav-id="/irods-provider-galera/poc/" class="dd-item 
          
         parent
         "
         >
-            <a href="/irods-provider-galera/testing/">
-                <span>Testing</span>
+            <a href="/irods-provider-galera/poc/">
+                <span>Proof of concept</span>
                 
                     
                         <i class="fa fa-angle-down fa-lg category-icon"></i>
@@ -194,6 +172,28 @@
             
             
                 <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/runttests/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/runttests/">
+                <span>iRODS run_tests.py</span>
+                
+                
+            </a>
+            
+            
+            
+        </li>
+    
+
                 
                     
     
@@ -224,6 +224,13 @@
                 </ul>
              
         </li>
+    
+
+        
+            
+    
+    
+    
     
 
         
@@ -300,7 +307,7 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
-                   / <a href='/irods-provider-galera/testing/'>Testing</a> / <a href='/irods-provider-galera/parallel-put-get/'>Parallel put / get tests</a>
+                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/parallel-put-get/'>Parallel put / get tests</a>
                 
                 
             </div>
@@ -310,6 +317,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#design">Design</a></li>
 <li><a href="#parallel-iput-iget">Parallel iput / iget</a>
 <ul>
 <li><a href="#parallel-put-get-sh">parallel_put_get.sh</a></li>
@@ -330,6 +338,20 @@
 
 
 
+
+<h2 id="design">Design</h2>
+
+<p>The testbed nodes were configured as described in the <a href="https://mjstealey.github.io/irods-provider-galera//galera-vms#design">Galera VMs</a> section. The parallel put/get test was first run on the testbed without any additional latency introduced to the nodes and allowed to run for 6 hours. The next test involved introducing varying amounts of latency to each node using NetEm. The latency values were set as follows.</p>
+
+<ul>
+<li>galera-1.edc.renci.org: 20 ms</li>
+<li>galera-2.edc.renci.org: 120 ms</li>
+<li>galera-3.edc.renci.org: 150 ms</li>
+</ul>
+
+<p>The parellel put/get scripts were again allowed to run against the nodes in this configuration for 6 hours.</p>
+
+<p><img src="https://mjstealey.github.io/irods-provider-galera//images/galeraclients.png" alt="iRODS Galera clients" /></p>
 
 <h2 id="parallel-iput-iget">Parallel iput / iget</h2>
 
@@ -468,17 +490,6 @@ done
             
         
                 
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
             
         
         
@@ -495,6 +506,17 @@ done
             
                 
                     
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
                     
                 
                 
@@ -502,6 +524,11 @@ done
             
         
                 
+            
+        
+        
+            
+            
             
         
           
@@ -510,7 +537,7 @@ done
 
 
         
-            <a class="nav nav-prev" href="/irods-provider-galera/testing/" title="Testing"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/irods-provider-galera/runttests/" title="iRODS run_tests.py"> <i class="fa fa-chevron-left"></i></a>
         
         
     </div>

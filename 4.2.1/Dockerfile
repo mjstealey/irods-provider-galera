@@ -9,8 +9,8 @@ RUN groupadd -r irods --gid=996 \
 ADD ./RENCI-iRODS.repo /etc/yum.repos.d/RENCI-iRODS.repo
 RUN yum makecache fast -y && yum install -y \
     sudo \
-    irods-server-4.2.0 \
-    irods-database-plugin-mysql-4.2.0
+    irods-server-4.2.1 \
+    irods-database-plugin-mysql-4.2.1
 
 # update mysql-connector-odbc
 RUN wget https://dev.mysql.com/get/Downloads/Connector-ODBC/5.3/mysql-connector-odbc-5.3.7-1.el7.x86_64.rpm \
