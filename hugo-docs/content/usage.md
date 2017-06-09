@@ -1,14 +1,14 @@
 +++
 date = "2017-05-27T20:23:40-04:00"
-description = "Setup irods-provider-galera"
-title = "Setup & Configuration"
+description = "Usage"
+title = "Usage"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
 [menu]
 
   [menu.main]
-    identifier = "setup"
+    identifier = "usage"
     parent = ""
     weight = 2
 

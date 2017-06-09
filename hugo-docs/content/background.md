@@ -1,14 +1,14 @@
 +++
 date = "2017-05-27T20:33:02-04:00"
-description = "Introduction to irods-provider-galera"
-title = "Introduction"
+description = "Background"
+title = "Background"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
 [menu]
 
   [menu.main]
-    identifier = "intro"
+    identifier = "background"
     parent = ""
     weight = 1
 
@@ -26,7 +26,15 @@ Initial requirements:
 
 The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.
 
-A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **galeraZone**. Each node within the testbed exists as it's own VM, and can be configured to use various latency values via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
+Sample latency for international WAN deployment.
+
+- Low nationally (RENCI/Chicago): 20ms
+- Medium nationally (Coast to coast: RENCI/SF): 60ms
+- International (Netherlands/RENCI):117 ms
+- International (Sydney/Netherlands): 300 ms
+- International (Sydney/RENCI): 210ms
+
+A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **galeraZone** within a MariaDB Galera cluster. Each node within the testbed is a single CentOS 7 VM, and can be configured to use a variety of latency settings via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
 
 ![galeraZone]({{<baseurl>}}/images/galerazone.png)
 

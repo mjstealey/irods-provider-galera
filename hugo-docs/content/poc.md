@@ -1,14 +1,14 @@
 +++
 date = "2017-05-27T20:33:21-04:00"
-description = "Testing irods-provider-galera"
-title = "Testing"
+description = "Proof of concept"
+title = "Proof of concept"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
 [menu]
 
   [menu.main]
-    identifier = "testing"
+    identifier = "poc"
     parent = ""
     weight = 3
 

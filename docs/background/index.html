@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.21" />
-    <meta name="description" content="Galera VMs used for testing">
+    <meta name="description" content="Background">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 
-    <title>Galera VMs :: iRODS - MariaDB Galera cluster</title>
+    <title>Background :: iRODS - MariaDB Galera cluster</title>
     <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
@@ -29,7 +29,7 @@
     
 
   </head>
-  <body class="" data-url="/irods-provider-galera/galera-vms/">
+  <body class="" data-url="/irods-provider-galera/background/">
     
 <nav id="sidebar" class="">
   <div id="header-wrapper">
@@ -75,7 +75,7 @@
     
     
         <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
-         
+        active 
         
         "
         >
@@ -84,6 +84,10 @@
                 
                 
             </a>
+            
+                
+                
+                
             
             
             
@@ -297,6 +301,8 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
+                   / <a href='/irods-provider-galera/background/'>Background</a>
+                
                 
             </div>
             <div class="progress">
@@ -305,14 +311,13 @@
 <ul>
 <li>
 <ul>
-<li><a href="#design">Design</a></li>
-<li><a href="#confifguration-scripts">Confifguration / Scripts</a>
+<li><a href="#why-use-mariadb-galera-cluster-to-service-the-irods-catalog-provider">Why use MariaDB Galera cluster to service the iRODS catalog provider?</a></li>
+<li><a href="#references">References</a>
 <ul>
-<li><a href="#galera1-env">galera1.env</a></li>
-<li><a href="#init-galera">init-galera</a></li>
-<li><a href="#mkresc">mkresc</a></li>
+<li><a href="#irods">iRODS</a></li>
+<li><a href="#mariadb">MariaDB</a></li>
+<li><a href="#galera-cluster">Galera cluster</a></li>
 </ul></li>
-<li><a href="#local-directory-contents">Local directory contents</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -324,246 +329,101 @@
         
         <div id="body-inner">
           
-            <h1>Galera VMs</h1>
+            <h1>Background</h1>
           
 
 
 
 
-<p>Three CentOS Linux release 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named <strong>galera</strong> which has rights to run <a href="https://www.docker.com">Docker</a> and not much else.</p>
+<h2 id="why-use-mariadb-galera-cluster-to-service-the-irods-catalog-provider">Why use MariaDB Galera cluster to service the iRODS catalog provider?</h2>
 
-<h2 id="design">Design</h2>
+<p>An iRODS use case was presented where multiple geographically disparate participants all wanted to belong to the same iRODS Zone for ease of search and discovery. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.</p>
 
-<p>Though the proof of concept has been designed to run in Docker, it doesn&rsquo;t prohibit storing the files for iRODS and MariaDB to the host. In general a system would employ service level accounts named &ldquo;irods&rdquo; and &ldquo;mysql&rdquo; to retain/own the iRODS service files and the MariaDB files respectively. The docker model used herein has defaulted these system user values to be:</p>
-
-<ul>
-<li>irods: UID=996, GID=996</li>
-<li>mysql: UID=997, GID=997</li>
-</ul>
-
-<p>These UID and GID values would then be found on the local system if the user chooses to mount local volumes to the irods-provider-galera container at runtime.</p>
-
-<pre><code>$ id galera
-uid=2112(galera) gid=2112(galera) groups=2112(galera),992(docker)
-</code></pre>
-
-<p>Set environment variables to use local UIDs and GIDs.</p>
-
-<pre><code>    -e UID_MYSQL=2000 \
-    -e GID_MYSQL=2112 \
-    -e UID_IRODS=2112 \
-    -e GID_IRODS=2112 \
-</code></pre>
-
-<p>Before:</p>
-
-<pre><code>$ ls -alh /var/galera/
-total 4.0K
-drwxr-xr-x   7 galera galera   77 May 29 13:28 .
-drwxr-xr-x. 21 root   root   4.0K May 29 13:28 ..
-drwxr-xr-x   2 galera galera    6 May 29 13:28 etc_irods
-drwxr-xr-x   2 galera galera    6 May 29 13:28 init
-drwxr-xr-x   2 galera galera    6 May 29 13:28 var_irods
-drwxr-xr-x   2 galera galera    6 May 29 13:28 var_mysql
-drwxr-xr-x   2 galera galera    6 May 29 13:28 vault
-</code></pre>
-
-<p>After:</p>
-
-<pre><code>$ ls -lah /var/galera/
-total 16K
-drwxr-xr-x   7 galera galera   77 May 29 13:28 .
-drwxr-xr-x. 21 root   root   4.0K May 29 13:28 ..
-drwxr-xr-x   2 galera galera 4.0K May 29 13:32 etc_irods
-drwxr-xr-x   2 galera galera    6 May 29 13:28 init
-drwxr-xr-x  11 galera galera 4.0K May 29 13:32 var_irods
-drwxr-xr-x   5   2000 galera 4.0K May 29 13:32 var_mysql
-drwxr-xr-x   3 galera galera   17 May 29 13:32 vault
-</code></pre>
-
-<h2 id="confifguration-scripts">Confifguration / Scripts</h2>
-
-<h3 id="galera1-env">galera1.env</h3>
-
-<pre><code class="language-ini">WSREP_ON=ON
-WSREP_PROVIDER=/usr/lib64/galera/libgalera_smm.so
-WSREP_PROVIDER_OPTIONS='evs.keepalive_period=PT3S;
-  evs.suspect_timeout=PT30S;
-  evs.inactive_timeout=PT1M;
-  evs.install_timeout=PT1M;
-  evs.join_retrans_period=PT1.5S'
-WSREP_CLUSTER_ADDRESS='gcomm://172.25.8.171,172.25.8.172,172.25.8.173'
-WSREP_CLUSTER_NAME='galera'
-WSREP_NODE_ADDRESS='172.25.8.171'
-WSREP_NODE_NAME='galera-1'
-WSREP_SST_METHOD=rsync
-BINLOG_FORMAT=row
-DEFAULT_STORAGE_ENGINE=InnoDB
-INNODB_AUTOINC_LOCK_MODE=2
-BIND_ADDRESS=0.0.0.0
-IRODS_SERVICE_ACCOUNT_NAME=irods
-IRODS_SERVICE_ACCOUNT_GROUP=irods
-IRODS_SERVER_ROLE=1
-ODBC_DRIVER_FOR_MYSQL=2
-IRODS_DATABASE_SERVER_HOSTNAME=localhost
-IRODS_DATABASE_SERVER_PORT=3306
-IRODS_DATABASE_NAME=ICAT
-IRODS_DATABASE_USER_NAME=irods
-IRODS_DATABASE_PASSWORD=temppassword
-IRODS_DATABASE_USER_PASSWORD_SALT=tempsalt
-IRODS_ZONE_NAME=tempZone
-IRODS_PORT=1247
-IRODS_PORT_RANGE_BEGIN=20000
-IRODS_PORT_RANGE_END=20199
-IRODS_CONTROL_PLANE_PORT=1248
-IRODS_SCHEMA_VALIDATION=file:///var/lib/irods/configuration_schemas
-IRODS_SERVER_ADMINISTRATOR_USER_NAME=rods
-IRODS_SERVER_ZONE_KEY=TEMPORARY_zone_key
-IRODS_SERVER_NEGOTIATION_KEY=TEMPORARY_32byte_negotiation_key
-IRODS_CONTROL_PLANE_KEY=TEMPORARY__32byte_ctrl_plane_key
-IRODS_SERVER_ADMINISTRATOR_PASSWORD=rods
-IRODS_VAULT_DIRECTORY=/Vault
-MYSQL_ROOT_PASSWORD=rods
-</code></pre>
-
-<h3 id="init-galera">init-galera</h3>
-
-<p><code>$ ./init-galera &amp;&amp; docker attach --sig-proxy=false irods-galera-1</code></p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-
-docker stop irods-galera-1
-docker rm -fv irods-galera-1
-sleep 2s
-docker run -d --name irods-galera-1 -h galera-1.edc.renci.org \
-    -e UID_MYSQL=2000 \
-    -e GID_MYSQL=2112 \
-    -e UID_IRODS=2112 \
-    -e GID_IRODS=2112 \
-    -v /var/galera/vault:/Vault \
-    -v /var/galera/var_mysql:/var/lib/mysql \
-    -v /var/galera/var_irods:/var/lib/irods \
-    -v /var/galera/etc_irods:/etc/irods \
-    -v /home/galera/init:/init \
-    --env-file=/home/galera/galera1.env \
-    -p 3306:3306 \
-    -p 4444:4444 \
-    -p 4567:4567 \
-    -p 4568:4568 \
-    -p 1247:1247 \
-    -p 1248:1248 \
-    -p 20000-20199:20000-20199 \
-    mjstealey/irods-provider-galera:4.2.0 -jv setup_irods.py
-
-exit 0;
-</code></pre>
-
-<h3 id="mkresc">mkresc</h3>
-
-<p><code>$ ./mkresc galera1Resc</code></p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-
-RESC=$1
-
-docker exec -u irods irods-galera-1 iadmin mkresc $RESC unixfilesystem galera-1.edc.renci.org:/Vault
-
-docker exec -u irods irods-galera-1 iadmin lr
-
-exit 0;
-</code></pre>
-
-<h2 id="local-directory-contents">Local directory contents</h2>
-
-<p>Host directories are used as volume mounts to the irods-provider-galera container and defined as follows:</p>
+<p>Initial requirements:</p>
 
 <ul>
-<li><code>/var/galera/vault</code> &ndash;&gt; <code>/Vault</code></li>
-<li><code>/var/galera/var_mysql</code> &ndash;&gt; <code>/var/lib/mysql</code></li>
-<li><code>/var/galera/var_irods</code> &ndash;&gt; <code>/var/lib/irods</code></li>
-<li><code>/var/galera/etc_irods</code> &ndash;&gt; <code>/etc/irods</code></li>
-<li><code>/home/galera/init</code> &ndash;&gt; <code>/init</code></li>
+<li>Every iRODS provider node would contain the ICAT catalog and resource storage space that could be uniquely assigned to that node</li>
+<li>Large files would be transferred to the storage space of the iRODS provider node closest to the point of file origination</li>
+<li>All nodes must pass some sort of quality of service testing beyond the standard iRODS test suite</li>
 </ul>
 
-<p><strong>/etc/irods</strong> mount</p>
+<p>The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.</p>
 
-<pre><code class="language-console">$ ls -lah /var/galera/etc_irods/
-total 72K
-drwxr-xr-x 2 galera galera 4.0K May 29 13:32 .
-drwxr-xr-x 7 galera galera   77 May 29 13:28 ..
--rw-r--r-- 1 galera galera 5.0K May 29 13:32 core.dvm
--rw-r--r-- 1 galera galera  831 May 29 13:32 core.fnm
--rw-r--r-- 1 galera galera  39K May 29 13:32 core.re
--rw-r--r-- 1 galera galera  106 May 29 13:32 host_access_control_config.json
--rw-r--r-- 1 galera galera   90 May 29 13:32 hosts_config.json
--rw------- 1 galera galera 3.5K May 29 13:32 server_config.json
--rw-r--r-- 1 galera galera   64 May 29 13:32 service_account.config
-</code></pre>
+<p>Sample latency for international WAN deployment.</p>
 
-<pre><code class="language-console">[galera@galera-1 ~]$ ls -lah /var/galera/init/
-total 0
-drwxr-xr-x 2 galera galera  6 May 29 13:28 .
-drwxr-xr-x 7 galera galera 77 May 29 13:28 ..
-</code></pre>
+<ul>
+<li>Low nationally (RENCI/Chicago): 20ms</li>
+<li>Medium nationally (Coast to coast: RENCI/SF): 60ms</li>
+<li>International (Netherlands/RENCI):117 ms</li>
+<li>International (Sydney/Netherlands): 300 ms</li>
+<li>International (Sydney/RENCI): 210ms</li>
+</ul>
 
-<p><strong>/var/lib/irods</strong> mount</p>
+<p>A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named <strong>galeraZone</strong> within a MariaDB Galera cluster. Each node within the testbed is a single CentOS 7 VM, and can be configured to use a variety of latency settings via <a href="http://man7.org/linux/man-pages/man8/tc-netem.8.html">NetEm</a> to simulate the kind of network traffic that would be experienced in a WAN configuration.</p>
 
-<pre><code class="language-console">[galera@galera-1 ~]$ ls -lah /var/galera/var_irods/
-total 28K
-drwxr-xr-x 11 galera galera 4.0K May 29 13:32 .
-drwxr-xr-x  7 galera galera   77 May 29 13:28 ..
-drwxr-xr-x  4 galera galera   32 May 29 10:28 clients
-drwxr-xr-x  4 galera galera   40 May 29 10:28 config
-drwxr-xr-x  3 galera galera   15 May 29 10:28 configuration_schemas
-drwx------  2 galera galera   49 May 29 13:32 .irods
--r-xr--r--  1 galera galera  283 Nov 13  2016 irodsctl
-drwxr-xr-x  3 galera galera   85 May 29 13:32 log
-drwxr-xr-x  2 galera galera   94 May 29 10:28 msiExecCmd_bin
--rw-r--r--  1 galera galera  130 May 29 13:32 .odbc.ini
-drwxr-xr-x  3 galera galera 4.0K May 29 10:28 packaging
-drwxr-xr-x  3 galera galera 4.0K May 29 10:28 scripts
-drwxr-xr-x  3 galera galera   63 May 29 10:28 test
--rw-------  1 galera galera  224 May 29 13:32 VERSION.json
--rw-r--r--  1 galera galera  166 Nov 13  2016 VERSION.json.dist
-</code></pre>
+<p><img src="https://mjstealey.github.io/irods-provider-galera//images/galerazone.png" alt="galeraZone" /></p>
 
-<p><strong>/var/lib/mysql</strong> mount</p>
+<h2 id="references">References</h2>
 
-<pre><code class="language-console">[galera@galera-1 ~]$ ls -lah /var/galera/var_mysql/
-total 301M
-drwxr-xr-x 5   2000 galera 4.0K May 29 13:32 .
-drwxr-xr-x 7 galera galera   77 May 29 13:28 ..
--rw-rw---- 1   2000 galera  16K May 29 13:32 aria_log.00000001
--rw-rw---- 1   2000 galera   52 May 29 13:32 aria_log_control
--rw-rw---- 1   2000 galera  17K May 29 13:32 galera-1.edc.renci.org.err
--rw-rw---- 1   2000 galera    5 May 29 13:32 galera-1.edc.renci.org.pid
--rw------- 1   2000 galera 129M May 29 13:32 galera.cache
--rw-rw---- 1   2000 galera  113 May 29 13:32 grastate.dat
--rw-rw---- 1   2000 galera  264 May 29 13:32 gvwstate.dat
--rw-rw---- 1   2000 galera  76M May 29 13:32 ibdata1
--rw-rw---- 1   2000 galera  48M May 29 13:32 ib_logfile0
--rw-rw---- 1   2000 galera  48M May 29 13:32 ib_logfile1
-drwx------ 2   2000 galera 4.0K May 29 13:32 ICAT
--rw-rw---- 1   2000 galera    0 May 29 13:32 multi-master.info
-drwx--x--x 2   2000 galera 4.0K May 21 22:25 mysql
-srwxrwxrwx 1   2000 galera    0 May 29 13:32 mysql.sock
-drwx------ 2   2000 galera   19 May 21 22:25 performance_schema
--rw-rw---- 1   2000 galera  24K May 29 13:32 tc.log
-</code></pre>
+<h3 id="irods">iRODS</h3>
 
-<p><strong>/Vault</strong> mount (remap of Vault from /var/lib/irods/Vault)</p>
+<p><strong>What is iRODS</strong>: The Integrated Rule-Oriented Data System (iRODS) is open source data management software used by research organizations and government agencies worldwide.</p>
 
-<pre><code class="language-console">[galera@galera-1 ~]$ ls -lah /var/galera/vault/
-total 0
-drwxr-xr-x 3 galera galera 17 May 29 13:32 .
-drwxr-xr-x 7 galera galera 77 May 29 13:28 ..
-drwxr-x--- 3 galera galera 17 May 29 13:32 home
-</code></pre>
+<p>iRODS is released as a production-level distribution aimed at deployment in mission critical environments. It virtualizes data storage resources, so users can take control of their data, regardless of where and on what device the data is stored.</p>
+
+<p>The development infrastructure supports exhaustive testing on supported platforms.</p>
+
+<p>The plugin architecture supports microservices, storage systems, authentication, networking, databases, rule engines, and an extensible API.</p>
+
+<p>Learn more at: <a href="https://irods.org">irods.org</a></p>
+
+<h3 id="mariadb">MariaDB</h3>
+
+<p><strong>Why MariaDB</strong>: MariaDB is an open source leader, collaborating with innovators like Alibaba, Google and Facebook to develop and incorporate new features and improvements for the whole community, while at the same time helping customers like DBS Bank standardize on MariaDB solutions – ensuring enterprise and architecture requirements are met, now and in the future.</p>
+
+<p>Learn more at: <a href="https://mariadb.com">mariadb.com</a></p>
+
+<h3 id="galera-cluster">Galera cluster</h3>
+
+<p><strong>What is MariaDB Galera cluster?</strong></p>
+
+<p><strong>About</strong></p>
+
+<p>MariaDB Galera Cluster is a synchronous multi-master cluster for MariaDB. It is available on Linux only, and only supports the <a href="https://mariadb.com/kb/en/xtradb-and-innodb/">XtraDB/InnoDB</a> storage engines (although there is experimental support for <a href="https://mariadb.com/kb/en/myisam/">MyISAM</a> - see the <a href="https://mariadb.com/kb/en/galera-cluster-system-variables/#wsrep_replicate_myisam">wsrep_replicate_myisam</a> system variable).</p>
+
+<p>Starting with <a href="https://mariadb.com/kb/en/what-is-mariadb-101/">MariaDB 10.1</a>, the wsrep API for Galera Cluster is included by default. This is available as a separate download for <a href="https://mariadb.com/kb/en/what-is-mariadb-100/">MariaDB 10.0</a> and <a href="https://mariadb.com/kb/en/what-is-mariadb-55/">MariaDB 5.5</a>.</p>
+
+<p><strong>Features</strong></p>
+
+<ul>
+<li>Synchronous replication</li>
+<li>Active-active multi-master topology</li>
+<li>Read and write to any cluster node</li>
+<li>Automatic membership control, failed nodes drop from the cluster</li>
+<li>Automatic node joining</li>
+<li>True parallel replication, on row level</li>
+<li>Direct client connections, native MariaDB look &amp; feel</li>
+</ul>
+
+<p><strong>Benefits</strong></p>
+
+<p>The above features yield several benefits for a DBMS clustering solution, including:</p>
+
+<ul>
+<li>No slave lag</li>
+<li>No lost transactions</li>
+<li>Both read and write scalability</li>
+<li>Smaller client latencies</li>
+</ul>
+
+<p>The <a href="https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/">Getting Started with MariaDB Galera Cluster</a> page has instructions on how to get up and running with MariaDB Galera Cluster.</p>
+
+<p>Learn more at: <a href="https://mariadb.com/kb/en/mariadb/what-is-mariadb-galera-cluster/">what-is-mariadb-galera-cluster</a></p>
 
 
 <footer class=" footline" >
 	
-	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 28/05/2017
+	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 27/05/2017
 	    </div>
 	
 </footer>
@@ -586,6 +446,7 @@ drwxr-x--- 3 galera galera 17 May 29 13:32 home
             
                 
                     
+                    
                 
                 
                 
@@ -596,6 +457,9 @@ drwxr-x--- 3 galera galera 17 May 29 13:32 home
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -657,6 +521,8 @@ drwxr-x--- 3 galera galera 17 May 29 13:32 home
 
 
         
+        
+            <a class="nav nav-next" href="/irods-provider-galera/usage/" title="Usage" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
