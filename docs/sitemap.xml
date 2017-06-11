@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/advanced/</loc>
+    <lastmod>2017-06-10T21:57:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/basic/</loc>
+    <lastmod>2017-06-10T21:57:25-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/init/</loc>
+    <lastmod>2017-06-10T21:11:25-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/code/</loc>
+    <lastmod>2017-06-10T21:07:48-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/run-tests/</loc>
+    <lastmod>2017-06-09T23:02:36-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/lan-local/</loc>
+    <lastmod>2017-06-09T21:24:47-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/wan-vm/</loc>
+    <lastmod>2017-06-09T21:23:52-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mjstealey.github.io/irods-provider-galera/lan-vm/</loc>
+    <lastmod>2017-06-09T21:23:44-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mjstealey.github.io/irods-provider-galera/runttests/</loc>
     <lastmod>2017-06-03T23:02:40-04:00</lastmod>
   </url>
@@ -10,11 +50,6 @@
   <url>
     <loc>https://mjstealey.github.io/irods-provider-galera/galera-vms/</loc>
     <lastmod>2017-05-28T21:26:16-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mjstealey.github.io/irods-provider-galera/three-node-test/</loc>
-    <lastmod>2017-05-28T20:54:43-04:00</lastmod>
   </url>
   
   <url>

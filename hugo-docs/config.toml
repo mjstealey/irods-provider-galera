@@ -4,6 +4,14 @@ title = "iRODS - MariaDB Galera cluster"
 theme = "docdock"
 publishDir = "../docs"
 
+[params]
+#editURL = "https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/"
+noHomeIcon = false # default is false
+noSearch = false # default is false
+showVisitedLinks = true # default is false
+#unfoldedMenus = ["poc"] # set menu identifiers which should be displayed unfolded
+themeVariant = "blue" # choose theme variant "green", "gold" , "blue" (default)
+
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
 

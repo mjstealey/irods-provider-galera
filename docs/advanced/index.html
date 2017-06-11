@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.21" />
-    <meta name="description" content="Usage">
+    <meta name="description" content="Advanced usage">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 
-    <title>Usage :: iRODS - MariaDB Galera cluster</title>
+    <title>Advanced usage :: iRODS - MariaDB Galera cluster</title>
     <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
@@ -32,7 +32,7 @@
     
 
   </head>
-  <body class="" data-url="/irods-provider-galera/usage/">
+  <body class="" data-url="/irods-provider-galera/advanced/">
     
 <nav id="sidebar" class="showVisitedLinks">
   <div id="header-wrapper">
@@ -100,8 +100,8 @@
     
     
         <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
-        active 
-        
+         
+        parent
         "
         >
             <a href="/irods-provider-galera/usage/">
@@ -152,7 +152,7 @@
     
     
         <li data-nav-id="/irods-provider-galera/advanced/" class="dd-item 
-         
+        active 
         
         "
         >
@@ -161,6 +161,10 @@
                 
                 <i style="color:grey" class="fa fa-check read-icon"></i>
             </a>
+            
+                
+                
+                
             
             
             
@@ -463,25 +467,13 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
-                   / <a href='/irods-provider-galera/usage/'>Usage</a>
+                   / <a href='/irods-provider-galera/usage/'>Usage</a> / <a href='/irods-provider-galera/advanced/'>Advanced usage</a>
                 
                 
             </div>
             <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#supported-irods-versions">Supported iRODS versions</a>
-<ul>
-<li><a href="#pull-image-from-dockerhub">Pull image from dockerhub</a></li>
-<li><a href="#building-locally">Building locally</a></li>
-<li><a href="#usage-options">Usage options</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -490,77 +482,16 @@
         
         <div id="body-inner">
           
-            <h1>Usage</h1>
+            <h1>Advanced usage</h1>
           
 
 
-
-
-<p>iRODS provider using MariaDB Galera cluster in Docker is based on: <a href="https://github.com/mjstealey/mariadb-galera">mjstealey/mariadb-galera</a> from <a href="https://hub.docker.com/_/centos/">centos:7</a></p>
-
-<h2 id="supported-irods-versions">Supported iRODS versions</h2>
-
-<p>Supported tags in <a href="https://hub.docker.com/r/mjstealey/irods-provider-galera/">docker hub</a> with respective Dockerfile link:</p>
-
-<ul>
-<li>4.2.1, latest (<a href="https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.1/Dockerfile">4.2.1/Dockerfile</a>)</li>
-<li>4.2.0 (<a href="https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.0/Dockerfile">4.2.0/Dockerfile</a>)</li>
-</ul>
-
-<h3 id="pull-image-from-dockerhub">Pull image from dockerhub</h3>
-
-<p>Reference: <a href="https://hub.docker.com/r/mjstealey/irods-provider-galera/">mjstealey/irods-provider-galera/</a></p>
-
-<pre><code class="language-bash">docker pull mjstealey/irods-provider-galera:latest
-</code></pre>
-
-<h3 id="building-locally">Building locally</h3>
-
-<pre><code>$ git clone https://github.com/mjstealey/irods-provider-galera.git
-$ cd irods-provider-galera/4.2.1/
-$ docker build -t irods-provider-galera .
-</code></pre>
-
-<h3 id="usage-options">Usage options</h3>
-
-<p>Show brief help</p>
-
-<pre><code class="language-console">$ docker run --rm mjstealey/irods-provider-galera:4.2.1 -h
-iRODS Provider - Galera Cluster
-
-docker-entrypoint [-hijvd] [-f filename.sql] [arguments]
-
-options:
--h                    show brief help
--i                    initialize iRODS Galera cluster
--j                    join existing iRODS Galera cluster
--v                    verbose output
--d                    dump database as db.sql to volume mounted as /LOCAL/PATH:/init
--f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init
-
-Example:
-  $ docker run --rm mjstealey/irods-provider-galera:4.2.1 -h               # show help
-  $ docker run -d mjstealey/irods-provider-galera:4.2.1 -iv setup_irods.py # init with default settings
-</code></pre>
-
-<p>Initialize single node with default settings</p>
-
-<pre><code class="language-console">$ docker run -d mjstealey/irods-provider-galera:4.2.1 -iv setup_irods.py
-a9890f386ece5f44648a66ea352a3142bcf39aac4455865e1387cbd3ac937945
-</code></pre>
-
-<p>Because the container was launched with the <code>-d</code> flag, it will be daemonized. The output can be viewed by looking at the log of the named container. The container name will be a random two part string separated by &ldquo;_&rdquo; if not defined in the docker run command. In this example it is <strong>adoring_lamport</strong></p>
-
-<pre><code class="language-console">$ docker ps -a
-CONTAINER ID        IMAGE                                   COMMAND                  CREATED              STATUS              PORTS                                                               NAMES
-a9890f386ece        mjstealey/irods-provider-galera:4.2.1   &quot;/docker-entrypoin...&quot;   About a minute ago   Up About a minute   1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   adoring_lamport
-...
-</code></pre>
+<p>Lorem Ipsum</p>
 
 
 <footer class=" footline" >
 	
-	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 27/05/2017
+	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 10/06/2017
 	    </div>
 	
 </footer>
@@ -594,42 +525,42 @@ a9890f386ece        mjstealey/irods-provider-galera:4.2.1   &quot;/docker-entryp
             
                 
                     
-                    
                 
                 
                 
                     
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                
+            
+        
+        
+            
             
             
                 
                     
                         
                         
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-            
-        
-        
-            
-            
-            
-                
                     
                 
                 
@@ -730,10 +661,10 @@ a9890f386ece        mjstealey/irods-provider-galera:4.2.1   &quot;/docker-entryp
 
 
         
-            <a class="nav nav-prev" href="/irods-provider-galera/background/" title="Background"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/irods-provider-galera/basic/" title="Basic usage"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/irods-provider-galera/basic/" title="Basic usage" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/irods-provider-galera/poc/" title="Proof of concept" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

@@ -5,4 +5,4 @@ title = "irods-provider-galera"
 
 +++
 
-[<img src={{<baseurl>}}/images/irods_logo.png height="30"><img src={{<baseurl>}}/images/mariadb-badge-180x60.png height="30">]({{<baseurl>}})
+[<img src={{<baseurl>}}/images/logo.png height="40">]({{<baseurl>}})

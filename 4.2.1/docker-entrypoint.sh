@@ -196,8 +196,8 @@ _usage() {
     echo "-f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init"
     echo ""
     echo "Example:"
-    echo "  $ docker run --rm mjstealey/irods-provider-galera:4.2.0 -h               # show help"
-    echo "  $ docker run -d mjstealey/irods-provider-galera:4.2.0 -iv setup_irods.py # init with default settings"
+    echo "  $ docker run --rm mjstealey/irods-provider-galera:4.2.1 -h               # show help"
+    echo "  $ docker run -d mjstealey/irods-provider-galera:4.2.1 -iv setup_irods.py # init with default settings"
     echo ""
     exit 0
 }

@@ -1,16 +1,16 @@
 +++
-date = "2017-06-03T23:02:40-04:00"
-description = "iRODS run_tests.py script"
-title = "iRODS run_tests.log"
+date = "2017-06-10T21:57:25-04:00"
+description = "Basic usage"
+title = "Basic usage"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
 [menu]
 
   [menu.main]
-    identifier = "runtests"
-    parent = "poc"
-    weight = 4
+    identifier = "basic"
+    parent = "usage"
+    weight = 1
 
 +++
 

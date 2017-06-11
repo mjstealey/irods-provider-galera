@@ -1,7 +1,7 @@
 +++
 date = "2017-05-28T21:26:16-04:00"
 description = "Galera VMs used for testing"
-title = "Galera VMs"
+title = "Galera cluster - VMs"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
@@ -9,8 +9,8 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
   [menu.main]
     identifier = "vms"
-    parent = "setup"
-    weight = 7
+    parent = "poc"
+    weight = 1
 
 +++
 

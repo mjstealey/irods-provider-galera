@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.21" />
+    <meta name="description" content="run_tests.py --run_python_suite">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+
+    <title>run_tests.py :: iRODS - MariaDB Galera cluster</title>
+    <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/featherlight.min.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/horsey.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="/irods-provider-galera/css/bootstrap.min.css">
+    <script src="/irods-provider-galera/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+    <link href="/irods-provider-galera/css/theme-blue.css" rel="stylesheet">
+    
+    
+
+    
+
+  </head>
+  <body class="" data-url="/irods-provider-galera/run-tests/">
+    
+<nav id="sidebar" class="showVisitedLinks">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p><a href="https://mjstealey.github.io/irods-provider-galera/"><img src=https://mjstealey.github.io/irods-provider-galera//images/logo.png height="40"></a></p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/irods-provider-galera/js/lunr.min.js"></script>
+<script type="text/javascript" src="/irods-provider-galera/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/mjstealey.github.io\/irods-provider-galera\/";
+</script>
+<script type="text/javascript" src="/irods-provider-galera/js/search.js"></script>
+
+    
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+        
+            <li data-nav-id="/irods-provider-galera/" class="dd-item">
+            <a href="/irods-provider-galera/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+
+        
+        
+        
+        
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/background/">
+                <span>Background</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/usage/">
+                <span>Usage</span>
+                
+                    
+                        <i class="fa fa-angle-right fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/basic/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/basic/">
+                <span>Basic usage</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/advanced/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/advanced/">
+                <span>Advanced usage</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/poc/" class="dd-item 
+         
+        parent
+        "
+        >
+            <a href="/irods-provider-galera/poc/">
+                <span>Proof of concept</span>
+                
+                    
+                        <i class="fa fa-angle-down fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+                    
+                
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/galera-vms/">
+                <span>Galera cluster - VMs</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/lan-local/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/lan-local/">
+                <span>LAN - local machine</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/lan-vm/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/lan-vm/">
+                <span>LAN - virtual machines</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/wan-vm/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/wan-vm/">
+                <span>WAN - virtual machines</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/code/" class="dd-item 
+         
+        parent
+        "
+        >
+            <a href="/irods-provider-galera/code/">
+                <span>Code / Console log</span>
+                
+                    
+                        <i class="fa fa-angle-down fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+                    
+                
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/init/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/init/">
+                <span>default_init.log</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/run-tests/" class="dd-item 
+        active 
+        
+        "
+        >
+            <a href="/irods-provider-galera/run-tests/">
+                <span>run_tests.py</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/parallel-put-get/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/parallel-put-get/">
+                <span>parallel_put_get.sh</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+        
+
+        
+
+        
+        
+        
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/mjstealey/irods-provider-galera/"><i class='fa fa-github'></i> Github repository</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://irods.org/documentation/"><i class='fa fa-bookmark'></i> iRODS Documentation</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://mariadb.com/kb/en/mariadb/documentation/"><i class='fa fa-bookmark'></i> MariaDB Documentation</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+            <a class="" href="#" data-clear-history-toggle=""><i class="fa  fa-history"></i> Clear History</a>
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      <center>
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download mjstealey/irods-provider-galera on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera" data-icon="octicon-star" data-show-count="false" aria-label="Star mjstealey/irods-provider-galera on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork mjstealey/irods-provider-galera on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><a href=""><i class="fa fa-list-alt"></i></a></span>
+                <a href="https://mjstealey.github.io/irods-provider-galera/">
+                  <span class="fa fa-arrow-circle-right" style="font-size:larger" aria-hidden="true"></span>
+                  iRODS - MariaDB Galera cluster
+                </a>
+                
+                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/code/'>Code / Console log</a> / <a href='/irods-provider-galera/run-tests/'>run_tests.py</a>
+                
+                
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>run_tests.py</h1>
+          
+
+
+<p>Result of running <code>python run_tests.py --run_python_suite</code>.</p>
+
+<pre><code class="language-console">bash-4.2$ python run_tests.py --run_python_suite
+irods.test.test_xmsg.Test_Xmsg.test_send_and_receive_one_xmsg ... ok
+irods.test.test_iadmin.Test_Iadmin.test_admin_listings ... ok
+irods.test.test_iadmin.Test_Iadmin.test_authentication_name ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource_with_explicit_contextstring ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_new_user ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_unixfilesystem_resource ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_unixfilesystem_resource_without_spaces ... ok
+irods.test.test_iadmin.Test_Iadmin.test_dlopen_failure_error_message ... skipped 'Activate once fixed issue#3387'
+irods.test.test_iadmin.Test_Iadmin.test_domainadmin_role ... ok
+irods.test.test_iadmin.Test_Iadmin.test_group_membership ... ok
+irods.test.test_iadmin.Test_Iadmin.test_host_access_control ... ok
+irods.test.test_iadmin.Test_Iadmin.test_hosts_config ... ok
+irods.test.test_iadmin.Test_Iadmin.test_iadmin_mkuser ... ok
+irods.test.test_iadmin.Test_Iadmin.test_iadmin_scrambling_and_descrambling ... ok
+irods.test.test_iadmin.Test_Iadmin.test_ibun ... ok
+irods.test.test_iadmin.Test_Iadmin.test_iexecmd ... ok
+irods.test.test_iadmin.Test_Iadmin.test_impostor_resource_debug_logging ... ok
+irods.test.test_iadmin.Test_Iadmin.test_irmtrash_admin_2461 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_issue_2420 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_izonereport_key_sanitization ... ok
+irods.test.test_iadmin.Test_Iadmin.test_list_groups ... ok
+irods.test.test_iadmin.Test_Iadmin.test_list_resources ... ok
+irods.test.test_iadmin.Test_Iadmin.test_list_users ... ok
+irods.test.test_iadmin.Test_Iadmin.test_list_zones ... ok
+irods.test.test_iadmin.Test_Iadmin.test_modify_resource_comment ... ok
+irods.test.test_iadmin.Test_Iadmin.test_modify_resource_name ... skipped 'deprecated due to resc id'
+irods.test.test_iadmin.Test_Iadmin.test_modify_user_info__ticket_3245 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_moduser ... ok
+irods.test.test_iadmin.Test_Iadmin.test_msiset_default_resc__2712 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_rebalance_for_invalid_data__ticket_3147 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_rebalance_for_repl_in_repl_node ... ok
+irods.test.test_iadmin.Test_Iadmin.test_rebalance_for_repl_node ... ok
+irods.test.test_iadmin.Test_Iadmin.test_rebalance_for_repl_node_with_different_users ... ok
+irods.test.test_iadmin.Test_Iadmin.test_resource_hierarchy_errors ... ok
+irods.test.test_iadmin.Test_Iadmin.test_resource_hierarchy_manipulation ... ok
+irods.test.test_iadmin.Test_Iadmin.test_resource_name_restrictions ... ok
+irods.test.test_iadmin.Test_Iadmin.test_rodscurators_role ... ok
+irods.test.test_iadmin.Test_Iadmin.test_server_config_environment_variables ... ok
+irods.test.test_iadmin.Test_Iadmin.test_set_resource_comment_to_emptystring_ticket_2434 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_storageadmin_role ... ok
+irods.test.test_iadmin.Test_Iadmin.test_tokens ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_auto_repl_off__2941 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_auto_repl_on__2941 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iget_prefer_from_archive__ticket_1660 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iget_prefer_from_archive_corrupt_archive__ticket_3145 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iphymv_as_admin__2995 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_Compound.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_as_admin__2988 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irsync__2976 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irsync_for_collection__2976 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_msiCollRsync__2976 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_msiDataObjRepl_as_admin__2988 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_msiDataObjRsync__2976 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_msiDataObjUnlink__2983 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_msisync_to_archive__2962 ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Compound.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_stage_to_cache ... ok
+irods.test.test_resource_types.Test_Resource_Compound.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_checksum ... skipped 'NOTSURE / FIXME ... -K not supported, perhaps'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithMockarchive.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_with_no_stage__2930 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_CompoundWithUnivmss.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_Deferred.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Deferred.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Deferred.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_MultiLayered.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ireg_as_rodsuser_in_vault ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_NonBlocking.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_Passthru.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Passthru.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Passthru.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_Random.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Random.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_unix_filesystem_free_space__3306 ... ok
+irods.test.test_resource_types.Test_Resource_Random.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_trying_next_child_after_child_votes_no__3315 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinRandom.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iget_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_iput_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irepl_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_RandomWithinReplication.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iget_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_Replication.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_iput_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_Replication.test_iquest_for_resc_hier__3039 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_Replication.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irepl_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_Replication.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_num_repl_policy__ticket_2851 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Replication.test_random_read_policy__ticket_2851 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_random_read_policy_with_num_repl__ticket_2851 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_reliable_iput__ticket_2557 ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Replication.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iget_prefer_from_archive__ticket_1660 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompound.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iget_prefer_from_archive__ticket_1660 ... skipped 'this is tested elsewhere'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationToTwoCompoundResourcesWithPreferArchive.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iget_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_iput_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irepl_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_collision_with_wlock ... skipped '--wlock has possible race condition due to Compound/Replication PDMO'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_ReplicationWithinReplication.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_round_robin_mechanism ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_unix_filesystem_free_space__3306 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobin.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iget_with_purgec ... skipped 'does not deterministically purge repl 0'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_iput_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ireg_as_rodsuser_in_vault ... skipped 'EMPTY_RESC_PATH - no vault path for coordinating resources'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irepl_with_purgec ... skipped 'no support for non-compound resources'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_next_child_iteration__2884 ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_RoundRobinWithinReplication.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_admin_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_beginning_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ibun_resource_failure_behavior ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ifsck__2650 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iget_specify_resource_with_single_thread__issue_3140 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iget_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iget_with_stale_replica ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iphymv_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iphymv_to_nonexistent_resource ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iput_ibun_gzip_bzip2_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iput_overwrite_others_file__ticket_2086 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_iput_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ireg_as_rodsadmin ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ireg_as_rodsuser ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ireg_as_rodsuser_in_vault ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ireg_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_invalid_input ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_multithreaded ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_over_existing_bad_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_over_existing_second_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_over_existing_third_replica__ticket_1705 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_update_replicas ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irepl_with_purgec ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_doesnotexist ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_force ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_recursive_file ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_repeated_many_times ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_specific_replica ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_with_read_permission ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irm_with_write_permission ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irmtrash_admin ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_irsync_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_itrim_no_op ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_itrim_with_admin_mode ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_key_value_passthru ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_large_dir_and_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_large_files_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_large_files_with_RBUDP_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iget ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iget_with_bad_option ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iget_with_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_imv ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_imv_collection_to_collection_with_modify_access_not_own__ticket_2317 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_imv_collection_to_sibling_collection__ticket_2448 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_imv_to_directory ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_imv_to_existing_filename ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_interrupt_directory ... skipped 'Enable once #2634 is resolved'
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_interrupt_largefile ... skipped 'Enable once race conditions fixed, see #2634'
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_lower_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_onto_specific_resource ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_overwrite ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_physicalpath ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_physicalpath_no_permission ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_recursive ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_relative_physicalpath_into_server_bin ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_upper_checksum ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_with_changed_target_filename ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_with_force_and_destination_resource__ticket_1706 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_local_iput_with_really_big_file__ticket_1623 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_mcoll_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_msi_update_unixfilesystem_resource_free_space_and_acPostProcForParallelTransferReceived ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_phybun_from_devtest ... skipped 'FIXME'
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ssl_iput_small_and_large_files ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_ssl_iput_with_rods_env ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_unix_filesystem_free_space__3306 ... ok
+irods.test.test_resource_types.Test_Resource_Unixfilesystem.test_xml_protocol_from_devtest ... ok
+irods.test.test_resource_types.Test_Resource_WeightedPassthru.test_weighted_passthrough ... ok
+irods.test.test_resource_types.Test_Resource_WeightedPassthru.test_weighted_passthrough__2789 ... ok
+irods.test.test_catalog.Test_Catalog.test_case_sensitivity ... ok
+irods.test.test_catalog.Test_Catalog.test_empty_icd ... ok
+irods.test.test_catalog.Test_Catalog.test_empty_icd_verbose ... ok
+irods.test.test_catalog.Test_Catalog.test_icd_to_parentdir ... ok
+irods.test.test_catalog.Test_Catalog.test_icd_to_root ... ok
+irods.test.test_catalog.Test_Catalog.test_icd_to_root_with_badpath ... ok
+irods.test.test_catalog.Test_Catalog.test_icd_to_subdir ... ok
+irods.test.test_catalog.Test_Catalog.test_iexit ... ok
+irods.test.test_catalog.Test_Catalog.test_iexit_verbose ... ok
+irods.test.test_catalog.Test_Catalog.test_iexit_with_bad_option ... ok
+irods.test.test_catalog.Test_Catalog.test_iexit_with_bad_parameter ... ok
+irods.test.test_catalog.Test_Catalog.test_ilocate_with_spaces_in_collection_name__3332 ... ok
+irods.test.test_catalog.Test_Catalog.test_iquest_bad_format ... ok
+irods.test.test_catalog.Test_Catalog.test_iquest_incorrect_format_count ... ok
+irods.test.test_catalog.Test_Catalog.test_iquest_totaldatasize ... ok
+irods.test.test_catalog.Test_Catalog.test_isysmeta_init_set_and_reset ... ok
+irods.test.test_catalog.Test_Catalog.test_isysmeta_no_resc_group__2819 ... ok
+irods.test.test_catalog.Test_Catalog.test_isysmeta_relative_set ... ok
+irods.test.test_catalog.Test_Catalog.test_izonereport_and_validate ... ok
+irods.test.test_catalog.Test_Catalog.test_izonereport_with_coordinating_resources__ticket_3303 ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp_all ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp_with_bad_icommand ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp_with_bad_option ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp_with_good_icommand ... ok
+irods.test.test_catalog.Test_Catalog.test_local_ihelp_with_help ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_when_dir_already_exists ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_when_file_already_exists ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_with_bad_option ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_with_parent ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_with_trailing_slash ... ok
+irods.test.test_catalog.Test_Catalog.test_local_imkdir_with_trailing_slash_already_exists ... ok
+irods.test.test_catalog.Test_Catalog.test_no_distinct ... ok
+irods.test.test_catalog.Test_CatalogPermissions.test_isysmeta_no_permission ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acDataDeletePolicy ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPostProcForCopy ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPostProcForDelete ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPostProcForFilePathReg ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPostProcForOpen ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPostProcForPut ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acPreprocForDataObjOpen ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acSetChkFilePathPerm ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acSetNumThreads ... ok
+irods.test.test_rulebase.Test_Resource_Session_Vars__3024.test_acSetVaultPathPolicy ... ok
+irods.test.test_rulebase.Test_Rulebase.test_acPostProcForPut_replicate_to_multiple_resources ... ok
+irods.test.test_rulebase.Test_Rulebase.test_argument_preservation__3236 ... ok
+irods.test.test_rulebase.Test_Rulebase.test_client_server_negotiation__2564 ... ok
+irods.test.test_rulebase.Test_Rulebase.test_dynamic_pep_with_rscomm_usage ... ok
+irods.test.test_rulebase.Test_Rulebase.test_irods_re_infinite_recursion_3169 ... ok
+irods.test.test_rulebase.Test_Rulebase.test_msiDataObjWrite__2795 ... ok
+irods.test.test_rulebase.Test_Rulebase.test_rulebase_update__2585 ... ok
+irods.test.test_rulebase.Test_Rulebase.test_rulebase_update_without_delay ... ok
+irods.test.test_resource_tree.Test_ilsresc.test_ilsresc_tree ... ok
+irods.test.test_resource_tree.Test_ilsresc.test_ilsresc_tree_with_ascii_output ... ok
+irods.test.test_load_balanced_suite.Test_LoadBalanced_Resource.test_load_balanced ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_cancel_large_iput ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_delay_in_dynamic_pep__3342 ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_force_iput_to_diff_resc ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_get_null_perms__2833 ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_icommand_help_and_error_codes ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_icp_collection_into_itself ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_icp_r ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iget_with_verify_to_stdout ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_ils_connection_refused_2948 ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_imv_r ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iphymv_root ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_bulk_check_acpostprocforput__2841 ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_r ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_r_with_kw_and_obj_count ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_resc_scheme_forced ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_resc_scheme_null ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_iput_resc_scheme_preferred ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irm_r ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irm_rf_nested_coll ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_coll_to_coll ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_coll_to_dir ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_dir_to_coll ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_coll_to_coll ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_coll_to_coll_large_files ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_coll_to_dir ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_coll_to_dir_large_files ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_dir_to_coll ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_irsync_r_nested_dir_to_coll_large_files ... ok
+irods.test.test_icommands_file_operations.Test_ICommands_File_Operations.test_large_irods_maximum_size_for_single_buffer_in_megabytes_2880 ... ok
+irods.test.test_imeta_set.Test_ImetaQu.test_imeta_qu_C_comparison_2748 ... ok
+irods.test.test_imeta_set.Test_ImetaQu.test_imeta_qu_d_comparison_2748 ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_addw ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_addw_for_other_user ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_addw_for_other_user_by_admin ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_multi_object_double ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_multi_object_double_to_triple ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_multi_object_triple ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_multi_object_triple_to_double_empty_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_multi_object_triple_to_double_no_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_abandoned_avu_triple_to_double_empty_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_abandoned_avu_triple_to_double_no_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_double ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_double_to_triple ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_multi_avu_removal ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_triple ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_triple_to_double_empty_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_set_single_object_triple_to_double_no_unit ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_with_many_bind_vars ... ok
+irods.test.test_imeta_set.Test_ImetaSet.test_imeta_with_too_long_string ... ok
+irods.test.test_all_rules.Test_AllRules.test_nqueens_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_return_data_structure_non_null_2604 ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulegenerateBagIt_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiAddConditionToGenQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiAddKeyValToMspStr_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiAddSelectFieldToGenQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiCheckAccess_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiCollCreate_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiCollRsync_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjChksum_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjClose_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjCopy_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjCreate_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjGet_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjLseek_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjOpen_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjPhymv_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjPut_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjRead_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjRename_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjRepl_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjRsync ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjTrim_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjUnlink-trash_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjUnlink_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDataObjWrite_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDeleteUnusedAVUs_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDigestMonStat_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiDoSomething_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiExecCmd_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiExecGenQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiExecStrCondQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiExit_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiExtractTemplateMDFromBuf_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiFlushMonStat_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiFreeBuffer_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetContInxFromGenQueryOut_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetDiffTime_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetFormattedSystemTime-human_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetFormattedSystemTime_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetIcatTime_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetMoreRows_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetObjType_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetSessionVarValue_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetStderrInExecCmdOut_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetStdoutInExecCmdOut_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetSystemTime_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetTaggedValueFromString_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiGetValByKey_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiHumanToSystemTime_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiListEnabledMS_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiMakeGenQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiMakeQuery_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiObjStat_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPhyBundleColl ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPhyBundleColl_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPhyPathReg_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPrintGenQueryInp_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPrintGenQueryOutToBuffer_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiPrintKeyValPair_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiQuota_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiReadMDTemplateIntoTagStruct_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiRmColl_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSendMail_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiServerMonPerf_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSetACL_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSetQuota_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSetReplComment_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSleep_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSplitPathByKey_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSplitPath_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiStrArray2String_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiStrCat_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiStrToBytesBuf_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiStrchop_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiString2StrArray_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiStrlen_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiSubstr_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiTarFileCreate_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulemsiWriteRodsLog_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_ruleprint_hello_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulewriteBytesBuf_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulewriteLine_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulewritePosInt_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_rulewriteString_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_str_2528 ... ok
+irods.test.test_all_rules.Test_AllRules.test_test_no_memory_error_patch_2242_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_testsuite1_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_testsuite2_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_testsuite3_r ... ok
+irods.test.test_all_rules.Test_AllRules.test_testsuiteForLcov_r ... ok
+irods.test.test_iscan.Test_iScan.test_iscan_data_object ... ok
+irods.test.test_iscan.Test_iScan.test_iscan_local_file ... ok
+irods.test.test_ichmod.Test_iChmod.test_ichmod_r ... ok
+irods.test.test_iput_options.Test_iPut_Options.test_iput_checksum_zero_length_file__issue_3275 ... ok
+irods.test.test_iput_options.Test_iPut_Options.test_iput_options ... ok
+irods.test.test_iput_options.Test_iPut_Options.test_iput_with_metadata_overwrite__issue_3114 ... ok
+irods.test.test_ireg.Test_Ireg.test_ireg_dir_exclude_from ... ok
+irods.test.test_ireg.Test_Ireg.test_ireg_files ... ok
+irods.test.test_ireg.Test_Ireg.test_ireg_new_replica__2847 ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_checksum_behavior ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_coll_to_coll ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_coll_to_coll_large_files ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_coll_to_dir ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_coll_to_dir_large_files ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_dir_to_coll ... ok
+irods.test.test_irsync.Test_iRsync.test_irsync_r_nested_dir_to_coll_large_files ... ok
+irods.test.test_iticket.Test_Iticket.test_iticket_bad_subcommand ... ok
+irods.test.test_iticket.Test_Iticket.test_iticket_get ... ok
+irods.test.test_iticket.Test_Iticket.test_iticket_put ... ok
+irods.test.test_irodsctl.Test_Irodsctl.test_configuration_schema_validation_from_file ... ok
+irods.test.test_irodsctl.Test_Irodsctl.test_re_shm_cleanup ... ok
+irods.test.test_irodsctl.Test_Irodsctl.test_re_shm_creation ... ok
+irods.test.test_resource_configuration.Test_DeferredToDeferred.test_iput_irm ... ok
+irods.test.test_control_plane.TestControlPlane.test_hosts_separator ... ok
+irods.test.test_control_plane.TestControlPlane.test_icat_shutdown_with_no_resource ... ok
+irods.test.test_control_plane.TestControlPlane.test_invalid_client_environment ... ok
+irods.test.test_control_plane.TestControlPlane.test_pause_and_resume ... ok
+irods.test.test_control_plane.TestControlPlane.test_shutdown ... ok
+irods.test.test_control_plane.TestControlPlane.test_shutdown_local_server ... ok
+irods.test.test_control_plane.TestControlPlane.test_shutdown_with_invalid_host ... ok
+irods.test.test_control_plane.TestControlPlane.test_status ... ok
+irods.test.test_control_plane.TestControlPlane.test_status_with_invalid_host ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_api_plugin ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_auth_pep ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_network_pep ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_out_variable ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_re_serialization ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_rule_engine_2242 ... ok
+irods.test.test_native_rule_engine_plugin.Test_Native_Rule_Engine_Plugin.test_rule_engine_2309 ... ok
+
+----------------------------------------------------------------------
+Ran 1441 tests in 12162.759s
+
+OK (skipped=89)
+</code></pre>
+
+
+<footer class=" footline" >
+	
+	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 09/06/2017
+	    </div>
+	
+</footer>
+
+
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+            
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+                
+            
+        
+                
+            
+        
+                
+            
+        
+          
+
+        
+
+
+        
+            <a class="nav nav-prev" href="/irods-provider-galera/init/" title="default_init.log"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/irods-provider-galera/parallel-put-get/" title="parallel_put_get.sh" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/irods-provider-galera/js/clipboard.min.js"></script>
+    <script src="/irods-provider-galera/js/jquery.sticky-kit.min.js"></script>
+    <script src="/irods-provider-galera/js/featherlight.min.js"></script>
+    <script src="/irods-provider-galera/js/html5shiv-printshiv.min.js"></script>
+    <script src="/irods-provider-galera/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/irods-provider-galera/js/modernizr.custom.71422.js"></script>
+    <script src="/irods-provider-galera/js/learn.js"></script>
+    <script src="/irods-provider-galera/js/hugo-learn.js"></script>
+
+    
+    <link href="/irods-provider-galera/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+    <script src="/irods-provider-galera/mermaid/mermaid.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+    
+
+  </body>
+</html>
+

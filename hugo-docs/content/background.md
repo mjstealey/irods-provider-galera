@@ -16,17 +16,17 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
 ## Why use MariaDB Galera cluster to service the iRODS catalog provider?
 
-An iRODS use case was presented where multiple geographically disparate participants all wanted to belong to the same iRODS Zone for ease of search and discovery. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.
+An iRODS use case was presented where geographically disparate participants wanted to belong to the same iRODS Zone for ease of search and discovery, but also wanted all nodes to be provider nodes with their own catalog. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.
 
 Initial requirements:
 
-- Every iRODS provider node would contain the ICAT catalog and resource storage space that could be uniquely assigned to that node
-- Large files would be transferred to the storage space of the iRODS provider node closest to the point of file origination
-- All nodes must pass some sort of quality of service testing beyond the standard iRODS test suite
+- Every iRODS provider node would contain the ICAT catalog and local storage space that could be uniquely assigned to that node as a resource
+- Files would be transferred to the iRODS provider node deemed closest to the point of file origination with respect to network latency and disk I/O metrics
+- All nodes must pass some sort of quality assurance test beyond the standard iRODS test suite which only exercises a single node via the demoResc resource
 
-The solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.
+The proof of concept solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.
 
-Sample latency for international WAN deployment.
+WAN replication will use ample latency values commensurate for an international WAN deployment.
 
 - Low nationally (RENCI/Chicago): 20ms
 - Medium nationally (Coast to coast: RENCI/SF): 60ms
@@ -34,9 +34,9 @@ Sample latency for international WAN deployment.
 - International (Sydney/Netherlands): 300 ms
 - International (Sydney/RENCI): 210ms
 
-A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **galeraZone** within a MariaDB Galera cluster. Each node within the testbed is a single CentOS 7 VM, and can be configured to use a variety of latency settings via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
+A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **tempZone** within a MariaDB Galera cluster. Each node within the testbed is a single CentOS 7 VM, and can be configured to use differing latency values via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
 
-![galeraZone]({{<baseurl>}}/images/galerazone.png)
+![Galera testbed]({{<baseurl>}}/images/galeratestbed.png)
 
 
 ## References
