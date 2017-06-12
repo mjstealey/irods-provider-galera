@@ -18,7 +18,7 @@ fi
 
 # show usage
 echo "### show usage ###"
-docker run --rm mjstealey/irods-provider-galera:4.2.0 -h setup_irods.py
+docker run --rm mjstealey/irods-provider-galera:4.2.1 -h setup_irods.py
 
 # init irods-galera-node-1
 echo "### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###"
@@ -28,7 +28,7 @@ docker run -d --name irods-galera-node-1 -h irods-galera-node-1 \
     --ip 172.18.0.2 \
     --add-host irods-galera-node-2:172.18.0.3 \
     --add-host irods-galera-node-3:172.18.0.4 \
-    mjstealey/irods-provider-galera:4.2.0 -vi setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vi setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null
@@ -49,6 +49,8 @@ docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword -e "SHOW databas
 echo "[node-1 MySQL]> SHOW grants FOR 'irods'@'localhost';"
 docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword ICAT -e \
 "SHOW grants FOR 'irods'@'localhost';"
+echo "[node-1]$ ienv"
+docker exec -ti -u irods irods-galera-node-1 ienv
 
 # init irods-galera-node-2
 echo "### start irods-galera-node-2 and join cluster 'irods-galera' ###"
@@ -58,7 +60,7 @@ docker run -d --name irods-galera-node-2 -h irods-galera-node-2 \
     --ip 172.18.0.3 \
     --add-host irods-galera-node-1:172.18.0.2 \
     --add-host irods-galera-node-3:172.18.0.4 \
-    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vj setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null
@@ -88,7 +90,7 @@ docker run -d --name irods-galera-node-3 -h irods-galera-node-3 \
     --ip 172.18.0.4 \
     --add-host irods-galera-node-1:172.18.0.2 \
     --add-host irods-galera-node-2:172.18.0.3 \
-    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vj setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null

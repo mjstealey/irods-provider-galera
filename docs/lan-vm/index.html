@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.21" />
-    <meta name="description" content="Galera VMs used for testing">
+    <meta name="description" content="Local Area Network - Virtual Machines">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 
-    <title>Galera cluster - VMs :: iRODS - MariaDB Galera cluster</title>
+    <title>LAN - virtual machines :: iRODS - MariaDB Galera cluster</title>
     <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
     <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
@@ -32,7 +32,7 @@
     
 
   </head>
-  <body class="" data-url="/irods-provider-galera/galera-vms/">
+  <body class="" data-url="/irods-provider-galera/lan-vm/">
     
 <nav id="sidebar" class="showVisitedLinks">
   <div id="header-wrapper">
@@ -204,7 +204,7 @@
     
     
         <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
-        active 
+         
         
         "
         >
@@ -213,10 +213,6 @@
                 
                 <i style="color:grey" class="fa fa-check read-icon"></i>
             </a>
-            
-                
-                
-                
             
             
             
@@ -252,7 +248,7 @@
     
     
         <li data-nav-id="/irods-provider-galera/lan-vm/" class="dd-item 
-         
+        active 
         
         "
         >
@@ -261,6 +257,10 @@
                 
                 <i style="color:grey" class="fa fa-check read-icon"></i>
             </a>
+            
+                
+                
+                
             
             
             
@@ -511,7 +511,7 @@
                   iRODS - MariaDB Galera cluster
                 </a>
                 
-                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/galera-vms/'>Galera cluster - VMs</a>
+                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/lan-vm/'>LAN - virtual machines</a>
                 
                 
             </div>
@@ -521,15 +521,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#design">Design</a></li>
-<li><a href="#setup">setup</a></li>
-<li><a href="#confifguration-scripts">Confifguration / Scripts</a>
+<li>
 <ul>
-<li><a href="#init-galera">init-galera</a></li>
-<li><a href="#galera1-env">galera1.env</a></li>
-<li><a href="#mkresc">mkresc</a></li>
+<li><a href="#run-tests-py">run_tests.py</a></li>
+<li><a href="#running-tests-in-docker">Running tests in docker</a></li>
 </ul></li>
-<li><a href="#local-directory-contents">Local directory contents</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -541,332 +537,233 @@
         
         <div id="body-inner">
           
-            <h1>Galera cluster - VMs</h1>
+            <h1>LAN - virtual machines</h1>
           
 
 
 
 
-<p>Three CentOS 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named <strong>galera</strong> which has rights to run <a href="https://www.docker.com">Docker</a> and not much else.</p>
+<p>Beyond the basic setup, a first round reasonable test to run would be the built in test located suite at <code>/var/lib/irods/scripts/run_tests.py</code> of every iRODS provider installation. The limitation of the test suite is that it wasn&rsquo;t necessarily designed to run against a clustered database, so the default notion of <strong>demoResc</strong> is problematic when the goal is to test across a distributed ICAT cluster. That said, we issued <code>python run_tests.py --run_python_suite</code> on each node within the cluster, one at a time.</p>
 
-<p><img src="https://mjstealey.github.io/irods-provider-galera//images/galeratestbed.png" alt="Galera testbed" /></p>
+<p><img src="https://mjstealey.github.io/irods-provider-galera//images/runtests.png" alt="run_test.py" /></p>
 
-<h2 id="design">Design</h2>
+<p>While the test suite runs on one node, the other nodes were monitored via various <a href="https://docs.irods.org/4.2.0/system_overview/glossary/#icommands">iCommands</a> and SQL queries validating that the test files and corresponding database entires were being made as expected.</p>
 
-<p>The proof of concept has been designed to run in Docker and doesn&rsquo;t prohibit storing the files for iRODS and MariaDB to the host. Generally an iRODS system deployment would use service level accounts named &ldquo;irods&rdquo; and &ldquo;mysql&rdquo; to retain/own the iRODS service files and the MariaDB files respectively. The docker image used herein has defaulted these system users to be:</p>
+<h3 id="run-tests-py">run_tests.py</h3>
 
-<ul>
-<li><strong>irods</strong>: UID=996, GID=996</li>
-<li><strong>mysql</strong>: UID=997, GID=997</li>
-</ul>
+<p>The <code>run_tests.py</code> script is the default script used for iRODS testing and is part of a normal iRODS installation. As a first round sanity check it was chosen to run with the <code>--run_python_suite</code> option which takes roughly 4 hours to complete all tests.</p>
 
-<p>If the user chooses to deploy the irods-provider-galera image using local volume mounts, then these <strong>UID</strong> and <strong>GID</strong> values would be found on the local system for the <strong>user</strong>:<strong>group</strong> in charge of the shared volumes. The UID and GID for both the <strong>irods</strong> and <strong>mysql</strong> user can be set at run-time to be any valid combination within the host system the container is being run from.</p>
+<pre><code class="language-console">$ python run_tests.py --help
+Usage: run_tests.py [options]
 
-<h2 id="setup">setup</h2>
-
-<p>A set of directories in <code>/var</code> are set aside to mount to the <strong>irods-provider-galera</strong> container to hold the iRODS and MariaDB files. The following script outlines the creation and initial permissions for these directories.</p>
-
-<p>Script <code>setup-galera</code>.</p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-
-sudo rm -rf /var/galera
-
-sudo mkdir -p /var/galera/init
-sudo mkdir -p /var/galera/vault
-sudo mkdir -p /var/galera/var_mysql
-sudo mkdir -p /var/galera/var_irods
-sudo mkdir -p /var/galera/etc_irods
-
-sudo chown -R galera:galera /var/galera
-
-exit 0;
+Options:
+  -h, --help            show this help message and exit
+  --run_specific_test=dotted name
+  --run_python_suite
+  --include_auth_tests
+  --run_devtesty
+  --topology_test=&lt;icat|resource&gt;
+  --catch_keyboard_interrupt
+  --use_ssl
+  --no_buffer
+  --xml_output
+  --federation=&lt;remote irods version, remote zone, remote host&gt;
 </code></pre>
 
-<p>The user named <strong>galera</strong> will be in charge of running the <strong>irods-provider-galera</strong>, and has the following attributes.</p>
+<h3 id="running-tests-in-docker">Running tests in docker</h3>
 
-<pre><code>$ id galera
-uid=2112(galera) gid=2112(galera) groups=2112(galera),992(docker)
+<p>Since iRODS is being run in docker, it is necessary to invoke the test suite from within the docker container. This can be accomplished by connecting to the container as the <strong>irods</strong> user, changing to the appropriate directory, and issuing the test run call.</p>
+
+<pre><code class="language-console">$ docker exec -ti -u irods irods-galera-1 /bin/bash
+bash-4.2$ cd ~
+bash-4.2$ pwd
+/var/lib/irods
+
+bash-4.2$ ienv
+irods_version - 4.2.1
+irods_zone_name - tempZone
+irods_host - galera-1.edc.renci.org
+irods_user_name - rods
+irods_transfer_buffer_size_for_parallel_transfer_in_megabytes - 4
+schema_name - irods_environment
+irods_server_control_plane_encryption_algorithm - AES-256-CBC
+irods_match_hash_policy - compatible
+irods_home - /tempZone/home/rods
+irods_default_resource - demoResc
+irods_encryption_num_hash_rounds - 16
+schema_version - v3
+irods_encryption_salt_size - 8
+irods_encryption_algorithm - AES-256-CBC
+irods_session_environment_file - /var/lib/irods/.irods/irods_environment.json.3460
+irods_port - 1247
+irods_maximum_size_for_single_buffer_in_megabytes - 32
+irods_client_server_policy - CS_NEG_REFUSE
+irods_environment_file - /var/lib/irods/.irods/irods_environment.json
+irods_default_number_of_transfer_threads - 4
+irods_default_hash_scheme - SHA256
+irods_server_control_plane_encryption_num_hash_rounds - 16
+irods_cwd - /tempZone/home/rods
+irods_encryption_key_size - 32
+irods_server_control_plane_port - 1248
+irods_server_control_plane_key - TEMPORARY__32byte_ctrl_plane_key
+irods_client_server_negotiation - request_server_negotiation
+
+bash-4.2$ cd scripts/
+bash-4.2$ python run_tests.py --run_python_suite
+irods.test.test_xmsg.Test_Xmsg.test_send_and_receive_one_xmsg ... ok
+irods.test.test_iadmin.Test_Iadmin.test_addchildtoresc_forbidden_characters_3449 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_admin_listings ... ok
+irods.test.test_iadmin.Test_Iadmin.test_authentication_name ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource_with_explicit_contextstring ... ok
+...
 </code></pre>
 
-<p>When instantiating the iRODS container we will set the environment variables of the <strong>irods</strong> and <strong>mysql</strong> users to use UIDs and GIDs that are locally available.</p>
+<p>The running tests can be observed from the other nodes via icommands or mysql queries.</p>
 
-<pre><code>-e UID_MYSQL=2000 \ # UID that is unassigned on the localhost
--e GID_MYSQL=2112 \ # GID assigned to user galera on the localhost
--e UID_IRODS=2112 \ # UID assigned to user galera on the localhost
--e GID_IRODS=2112 \ # GID assigned to user galera on the localhost
+<p>Example: <code>ils ../</code> from galera-2.edc.renci.org</p>
+
+<pre><code class="language-console">[galera@galera-2 ~]$ docker exec -ti -u irods irods-galera-2 ils ../
+/tempZone/home:
+  C- /tempZone/home/alice
+  C- /tempZone/home/bobby
+  C- /tempZone/home/issue_3104_user
+  C- /tempZone/home/otherrods
+  C- /tempZone/home/public
+  C- /tempZone/home/rods
 </code></pre>
 
-<p>View of <code>/var/galera</code> before <strong>irods-provider-galera</strong> is run:</p>
+<p>Example: <code>ils -lr ../</code> from galera-3.edc.renci.org</p>
 
-<pre><code>$ ls -alh /var/galera/
-total 4.0K
-drwxr-xr-x   7 galera galera   77 Jun 11 11:34 .
-drwxr-xr-x. 21 root   root   4.0K Jun 11 11:34 ..
-drwxr-xr-x   2 galera galera    6 Jun 11 11:34 etc_irods
-drwxr-xr-x   2 galera galera    6 Jun 11 11:34 init
-drwxr-xr-x   2 galera galera    6 Jun 11 11:34 var_irods
-drwxr-xr-x   2 galera galera    6 Jun 11 11:34 var_mysql
-drwxr-xr-x   2 galera galera    6 Jun 11 11:34 vault
+<pre><code class="language-console">[galera@galera-3 ~]$ docker exec -ti -u irods irods-galera-3 ils -lr ../
+/tempZone/home:
+  C- /tempZone/home/alice
+/tempZone/home/alice:
+  C- /tempZone/home/alice/2017-06-11Z18:36:36--irods-testing-ST6GaS
+/tempZone/home/alice/2017-06-11Z18:36:36--irods-testing-ST6GaS:
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 0.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 0.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 1.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 1.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 10.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 10.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 11.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 11.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 12.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 12.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 13.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 13.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 14.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 14.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 15.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 15.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 16.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 16.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 17.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 17.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 18.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 18.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 19.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 19.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 2.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 2.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 20.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 20.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 21.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 21.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 22.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 22.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 23.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 23.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 24.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 24.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 25.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 25.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 26.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 26.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 27.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 27.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 28.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 28.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 29.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 29.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 3.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 3.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 30.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 30.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 31.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 31.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 32.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 32.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 4.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 4.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 5.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 5.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 6.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 6.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 7.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 7.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 8.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 8.txt
+  alice             0 demoResc;cacheResc            0 2017-06-11.18:36 &amp; 9.txt
+  alice             1 demoResc;archiveResc            0 2017-06-11.18:36 &amp; 9.txt
+  C- /tempZone/home/bobby
+/tempZone/home/bobby:
+  C- /tempZone/home/bobby/2017-06-11Z18:36:37--irods-testing-YZlZ5v
+/tempZone/home/bobby/2017-06-11Z18:36:37--irods-testing-YZlZ5v:
+  C- /tempZone/home/issue_3104_user
+/tempZone/home/issue_3104_user:
+  C- /tempZone/home/otherrods
+/tempZone/home/otherrods:
+  C- /tempZone/home/otherrods/2017-06-11Z18:36:36--irods-testing-hbOA7N
+/tempZone/home/otherrods/2017-06-11Z18:36:36--irods-testing-hbOA7N:
+  otherrods         0 demoResc;cacheResc           33 2017-06-11.18:36 &amp; testfile.txt
+  otherrods         1 demoResc;archiveResc           33 2017-06-11.18:36 &amp; testfile.txt
+  C- /tempZone/home/otherrods/2017-06-11Z18:36:36--irods-testing-hbOA7N/testdir
+/tempZone/home/otherrods/2017-06-11Z18:36:36--irods-testing-hbOA7N/testdir:
+  C- /tempZone/home/public
+/tempZone/home/public:
+  otherrods         0 demoResc;cacheResc           33 2017-06-11.18:36 &amp; testfile.txt
+  otherrods         1 demoResc;archiveResc           33 2017-06-11.18:36 &amp; testfile.txt
+  C- /tempZone/home/rods
+/tempZone/home/rods:
 </code></pre>
 
-<h2 id="confifguration-scripts">Confifguration / Scripts</h2>
+<div class="panel panel-success">
+	<div class="panel-heading">PASSED</div>
+	<div class="panel-body"><p>Result of running <code>python run_tests.py --run_python_suite</code>.</p>
 
-<p>Containers are stood up and run in a similar fashion on each node. An <code>init-galera</code> script is defined on every node that makes use of a environment file to load the settings into the container at run-time. Nodes are stood up sequentially, with the first node being stood up in <strong>bootstrap</strong> mode, and subsequent containers being stood up in <strong>join</strong> mode.</p>
+<pre><code class="language-console">bash-4.2$ python run_tests.py --run_python_suite
+irods.test.test_xmsg.Test_Xmsg.test_send_and_receive_one_xmsg ... ok
+irods.test.test_iadmin.Test_Iadmin.test_addchildtoresc_forbidden_characters_3449 ... ok
+irods.test.test_iadmin.Test_Iadmin.test_admin_listings ... ok
+irods.test.test_iadmin.Test_Iadmin.test_authentication_name ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource ... ok
+irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource_with_explicit_contextstring ... ok
+...
+irods.test.test_irmdir.Test_Irmdir.test_irmdir_of_collection_containing_dataobj ... ok
+irods.test.test_irmdir.Test_Irmdir.test_irmdir_of_dataobj ... ok
+irods.test.test_irmdir.Test_Irmdir.test_irmdir_of_empty_collection ... ok
+irods.test.test_irmdir.Test_Irmdir.test_irmdir_of_nonexistent_collection ... ok
+irods.test.test_iquest.Test_Iquest.test_iquest_MAX_SQL_ROWS_results__3262 ... ok
 
-<h3 id="init-galera">init-galera</h3>
+----------------------------------------------------------------------
+Ran 1468 tests in 13106.840s
 
-<p>Example as found on node <strong>galera-1.edc.renci.org</strong></p>
-
-<p>Full output from <code>$ ./init-galera &amp;&amp; docker attach --sig-proxy=false irods-galera-1</code> is <a href="https://mjstealey.github.io/irods-provider-galera//init-galera">here</a></p>
-
-<p>Script <code>init-galera</code>.</p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-
-docker stop irods-galera-1
-docker rm -fv irods-galera-1
-sleep 2s
-docker run -d --name irods-galera-1 -h galera-1.edc.renci.org \
-    -e UID_MYSQL=2000 \
-    -e GID_MYSQL=2112 \
-    -e UID_IRODS=2112 \
-    -e GID_IRODS=2112 \
-    -v /var/galera/vault:/Vault \
-    -v /var/galera/var_mysql:/var/lib/mysql \
-    -v /var/galera/var_irods:/var/lib/irods \
-    -v /var/galera/etc_irods:/etc/irods \
-    -v /home/galera/init:/init \
-    --env-file=/home/galera/galera1.env \
-    -p 3306:3306 \
-    -p 4444:4444 \
-    -p 4567:4567 \
-    -p 4568:4568 \
-    -p 1247:1247 \
-    -p 1248:1248 \
-    -p 20000-20199:20000-20199 \
-    mjstealey/irods-provider-galera:latest -ivd setup_irods.py
-
-exit 0;
+OK (skipped=89)
+&lt;__main__.RegisteredTestResult run=1468 errors=0 failures=0&gt;
 </code></pre>
+</div>
+	
+</div>
 
-<h3 id="galera1-env">galera1.env</h3>
 
-<pre><code class="language-ini">WSREP_ON=ON
-WSREP_PROVIDER=/usr/lib64/galera/libgalera_smm.so
-WSREP_PROVIDER_OPTIONS='evs.keepalive_period=PT3S;
-  evs.suspect_timeout=PT30S;
-  evs.inactive_timeout=PT1M;
-  evs.install_timeout=PT1M;
-  evs.join_retrans_period=PT1.5S'
-WSREP_CLUSTER_ADDRESS='gcomm://172.25.8.171,172.25.8.172,172.25.8.173'
-WSREP_CLUSTER_NAME='galera'
-WSREP_NODE_ADDRESS='172.25.8.171'
-WSREP_NODE_NAME='galera-1'
-WSREP_SST_METHOD=rsync
-BINLOG_FORMAT=row
-DEFAULT_STORAGE_ENGINE=InnoDB
-INNODB_AUTOINC_LOCK_MODE=2
-BIND_ADDRESS=0.0.0.0
-IRODS_SERVICE_ACCOUNT_NAME=irods
-IRODS_SERVICE_ACCOUNT_GROUP=irods
-IRODS_SERVER_ROLE=1
-ODBC_DRIVER_FOR_MYSQL=2
-IRODS_DATABASE_SERVER_HOSTNAME=localhost
-IRODS_DATABASE_SERVER_PORT=3306
-IRODS_DATABASE_NAME=ICAT
-IRODS_DATABASE_USER_NAME=irods
-IRODS_DATABASE_PASSWORD=temppassword
-IRODS_DATABASE_USER_PASSWORD_SALT=tempsalt
-IRODS_ZONE_NAME=tempZone
-IRODS_PORT=1247
-IRODS_PORT_RANGE_BEGIN=20000
-IRODS_PORT_RANGE_END=20199
-IRODS_CONTROL_PLANE_PORT=1248
-IRODS_SCHEMA_VALIDATION=file:///var/lib/irods/configuration_schemas
-IRODS_SERVER_ADMINISTRATOR_USER_NAME=rods
-IRODS_SERVER_ZONE_KEY=TEMPORARY_zone_key
-IRODS_SERVER_NEGOTIATION_KEY=TEMPORARY_32byte_negotiation_key
-IRODS_CONTROL_PLANE_KEY=TEMPORARY__32byte_ctrl_plane_key
-IRODS_SERVER_ADMINISTRATOR_PASSWORD=rods
-IRODS_VAULT_DIRECTORY=/Vault
-MYSQL_ROOT_PASSWORD=rods
-</code></pre>
-
-<h3 id="mkresc">mkresc</h3>
-
-<p><code>$ ./mkresc galera1Resc</code></p>
-
-<pre><code class="language-bash">#!/usr/bin/env bash
-
-RESC=$1
-
-docker exec -u irods irods-galera-1 iadmin mkresc $RESC unixfilesystem galera-1.edc.renci.org:/Vault
-
-docker exec -u irods irods-galera-1 iadmin lr
-
-exit 0;
-</code></pre>
-
-<p>Example:</p>
-
-<pre><code class="language-console">$ ./mkresc galera1Resc
-Creating resource:
-Name:		&quot;galera1Resc&quot;
-Type:		&quot;unixfilesystem&quot;
-Host:		&quot;galera-1.edc.renci.org&quot;
-Path:		&quot;/Vault&quot;
-Context:	&quot;&quot;
-bundleResc
-demoResc
-galera1Resc
-</code></pre>
-
-<p>Nodes <strong>galera-2.edc.renci.org</strong> and <strong>galera-3.edc.renci.org</strong> differ in the following:</p>
-
-<ul>
-<li>Environment files differ respectively: <code>galera2.env</code> and <code>galera3.env</code> (Example)
-
-<ul>
-<li><code>WSREP_NODE_ADDRESS='172.25.8.172'</code></li>
-<li><code>WSREP_NODE_NAME='galera-2'</code></li>
-</ul></li>
-<li>Join instead of bootstrap: <code>mjstealey/irods-provider-galera:latest -jv setup_irods.py</code></li>
-<li>Resources are resident to each node: <code>galera2Resc</code> and <code>galera3Resc</code></li>
-</ul>
-
-<p>Example from galera-2.edc.renci.org</p>
-
-<pre><code class="language-console">$ ./mkresc galera2Resc
-Creating resource:
-Name:		&quot;galera2Resc&quot;
-Type:		&quot;unixfilesystem&quot;
-Host:		&quot;galera-2.edc.renci.org&quot;
-Path:		&quot;/Vault&quot;
-Context:	&quot;&quot;
-bundleResc
-demoResc
-galera1Resc
-galera2Resc
-</code></pre>
-
-<p>Example from galera-3.edc.renci.org</p>
-
-<pre><code class="language-console">$ ./mkresc galera3Resc
-Creating resource:
-Name:		&quot;galera3Resc&quot;
-Type:		&quot;unixfilesystem&quot;
-Host:		&quot;galera-3.edc.renci.org&quot;
-Path:		&quot;/Vault&quot;
-Context:	&quot;&quot;
-bundleResc
-demoResc
-galera1Resc
-galera2Resc
-galera3Resc
-</code></pre>
-
-<p>Example <code>docker ps</code> output from galera-1.edc.renci.org:</p>
-
-<pre><code class="language-console">$ docker ps
-CONTAINER ID        IMAGE                                    COMMAND                  CREATED             STATUS              PORTS                                                                                                                                                      NAMES
-203fd120fd2a        mjstealey/irods-provider-galera:latest   &quot;/docker-entrypoin...&quot;   20 minutes ago      Up 20 minutes       0.0.0.0:1247-1248-&gt;1247-1248/tcp, 0.0.0.0:3306-&gt;3306/tcp, 0.0.0.0:4444-&gt;4444/tcp, 0.0.0.0:4567-4568-&gt;4567-4568/tcp, 0.0.0.0:20000-20199-&gt;20000-20199/tcp   irods-galera-1
-</code></pre>
-
-<h2 id="local-directory-contents">Local directory contents</h2>
-
-<p>Host directories are used as volume mounts to the irods-provider-galera container and defined as follows:</p>
-
-<ul>
-<li><code>/var/galera/vault</code> &ndash;&gt; <code>/Vault</code></li>
-<li><code>/var/galera/var_mysql</code> &ndash;&gt; <code>/var/lib/mysql</code></li>
-<li><code>/var/galera/var_irods</code> &ndash;&gt; <code>/var/lib/irods</code></li>
-<li><code>/var/galera/etc_irods</code> &ndash;&gt; <code>/etc/irods</code></li>
-<li><code>/home/galera/init</code> &ndash;&gt; <code>/init</code></li>
-</ul>
-
-<p><strong>/var/galera/vault</strong> &ndash;&gt; <strong>/Vault</strong> mount (remap of Vault from /var/lib/irods/Vault)</p>
-
-<pre><code class="language-console">$ ls -lah /var/galera/vault/
-total 0
-drwxr-xr-x 3 galera galera 17 Jun 11 13:00 .
-drwxr-xr-x 7 galera galera 77 Jun 11 11:34 ..
-drwxr-x--- 3 galera galera 17 Jun 11 13:00 home
-</code></pre>
-
-<p><strong>/var/galera/var_mysql</strong> &ndash;&gt; <strong>/var/lib/mysql</strong> mount</p>
-
-<pre><code class="language-console">$ ls -lah /var/galera/var_mysql/
-total 301M
-drwxr-xr-x 5   2000 galera 4.0K Jun 11 13:10 .
-drwxr-xr-x 7 galera galera   77 Jun 11 11:34 ..
--rw-rw---- 1   2000 galera  16K Jun 11 13:00 aria_log.00000001
--rw-rw---- 1   2000 galera   52 Jun 11 13:00 aria_log_control
--rw-rw---- 1   2000 galera  19K Jun 11 13:10 galera-1.edc.renci.org.err
--rw-rw---- 1   2000 galera    5 Jun 11 13:00 galera-1.edc.renci.org.pid
--rw------- 1   2000 galera 129M Jun 11 13:10 galera.cache
--rw-rw---- 1   2000 galera  113 Jun 11 13:10 grastate.dat
--rw-rw---- 1   2000 sssd    217 Jun 11 13:09 gvwstate.dat
--rw-rw---- 1   2000 galera  76M Jun 11 13:00 ibdata1
--rw-rw---- 1   2000 galera  48M Jun 11 13:00 ib_logfile0
--rw-rw---- 1   2000 galera  48M May 21 22:25 ib_logfile1
-drwx------ 2   2000 galera 4.0K Jun 11 13:00 ICAT
--rw-rw---- 1   2000 galera    0 Jun 11 12:59 multi-master.info
-drwx--x--x 2   2000 galera 4.0K May 21 22:25 mysql
-srwxrwxrwx 1   2000 galera    0 Jun 11 13:00 mysql.sock
-drwx------ 2   2000 galera   19 May 21 22:25 performance_schema
--rw-rw---- 1   2000 sssd     41 Jun 11 13:10 rsync_sst_complete
--rw-rw---- 1   2000 galera  24K Jun 11 13:00 tc.log
-</code></pre>
-
-<p><strong>/var/galera/var_irods</strong> &ndash;&gt; <strong>/var/lib/irods</strong> mount</p>
-
-<pre><code class="language-console">$ ls -lah /var/galera/var_irods/
-total 28K
-drwxr-xr-x 11 galera galera 4.0K Jun 11 12:59 .
-drwxr-xr-x  7 galera galera   77 Jun 11 11:34 ..
-drwxr-xr-x  4 galera galera   32 Jun  9 19:34 clients
-drwxr-xr-x  4 galera galera   40 Jun  9 19:34 config
-drwxr-xr-x  3 galera galera   15 Jun  9 19:34 configuration_schemas
-drwx------  2 galera galera   49 Jun 11 12:59 .irods
--r-xr--r--  1 galera galera  283 Jun  8 02:30 irodsctl
-drwxr-xr-x  3 galera galera   85 Jun 11 13:00 log
-drwxr-xr-x  2 galera galera   94 Jun  9 19:34 msiExecCmd_bin
--rw-r--r--  1 galera galera  130 Jun 11 13:00 .odbc.ini
-drwxr-xr-x  3 galera galera 4.0K Jun  9 19:34 packaging
-drwxr-xr-x  3 galera galera 4.0K Jun  9 19:34 scripts
-drwxr-xr-x  3 galera galera   63 Jun  9 19:34 test
--rw-------  1 galera galera  224 Jun 11 12:59 VERSION.json
--rw-r--r--  1 galera galera  166 Jun  8 02:31 VERSION.json.dist
-</code></pre>
-
-<p><strong>/var/galera/etc_irods</strong> &ndash;&gt; <strong>/etc/irods</strong> mount</p>
-
-<pre><code class="language-console">$ ls -lah /var/galera/etc_irods/
-total 72K
-drwxr-xr-x 2 galera galera 4.0K Jun 11 13:00 .
-drwxr-xr-x 7 galera galera   77 Jun 11 11:34 ..
--rw-r--r-- 1 galera galera 5.0K Jun 11 13:00 core.dvm
--rw-r--r-- 1 galera galera  831 Jun 11 13:00 core.fnm
--rw-r--r-- 1 galera galera  38K Jun 11 13:00 core.re
--rw-r--r-- 1 galera galera  106 Jun 11 13:00 host_access_control_config.json
--rw-r--r-- 1 galera galera   90 Jun 11 13:00 hosts_config.json
--rw------- 1 galera galera 3.4K Jun 11 12:59 server_config.json
--rw-r--r-- 1 galera galera   64 Jun 11 12:59 service_account.config
-</code></pre>
-
-<p><strong>/home/galera/init</strong> &ndash;&gt; <strong>/init</strong> mount</p>
-
-<pre><code class="language-console">$ ls -lah /var/galera/init/
-total 0
-drwxr-xr-x 2 galera galera  6 Jun 11 11:34 .
-drwxr-xr-x 7 galera galera 77 Jun 11 11:34 ..
-</code></pre>
+<p>Full console log output available <a href="https://mjstealey.github.io/irods-provider-galera//run-tests">here</a></p>
 
 
 <footer class=" footline" >
 	
-	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 28/05/2017
+	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 09/06/2017
 	    </div>
 	
 </footer>
@@ -941,6 +838,28 @@ drwxr-xr-x 7 galera galera 77 Jun 11 11:34 ..
             
                 
                     
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
                     
                 
                 
@@ -955,28 +874,6 @@ drwxr-xr-x 7 galera galera 77 Jun 11 11:34 ..
                     
                         
                         
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
                     
                 
                 
@@ -1058,10 +955,10 @@ drwxr-xr-x 7 galera galera 77 Jun 11 11:34 ..
 
 
         
-            <a class="nav nav-prev" href="/irods-provider-galera/poc/" title="Proof of concept"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/irods-provider-galera/lan-local/" title="LAN - local machine"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/irods-provider-galera/lan-local/" title="LAN - local machine" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/irods-provider-galera/wan-vm/" title="WAN - virtual machines" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

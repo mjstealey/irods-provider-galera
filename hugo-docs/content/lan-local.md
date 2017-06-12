@@ -1,16 +1,16 @@
 +++
-date = "2017-05-28T20:54:43-04:00"
-description = "Three node test script in Docker"
-title = "Three node test script"
+date = "2017-06-09T21:24:47-04:00"
+description = "Local Area Network - local machine"
+title = "LAN - local machine"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
 [menu]
 
   [menu.main]
-    identifier = "3node"
-    parent = "usage"
-    weight = 6
+    identifier = "lanlocal"
+    parent = "poc"
+    weight = 2
 
 +++
 
@@ -18,7 +18,7 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
 A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.
 
-![Galera clusture]({{<baseurl>}}/images/galeracluster.png)
+![Galera clusture]({{<baseurl>}}/images/tempzone.png)
 
 The script does the following.
 
@@ -53,7 +53,7 @@ fi
 
 # show usage
 echo "### show usage ###"
-docker run --rm mjstealey/irods-provider-galera:4.2.0 -h setup_irods.py
+docker run --rm mjstealey/irods-provider-galera:4.2.1 -h setup_irods.py
 
 # init irods-galera-node-1
 echo "### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###"
@@ -63,7 +63,7 @@ docker run -d --name irods-galera-node-1 -h irods-galera-node-1 \
     --ip 172.18.0.2 \
     --add-host irods-galera-node-2:172.18.0.3 \
     --add-host irods-galera-node-3:172.18.0.4 \
-    mjstealey/irods-provider-galera:4.2.0 -vi setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vi setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null
@@ -84,6 +84,8 @@ docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword -e "SHOW databas
 echo "[node-1 MySQL]> SHOW grants FOR 'irods'@'localhost';"
 docker exec -ti irods-galera-node-1 mysql -uroot -ptemppassword ICAT -e \
 "SHOW grants FOR 'irods'@'localhost';"
+echo "[node-1]$ ienv"
+docker exec -ti -u irods irods-galera-node-1 ienv
 
 # init irods-galera-node-2
 echo "### start irods-galera-node-2 and join cluster 'irods-galera' ###"
@@ -93,7 +95,7 @@ docker run -d --name irods-galera-node-2 -h irods-galera-node-2 \
     --ip 172.18.0.3 \
     --add-host irods-galera-node-1:172.18.0.2 \
     --add-host irods-galera-node-3:172.18.0.4 \
-    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vj setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null
@@ -123,7 +125,7 @@ docker run -d --name irods-galera-node-3 -h irods-galera-node-3 \
     --ip 172.18.0.4 \
     --add-host irods-galera-node-1:172.18.0.2 \
     --add-host irods-galera-node-2:172.18.0.3 \
-    mjstealey/irods-provider-galera:4.2.0 -vj setup_irods.py
+    mjstealey/irods-provider-galera:4.2.1 -vj setup_irods.py
 
 exec 3>&2
 exec 2> /dev/null
@@ -158,18 +160,34 @@ exit 0;
 
 ```console
 $ ./three-node-test.sh
+Error: No such network: galeranet
 ### create docker network galeranet if it does not exist ###
+e5ebed88443da32ca7e1dee88bfbbe00fcef4da097ea8cb4f2a58e1c5bef41a4
 ### stop / remove existing containers ###
-irods-galera-node-1
-irods-galera-node-2
-irods-galera-node-3
-irods-galera-node-1
-irods-galera-node-2
-irods-galera-node-3
 ### show usage ###
+Unable to find image 'mjstealey/irods-provider-galera:4.2.1' locally
+4.2.1: Pulling from mjstealey/irods-provider-galera
+343b09361036: Pull complete
+608343e5b0d0: Pull complete
+91fb8ae89fb7: Pull complete
+9b44cff09138: Pull complete
+97f8885c0109: Pull complete
+98c739205832: Pull complete
+c00b8088a5b0: Pull complete
+79b2cb416fdd: Pull complete
+7937185edee5: Pull complete
+7e502a328d7c: Pull complete
+ccb66a531ac8: Pull complete
+31f50ab8da11: Pull complete
+0c0d109b7f83: Pull complete
+5ab05f22c297: Pull complete
+860a5b03ba2e: Pull complete
+3be472c8635d: Pull complete
+Digest: sha256:3e40975c4c310dbd089431f2533a56ffb0c3b68796d3d2007945fbd0208e0049
+Status: Downloaded newer image for mjstealey/irods-provider-galera:4.2.1
 iRODS Provider - Galera Cluster
 
-docker-entrypoint.sh [-hijvd] [-f filename.sql] [arguments]
+docker-entrypoint [-hijvd] [-f filename.sql] [arguments]
 
 options:
 -h                    show brief help
@@ -180,11 +198,11 @@ options:
 -f filename.sql       provide SQL script to initialize database from volume mounted as /LOCAL/PATH:/init
 
 Example:
-  $ docker run --rm mjstealey/irods-provider-galera:4.2.0 -h               # show help
-  $ docker run -d mjstealey/irods-provider-galera:4.2.0 -iv setup_irods.py # init with default settings
+  $ docker run --rm mjstealey/irods-provider-galera:4.2.1 -h               # show help
+  $ docker run -d mjstealey/irods-provider-galera:4.2.1 -iv setup_irods.py # init with default settings
 
 ### start irods-galera-node-1 and initialize cluster 'galera' with initialize.sql file ###
-c88d3a730157ab47124844288a916a69b5cd172208bea8599b3c3324f289a278
+cc51c3413306765208b8f8f308e65b190afb45c89571a71ad20079f538ea8e07
 Waiting for irods-galera-node-1 ........
 [node-1 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';
 +--------------------+-------+
@@ -208,8 +226,36 @@ Waiting for irods-galera-node-1 ........
 | GRANT USAGE ON *.* TO 'irods'@'localhost' IDENTIFIED BY PASSWORD '*60E38376E2C974797971A03D9BEEF1F5EB169FEA' |
 | GRANT ALL PRIVILEGES ON `ICAT`.* TO 'irods'@'localhost'                                                      |
 +--------------------------------------------------------------------------------------------------------------+
+[node-1]$ ienv
+irods_version - 4.2.1
+irods_server_control_plane_encryption_algorithm - AES-256-CBC
+schema_name - irods_environment
+irods_transfer_buffer_size_for_parallel_transfer_in_megabytes - 4
+irods_host - irods-galera-node-1
+irods_zone_name - tempZone
+irods_user_name - rods
+irods_server_control_plane_encryption_num_hash_rounds - 16
+irods_session_environment_file - /var/lib/irods/.irods/irods_environment.json.0
+irods_port - 1247
+irods_default_resource - demoResc
+irods_home - /tempZone/home/rods
+irods_encryption_num_hash_rounds - 16
+irods_encryption_algorithm - AES-256-CBC
+irods_default_hash_scheme - SHA256
+irods_cwd - /tempZone/home/rods
+irods_maximum_size_for_single_buffer_in_megabytes - 32
+schema_version - v3
+irods_encryption_salt_size - 8
+irods_client_server_policy - CS_NEG_REFUSE
+irods_server_control_plane_key - TEMPORARY__32byte_ctrl_plane_key
+irods_client_server_negotiation - request_server_negotiation
+irods_server_control_plane_port - 1248
+irods_encryption_key_size - 32
+irods_match_hash_policy - compatible
+irods_environment_file - /var/lib/irods/.irods/irods_environment.json
+irods_default_number_of_transfer_threads - 4
 ### start irods-galera-node-2 and join cluster 'irods-galera' ###
-6550de449e727405557f2042f43cd9947e8adac6954f3f6f5a40205aa8c06446
+654b094fc5545b6671c77f8fa84fa37dbe4eaf2bb353434b5be5686fef65e90a
 Waiting for irods-galera-node-2 ..........
 [node-2 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';
 +--------------------+-------+
@@ -234,8 +280,8 @@ Waiting for irods-galera-node-2 ..........
 | GRANT ALL PRIVILEGES ON `ICAT`.* TO 'irods'@'localhost'                                                      |
 +--------------------------------------------------------------------------------------------------------------+
 ### start irods-galera-node-3 and join cluster 'galera' ###
-fe46da1faf9f9417243f989f2a17d939b45f2df1b88ea5077594af2c594d3521
-Waiting for irods-galera-node-3 ...........
+b51fcb1501ec5e17d493359496e8235ed5227006c3ce292b1f041b5e338d0c1d
+Waiting for irods-galera-node-3 ..........
 [node-3 MySQL]> SHOW STATUS LIKE 'wsrep_cluster_size';
 +--------------------+-------+
 | Variable_name      | Value |
@@ -255,7 +301,7 @@ Waiting for irods-galera-node-3 ...........
 +--------------------------+-------------------------------------------------+
 | Variable_name            | Value                                           |
 +--------------------------+-------------------------------------------------+
-| wsrep_incoming_addresses | 172.18.0.4:3306,172.18.0.2:3306,172.18.0.3:3306 |
+| wsrep_incoming_addresses | 172.18.0.2:3306,172.18.0.3:3306,172.18.0.4:3306 |
 +--------------------------+-------------------------------------------------+
 [node-3 MySQL]> SHOW grants FOR 'irods'@'localhost';
 +--------------------------------------------------------------------------------------------------------------+
@@ -306,3 +352,14 @@ Waiting for irods-galera-node-3 ...........
 | R_ZONE_MAIN             | BASE TABLE |
 +-------------------------+------------+
 ```
+{{% panel theme="success" header="PASSED" %}}
+Example docker status:
+
+```console
+$ docker ps
+CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                                                               NAMES
+b51fcb1501ec        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..."   44 minutes ago      Up 44 minutes       1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   irods-galera-node-3
+654b094fc554        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..."   45 minutes ago      Up 45 minutes       1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   irods-galera-node-2
+cc51c3413306        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..."   45 minutes ago      Up 45 minutes       1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   irods-galera-node-1
+```
+{{% /panel %}}

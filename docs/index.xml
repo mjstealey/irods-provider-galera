@@ -12,43 +12,125 @@
     
     
     <item>
-      <title>iRODS run_tests.py</title>
-      <link>https://mjstealey.github.io/irods-provider-galera/runttests/</link>
-      <pubDate>Sat, 03 Jun 2017 23:02:40 -0400</pubDate>
+      <title>ils - parallel put get</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/ils/</link>
+      <pubDate>Sun, 11 Jun 2017 20:04:33 -0400</pubDate>
       
-      <guid>https://mjstealey.github.io/irods-provider-galera/runttests/</guid>
-      <description>Lorem Ipsum</description>
+      <guid>https://mjstealey.github.io/irods-provider-galera/ils/</guid>
+      <description>Running ils -lr on any node to show the parallel_put_get test in action.
+Example from galera-1.edc.renci.org:
+[galera@galera-1 ~]$ docker exec -ti -u irods irods-galera-1 ils -lr /tempZone/home/rods: C- /tempZone/home/rods/scratch_for_parallelputget /tempZone/home/rods/scratch_for_parallelputget: C- /tempZone/home/rods/scratch_for_parallelputget/149722545913474 /tempZone/home/rods/scratch_for_parallelputget/149722545913474: C- /tempZone/home/rods/scratch_for_parallelputget/149722545913474/benchmarks.coll /tempZone/home/rods/scratch_for_parallelputget/149722545913474/benchmarks.coll: rods 0 galera1Resc 41943044 2017-06-12.00:02 &amp;amp; bigfile.001 rods 0 galera1Resc 41943044 2017-06-12.00:02 &amp;amp; bigfile.002 rods 0 galera1Resc 41943044 2017-06-12.00:03 &amp;amp; bigfile.003 rods 0 galera1Resc 41943044 2017-06-12.00:02 &amp;amp; bigfile.004 rods 0 galera1Resc 41943044 2017-06-12.00:02 &amp;amp; bigfile.</description>
     </item>
     
     <item>
-      <title>Galera VMs</title>
-      <link>https://mjstealey.github.io/irods-provider-galera/galera-vms/</link>
-      <pubDate>Sun, 28 May 2017 21:26:16 -0400</pubDate>
+      <title>init_galera.log</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/init-galera/</link>
+      <pubDate>Sun, 11 Jun 2017 13:06:09 -0400</pubDate>
       
-      <guid>https://mjstealey.github.io/irods-provider-galera/galera-vms/</guid>
-      <description>Three CentOS Linux release 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named galera which has rights to run Docker and not much else.
-Design Though the proof of concept has been designed to run in Docker, it doesn&amp;rsquo;t prohibit storing the files for iRODS and MariaDB to the host. In general a system would employ service level accounts named &amp;ldquo;irods&amp;rdquo; and &amp;ldquo;mysql&amp;rdquo; to retain/own the iRODS service files and the MariaDB files respectively.</description>
+      <guid>https://mjstealey.github.io/irods-provider-galera/init-galera/</guid>
+      <description>Result from running ./init-galera &amp;amp;&amp;amp; docker attach --sig-proxy=false irods-galera-1.
+$ ./init-galera &amp;amp;&amp;amp; docker attach --sig-proxy=false irods-galera-1 Error response from daemon: No such container: irods-galera-1 Error response from daemon: No such container: irods-galera-1 Unable to find image &#39;mjstealey/irods-provider-galera:latest&#39; locally latest: Pulling from mjstealey/irods-provider-galera 343b09361036: Pull complete 608343e5b0d0: Pull complete 91fb8ae89fb7: Pull complete 9b44cff09138: Pull complete 97f8885c0109: Pull complete 98c739205832: Pull complete c00b8088a5b0: Pull complete aa14f35a131e: Pull complete eef6ac74c481: Pull complete 05f7faacbe7b: Pull complete d1825e2b39bf: Pull complete ce53a734ec4c: Pull complete 234f1b6d7574: Pull complete 22cad25b9d82: Pull complete c75107fa70f4: Pull complete f0e8dae58db7: Pull complete Digest: sha256:eabb3b7f672403da5402d524b767bdb79db6cd66242600f192cc96369deaa67d Status: Downloaded newer image for mjstealey/irods-provider-galera:latest 203fd120fd2a7169edfb265384b324516c50073a25203538a3d36f58db23c049 .</description>
     </item>
     
     <item>
-      <title>Three node test script</title>
-      <link>https://mjstealey.github.io/irods-provider-galera/three-node-test/</link>
-      <pubDate>Sun, 28 May 2017 20:54:43 -0400</pubDate>
+      <title>Advanced usage</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/advanced/</link>
+      <pubDate>Sat, 10 Jun 2017 21:57:31 -0400</pubDate>
       
-      <guid>https://mjstealey.github.io/irods-provider-galera/three-node-test/</guid>
+      <guid>https://mjstealey.github.io/irods-provider-galera/advanced/</guid>
+      <description> Work in progress </description>
+    </item>
+    
+    <item>
+      <title>Basic usage</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/basic/</link>
+      <pubDate>Sat, 10 Jun 2017 21:57:25 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/basic/</guid>
+      <description> Work in progress </description>
+    </item>
+    
+    <item>
+      <title>default_init.log</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/init/</link>
+      <pubDate>Sat, 10 Jun 2017 21:11:25 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/init/</guid>
+      <description>Result of running docker logs adoring_lamport.
+$ docker logs adoring_lamport usermod: no changes usermod: no changes Starting MySQL.170610 16:56:36 mysqld_safe Logging to &#39;/var/lib/mysql/a9890f386ece.err&#39;. 170610 16:56:36 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql SUCCESS! exec mysql_secure_installation NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE! PLEASE READ EACH STEP CAREFULLY! In order to log into MariaDB to secure it, we&#39;ll need the current password for the root user.</description>
+    </item>
+    
+    <item>
+      <title>Code / Console log</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/code/</link>
+      <pubDate>Sat, 10 Jun 2017 21:07:48 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/code/</guid>
+      <description>default_init.log: Resultant output from running the irods-provider-galera container with default settings
+run_tests.log: Console output from running python run_tests.py --run_python_suite
+parallel_put_get.sh: Parallel iput / iget script used for testing all nodes simultaneously
+init_galera.log: Resultant output from running ./init-galera &amp;amp;&amp;amp; docker attach --sig-proxy=false irods-galera-1 in the testbed
+ils - parallel put get: Contents of ils -lr while running parallel tests from one of the testbed nodes</description>
+    </item>
+    
+    <item>
+      <title>run_tests.py</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/run-tests/</link>
+      <pubDate>Fri, 09 Jun 2017 23:02:36 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/run-tests/</guid>
+      <description>Result of running python run_tests.py --run_python_suite.
+bash-4.2$ python run_tests.py --run_python_suite irods.test.test_xmsg.Test_Xmsg.test_send_and_receive_one_xmsg ... ok irods.test.test_iadmin.Test_Iadmin.test_addchildtoresc_forbidden_characters_3449 ... ok irods.test.test_iadmin.Test_Iadmin.test_admin_listings ... ok irods.test.test_iadmin.Test_Iadmin.test_authentication_name ... ok irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource ... ok irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_coordinating_resource_with_explicit_contextstring ... ok irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_new_user ... ok irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_unixfilesystem_resource ... ok irods.test.test_iadmin.Test_Iadmin.test_create_and_remove_unixfilesystem_resource_without_spaces ... ok irods.test.test_iadmin.Test_Iadmin.test_dlopen_failure_error_message ... skipped &#39;Activate once fixed issue#3387&#39; irods.test.test_iadmin.Test_Iadmin.test_domainadmin_role ... ok irods.test.test_iadmin.Test_Iadmin.test_group_membership ... ok irods.test.test_iadmin.Test_Iadmin.test_host_access_control ... ok irods.test.test_iadmin.Test_Iadmin.test_hosts_config ... ok irods.test.test_iadmin.Test_Iadmin.test_iadmin_mkuser ... ok irods.test.test_iadmin.Test_Iadmin.test_iadmin_scrambling_and_descrambling ... ok irods.test.test_iadmin.Test_Iadmin.test_ibun ... ok irods.test.test_iadmin.Test_Iadmin.test_ibun__issue_3571 ... ok irods.test.test_iadmin.Test_Iadmin.test_idempotent_aua__issue_3104 ... ok irods.</description>
+    </item>
+    
+    <item>
+      <title>LAN - local machine</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/lan-local/</link>
+      <pubDate>Fri, 09 Jun 2017 21:24:47 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/lan-local/</guid>
       <description>Three node Docker network A three node test script was created that demonstrates the basic principles of using the MariaDB Galera cluster as the iRODS catalog for multiple provider nodes.
 The script does the following.
  Creates a local docker network named galeranet so that known IP addresses can be assigned to each node Stands up the initial bootstrap node using mostly defaults as set by the Docker image. Stands up two additional nodes in series that join the cluster named galera as they discover others on the local galeranet network.</description>
     </item>
     
     <item>
-      <title>Parallel put / get tests</title>
+      <title>WAN - virtual machines</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/wan-vm/</link>
+      <pubDate>Fri, 09 Jun 2017 21:23:52 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/wan-vm/</guid>
+      <description>Design The testbed nodes were configured as described in the Galera VMs section. The parallel put/get test was first run on the testbed without any additional latency introduced to the nodes and allowed to run for 6 hours. The next test involved introducing varying amounts of latency to each node using NetEm. The latency values were set as follows.
+ galera-1.edc.renci.org: 20 ms galera-2.edc.renci.org: 60 ms galera-3.edc.renci.org: 120 ms  The parallel put/get scripts were again allowed to run against the nodes in this configuration for multiple hours.</description>
+    </item>
+    
+    <item>
+      <title>LAN - virtual machines</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/lan-vm/</link>
+      <pubDate>Fri, 09 Jun 2017 21:23:44 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/lan-vm/</guid>
+      <description>Beyond the basic setup, a first round reasonable test to run would be the built in test located suite at /var/lib/irods/scripts/run_tests.py of every iRODS provider installation. The limitation of the test suite is that it wasn&amp;rsquo;t necessarily designed to run against a clustered database, so the default notion of demoResc is problematic when the goal is to test across a distributed ICAT cluster. That said, we issued python run_tests.py --run_python_suite on each node within the cluster, one at a time.</description>
+    </item>
+    
+    <item>
+      <title>Galera cluster - VMs</title>
+      <link>https://mjstealey.github.io/irods-provider-galera/galera-vms/</link>
+      <pubDate>Sun, 28 May 2017 21:26:16 -0400</pubDate>
+      
+      <guid>https://mjstealey.github.io/irods-provider-galera/galera-vms/</guid>
+      <description>Three CentOS 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named galera which has rights to run Docker and not much else.
+Design The proof of concept has been designed to run in Docker and doesn&amp;rsquo;t prohibit storing the files for iRODS and MariaDB to the host. Generally an iRODS system deployment would use service level accounts named &amp;ldquo;irods&amp;rdquo; and &amp;ldquo;mysql&amp;rdquo; to retain/own the iRODS service files and the MariaDB files respectively.</description>
+    </item>
+    
+    <item>
+      <title>parallel_put_get.sh</title>
       <link>https://mjstealey.github.io/irods-provider-galera/parallel-put-get/</link>
       <pubDate>Sat, 27 May 2017 22:33:04 -0400</pubDate>
       
       <guid>https://mjstealey.github.io/irods-provider-galera/parallel-put-get/</guid>
-      <description>Design The testbed nodes were configured as described in the Galera VMs section. The parallel put/get test was first run on the testbed without any additional latency introduced to the nodes and allowed to run for 6 hours. The next test involved introducing varying amounts of latency to each node using NetEm. The latency values were set as follows.
- galera-1.edc.renci.org: 20 ms galera-2.edc.renci.org: 120 ms galera-3.edc.renci.org: 150 ms  The parellel put/get scripts were again allowed to run against the nodes in this configuration for 6 hours.</description>
+      <description>parallel_put_get.sh This script required the installation of the parallel package (parallel-20160222-1.el7.noarch) to be installed on the CentOS 7 test VMs being used. The configuration shown below would generate 256 40 MB files and transfer them using 30 parallel job threads at a time performing either iput or iget commands against the target iRODS provider.
+The only modification made to this script in the CentOS 7 test environment was to modify the TARGET_RESOURCE=&amp;quot;demoResc&amp;quot; to be either galera1Resc, galera2Resc, or galera3Resc depending on which node was being pointed at.</description>
     </item>
     
     <item>
@@ -66,10 +148,8 @@ The script does the following.
       <pubDate>Sat, 27 May 2017 20:33:21 -0400</pubDate>
       
       <guid>https://mjstealey.github.io/irods-provider-galera/poc/</guid>
-      <description>Methods of testing  run_tests.py on a single node
-Every installation of iRODS includes a python script that will run various tests located at /var/lib/irods/scripts/run_tests.py
-$ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help show this help message and exit --run_specific_test=dotted name --run_python_suite --include_auth_tests --run_devtesty --topology_test=&amp;lt;icat|resource&amp;gt; --catch_keyboard_interrupt --use_ssl --no_buffer --xml_output --federation=&amp;lt;remote irods version, remote zone, remote host&amp;gt;  run_tests.py on multiple nodes using netem
- parallel_put_get.sh on multiple nodes</description>
+      <description>Testbed Deployment Three CentOS 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named galera which has rights to run Docker and not much else. Complete testbed information
+Testing methods A series of tests were applied to the nodes with differing requirements and complexity. Initially the nodes were tested in a known local environment for debugging purposes.</description>
     </item>
     
     <item>
@@ -78,7 +158,7 @@ $ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help s
       <pubDate>Sat, 27 May 2017 20:33:02 -0400</pubDate>
       
       <guid>https://mjstealey.github.io/irods-provider-galera/background/</guid>
-      <description>Why use MariaDB Galera cluster to service the iRODS catalog provider? An iRODS use case was presented where multiple geographically disparate participants all wanted to belong to the same iRODS Zone for ease of search and discovery. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.</description>
+      <description>Why use MariaDB Galera cluster to service the iRODS catalog provider? An iRODS use case was presented where geographically disparate participants wanted to belong to the same iRODS Zone for ease of search and discovery, but also wanted all nodes to be provider nodes with their own catalog. There was a desire to be able to decentralize the normally singular ICAT catalog database in a way that all participants could make use of whichever ICAT provider was closest to them without having to federate iRODS zones if new nodes came online.</description>
     </item>
     
     <item>
@@ -87,7 +167,11 @@ $ python run_tests.py --help Usage: run_tests.py [options] Options: -h, --help s
       <pubDate>Sat, 27 May 2017 20:23:40 -0400</pubDate>
       
       <guid>https://mjstealey.github.io/irods-provider-galera/usage/</guid>
-      <description> Three node testbed Docker network configuration Galera VM configuration </description>
+      <description>iRODS provider using MariaDB Galera cluster in Docker is based on: mjstealey/mariadb-galera from centos:7
+Supported iRODS versions Supported tags in docker hub with respective Dockerfile link:
+ 4.2.1, latest (4.2.1/Dockerfile) 4.2.0 (4.2.0/Dockerfile)  Pull image from dockerhub Reference: mjstealey/irods-provider-galera/
+docker pull mjstealey/irods-provider-galera:latest  Building locally $ git clone https://github.com/mjstealey/irods-provider-galera.git $ cd irods-provider-galera/4.2.1/ $ docker build -t irods-provider-galera .  Usage options Show brief help
+$ docker run --rm mjstealey/irods-provider-galera:4.2.1 -h iRODS Provider - Galera Cluster docker-entrypoint [-hijvd] [-f filename.</description>
     </item>
     
   </channel>

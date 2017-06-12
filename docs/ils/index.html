@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.21" />
+    <meta name="description" content="ils of parallel put get test">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+
+    <title>ils - parallel put get :: iRODS - MariaDB Galera cluster</title>
+    <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/featherlight.min.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/horsey.css" rel="stylesheet">
+    <link href="/irods-provider-galera/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="/irods-provider-galera/css/bootstrap.min.css">
+    <script src="/irods-provider-galera/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+    <link href="/irods-provider-galera/css/theme-blue.css" rel="stylesheet">
+    
+    
+
+    
+
+  </head>
+  <body class="" data-url="/irods-provider-galera/ils/">
+    
+<nav id="sidebar" class="showVisitedLinks">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p><a href="https://mjstealey.github.io/irods-provider-galera/"><img src=https://mjstealey.github.io/irods-provider-galera//images/logo.png height="40"></a></p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/irods-provider-galera/js/lunr.min.js"></script>
+<script type="text/javascript" src="/irods-provider-galera/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/mjstealey.github.io\/irods-provider-galera\/";
+</script>
+<script type="text/javascript" src="/irods-provider-galera/js/search.js"></script>
+
+    
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+        
+            <li data-nav-id="/irods-provider-galera/" class="dd-item">
+            <a href="/irods-provider-galera/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+
+        
+        
+        
+        
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/background/">
+                <span>Background</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/usage/">
+                <span>Usage</span>
+                
+                    
+                        <i class="fa fa-angle-right fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/basic/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/basic/">
+                <span>Basic usage</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/advanced/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/advanced/">
+                <span>Advanced usage</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+        
+            
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/poc/" class="dd-item 
+         
+        parent
+        "
+        >
+            <a href="/irods-provider-galera/poc/">
+                <span>Proof of concept</span>
+                
+                    
+                        <i class="fa fa-angle-down fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+                    
+                
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/galera-vms/">
+                <span>Galera cluster - VMs</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/lan-local/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/lan-local/">
+                <span>LAN - local machine</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/lan-vm/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/lan-vm/">
+                <span>LAN - virtual machines</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/wan-vm/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/wan-vm/">
+                <span>WAN - virtual machines</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/code/" class="dd-item 
+         
+        parent
+        "
+        >
+            <a href="/irods-provider-galera/code/">
+                <span>Code / Console log</span>
+                
+                    
+                        <i class="fa fa-angle-down fa-lg category-icon"></i>
+                    
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+                    
+                
+            
+            
+            
+                <ul>
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/init/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/init/">
+                <span>default_init.log</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/run-tests/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/run-tests/">
+                <span>run_tests.py</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/parallel-put-get/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/parallel-put-get/">
+                <span>parallel_put_get.sh</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/init-galera/" class="dd-item 
+         
+        
+        "
+        >
+            <a href="/irods-provider-galera/init-galera/">
+                <span>init_galera.log</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+            
+            
+        </li>
+    
+
+                
+                    
+    
+    
+    
+    
+        <li data-nav-id="/irods-provider-galera/ils/" class="dd-item 
+        active 
+        
+        "
+        >
+            <a href="/irods-provider-galera/ils/">
+                <span>ils - parallel put get</span>
+                
+                <i style="color:grey" class="fa fa-check read-icon"></i>
+            </a>
+            
+                
+                
+                
+            
+            
+            
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+                
+                </ul>
+             
+        </li>
+    
+
+        
+
+        
+
+        
+        
+        
+        <section id="shortcuts">
+            
+                <li class="" role="">
+                    <h3>More</h3>
+                    <a href="https://github.com/mjstealey/irods-provider-galera/"><i class='fa fa-github'></i> Github repository</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://irods.org/documentation/"><i class='fa fa-bookmark'></i> iRODS Documentation</a>
+                    
+                </li>
+            
+                <li class="" role="">
+                    
+                    <a href="https://mariadb.com/kb/en/mariadb/documentation/"><i class='fa fa-bookmark'></i> MariaDB Documentation</a>
+                    
+                </li>
+            
+        </section>    
+        
+        
+            <a class="" href="#" data-clear-history-toggle=""><i class="fa  fa-history"></i> Clear History</a>
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      <center>
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download mjstealey/irods-provider-galera on GitHub">Download</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera" data-icon="octicon-star" data-show-count="false" aria-label="Star mjstealey/irods-provider-galera on GitHub">Star</a>
+
+
+<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork mjstealey/irods-provider-galera on GitHub">Fork</a>
+
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><a href=""><i class="fa fa-list-alt"></i></a></span>
+                <a href="https://mjstealey.github.io/irods-provider-galera/">
+                  <span class="fa fa-arrow-circle-right" style="font-size:larger" aria-hidden="true"></span>
+                  iRODS - MariaDB Galera cluster
+                </a>
+                
+                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/code/'>Code / Console log</a> / <a href='/irods-provider-galera/ils/'>ils - parallel put get</a>
+                
+                
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>ils - parallel put get</h1>
+          
+
+
+<p>Running <code>ils -lr</code> on any node to show the parallel_put_get test in action.</p>
+
+<p>Example from galera-1.edc.renci.org:</p>
+
+<pre><code class="language-console">[galera@galera-1 ~]$ docker exec -ti -u irods irods-galera-1 ils -lr
+/tempZone/home/rods:
+  C- /tempZone/home/rods/scratch_for_parallelputget
+/tempZone/home/rods/scratch_for_parallelputget:
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722545913474
+/tempZone/home/rods/scratch_for_parallelputget/149722545913474:
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722545913474/benchmarks.coll
+/tempZone/home/rods/scratch_for_parallelputget/149722545913474/benchmarks.coll:
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.001
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.002
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.003
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.004
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.005
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.006
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.007
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.008
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.009
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.010
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.011
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.012
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.013
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.014
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.015
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.016
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.017
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.018
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.019
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.020
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.021
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.022
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.023
+  rods              0 galera1Resc     41943044 2017-06-12.00:02 &amp; bigfile.024
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.025
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.026
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.027
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.028
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.029
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.030
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.031
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.032
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.033
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.034
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.035
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.036
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.037
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.038
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.039
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.040
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.041
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.042
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.043
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.044
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.045
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.046
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.047
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.048
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.049
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.050
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.051
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.052
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.053
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.054
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.055
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.056
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.057
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.058
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.059
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.060
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.061
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.062
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.063
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.064
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.065
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.066
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.067
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.068
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.069
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.070
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.071
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.072
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.073
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.074
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.075
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.076
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.077
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.078
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.079
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.080
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.081
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.082
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.083
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.084
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.085
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.086
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.087
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.088
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.089
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.090
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.091
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.092
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.093
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.094
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.095
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.096
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.097
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.098
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.099
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.100
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.101
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.102
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.103
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.104
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.105
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.106
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.107
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.108
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.109
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.110
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.111
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.112
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.113
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.114
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.115
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.116
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.117
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.118
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.119
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.120
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.121
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.122
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.123
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.124
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.125
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.126
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.127
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.128
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.129
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.130
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.131
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.132
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.133
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.134
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.135
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.136
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.137
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.138
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.139
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.140
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.141
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.142
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.143
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.144
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.145
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.146
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.147
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.148
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.149
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.150
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.151
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.152
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.153
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.154
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.155
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.156
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.157
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.158
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.159
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.160
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.161
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.162
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.163
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.164
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.165
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.166
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.167
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.168
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.169
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.170
+  rods              0 galera1Resc     41943044 2017-06-12.00:00 &amp; bigfile.171
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.172
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.173
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.174
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.175
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.176
+  rods              0 galera1Resc     41943044 2017-06-12.00:03 &amp; bigfile.177
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.178
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.179
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.180
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.181
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.182
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.183
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.184
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.185
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.186
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.187
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.188
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.189
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.190
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.191
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.192
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.193
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.194
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.195
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.196
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.197
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.198
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.199
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.200
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.201
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.202
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.203
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.204
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.205
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.206
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.207
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.208
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.209
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.210
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.211
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.212
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.213
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.214
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.215
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.216
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.217
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.218
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.219
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.220
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.221
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.222
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.223
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.224
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.225
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.226
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.227
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.228
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.229
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.230
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.231
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.232
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.233
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.234
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.235
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.236
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.237
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.238
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.239
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.240
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.241
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.242
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.243
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.244
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.245
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.246
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.247
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.248
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.249
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.250
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.251
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.252
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.253
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.254
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.255
+  rods              0 galera1Resc     41943044 2017-06-12.00:01 &amp; bigfile.256
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722546228717
+/tempZone/home/rods/scratch_for_parallelputget/149722546228717:
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722546228717/benchmarks.coll
+/tempZone/home/rods/scratch_for_parallelputget/149722546228717/benchmarks.coll:
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.001
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.002
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.003
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.004
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.005
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.006
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.007
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.008
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.009
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.010
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.011
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.012
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.013
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.014
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.015
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.016
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.017
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.018
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.019
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.020
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.021
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.022
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.023
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.024
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.025
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.026
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.027
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.028
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.029
+  rods              0 galera2Resc     41943044 2017-06-11.23:57 &amp; bigfile.030
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.031
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.032
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.033
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.034
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.035
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.036
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.037
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.038
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.039
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.040
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.041
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.042
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.043
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.044
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.045
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.046
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.047
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.048
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.049
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.050
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.051
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.052
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.053
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.054
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.055
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.056
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.057
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.058
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.059
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.060
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.061
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.062
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.063
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.064
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.065
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.066
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.067
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.068
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.069
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.070
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.071
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.072
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.073
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.074
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.075
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.076
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.077
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.078
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.079
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.080
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.081
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.082
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.083
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.084
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.085
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.086
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.087
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.088
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.089
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.090
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.091
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.092
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.093
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.094
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.095
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.096
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.097
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.098
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.099
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.100
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.101
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.102
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.103
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.104
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.105
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.106
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.107
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.108
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.109
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.110
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.111
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.112
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.113
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.114
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.115
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.116
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.117
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.118
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.119
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.120
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.121
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.122
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.123
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.124
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.125
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.126
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.127
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.128
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.129
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.130
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.131
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.132
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.133
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.134
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.135
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.136
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.137
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.138
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.139
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.140
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.141
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.142
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.143
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.144
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.145
+  rods              0 galera2Resc     41943044 2017-06-11.23:58 &amp; bigfile.146
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.147
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.148
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.149
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.150
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.151
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.152
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.153
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.154
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.155
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.156
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.157
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.158
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.159
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.160
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.161
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.162
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.163
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.164
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.165
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.166
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.167
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.168
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.169
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.170
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.171
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.172
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.173
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.174
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.175
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.176
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.177
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.178
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.179
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.180
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.181
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.182
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.183
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.184
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.185
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.186
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.187
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.188
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.189
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.190
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.191
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.192
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.193
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.194
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.195
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.196
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.197
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.198
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.199
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.200
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.201
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.202
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.203
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.204
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.205
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.206
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.207
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.208
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.209
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.210
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.211
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.212
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.213
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.214
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.215
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.216
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.217
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.218
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.219
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.220
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.221
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.222
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.223
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.224
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.225
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.226
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.227
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.228
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.229
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.230
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.231
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.232
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.233
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.234
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.235
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.236
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.237
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.238
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.239
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.240
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.241
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.242
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.243
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.244
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.245
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.246
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.247
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.248
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.249
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.250
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.251
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.252
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.253
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.254
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.255
+  rods              0 galera2Resc     41943044 2017-06-11.23:59 &amp; bigfile.256
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722546622032
+/tempZone/home/rods/scratch_for_parallelputget/149722546622032:
+  C- /tempZone/home/rods/scratch_for_parallelputget/149722546622032/benchmarks.coll
+/tempZone/home/rods/scratch_for_parallelputget/149722546622032/benchmarks.coll:
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.001
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.002
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.003
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.004
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.005
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.006
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.007
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.008
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.009
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.010
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.011
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.012
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.013
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.014
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.015
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.016
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.017
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.018
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.019
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.020
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.021
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.022
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.023
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.024
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.025
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.026
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.027
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.028
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.029
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.030
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.031
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.032
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.033
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.034
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.035
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.036
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.037
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.038
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.039
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.040
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.041
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.042
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.043
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.044
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.045
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.046
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.047
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.048
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.049
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.050
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.051
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.052
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.053
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.054
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.055
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.056
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.057
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.058
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.059
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.060
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.061
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.062
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.063
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.064
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.065
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.066
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.067
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.068
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.069
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.070
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.071
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.072
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.073
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.074
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.075
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.076
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.077
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.078
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.079
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.080
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.081
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.082
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.083
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.084
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.085
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.086
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.087
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.088
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.089
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.090
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.091
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.092
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.093
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.094
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.095
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.096
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.097
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.098
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.099
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.100
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.101
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.102
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.103
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.104
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.105
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.106
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.107
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.108
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.109
+  rods              0 galera3Resc     41943044 2017-06-11.23:58 &amp; bigfile.110
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.111
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.112
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.113
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.114
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.115
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.116
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.117
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.118
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.119
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.120
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.121
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.122
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.123
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.124
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.125
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.126
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.127
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.128
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.129
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.130
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.131
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.132
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.133
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.134
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.135
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.136
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.137
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.138
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.139
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.140
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.141
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.142
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.143
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.144
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.145
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.146
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.147
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.148
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.149
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.150
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.151
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.152
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.153
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.154
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.155
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.156
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.157
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.158
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.159
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.160
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.161
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.162
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.163
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.164
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.165
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.166
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.167
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.168
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.169
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.170
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.171
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.172
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.173
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.174
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.175
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.176
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.177
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.178
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.179
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.180
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.181
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.182
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.183
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.184
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.185
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.186
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.187
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.188
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.189
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.190
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.191
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.192
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.193
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.194
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.195
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.196
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.197
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.198
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.199
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.200
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.201
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.202
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.203
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.204
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.205
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.206
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.207
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.208
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.209
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.210
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.211
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.212
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.213
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.214
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.215
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.216
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.217
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.218
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.219
+  rods              0 galera3Resc     41943044 2017-06-11.23:59 &amp; bigfile.220
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.221
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.222
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.223
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.224
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.225
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.226
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.227
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.228
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.229
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.230
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.231
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.232
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.233
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.234
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.235
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.236
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.237
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.238
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.239
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.240
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.241
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.242
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.243
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.244
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.245
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.246
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.247
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.248
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.249
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.250
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.251
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.252
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.253
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.254
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.255
+  rods              0 galera3Resc     41943044 2017-06-12.00:00 &amp; bigfile.256
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+            
+        
+        
+            
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                
+                
+                
+            
+        
+                
+                    
+            
+            
+                
+                    
+                    
+                
+                
+                
+            
+        
+                
+            
+        
+                
+            
+        
+          
+
+        
+
+
+        
+            <a class="nav nav-prev" href="/irods-provider-galera/init-galera/" title="init_galera.log"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/irods-provider-galera/js/clipboard.min.js"></script>
+    <script src="/irods-provider-galera/js/jquery.sticky-kit.min.js"></script>
+    <script src="/irods-provider-galera/js/featherlight.min.js"></script>
+    <script src="/irods-provider-galera/js/html5shiv-printshiv.min.js"></script>
+    <script src="/irods-provider-galera/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/irods-provider-galera/js/modernizr.custom.71422.js"></script>
+    <script src="/irods-provider-galera/js/learn.js"></script>
+    <script src="/irods-provider-galera/js/hugo-learn.js"></script>
+
+    
+    <link href="/irods-provider-galera/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+    <script src="/irods-provider-galera/mermaid/mermaid.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+    
+
+  </body>
+</html>
+

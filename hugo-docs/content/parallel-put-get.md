@@ -1,7 +1,7 @@
 +++
 date = "2017-05-27T22:33:04-04:00"
 description = "parallel put get test script"
-title = "Parallel put / get tests"
+title = "parallel_put_get.sh"
 
 creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmail.com" lastmodifierdisplayname = "Michael J. Stealey" lastmodifieremail = "michael.j.stealey@gmail.com"
 
@@ -9,31 +9,16 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
   [menu.main]
     identifier = "putget"
-    parent = "poc"
-    weight = 5
+    parent = "code"
+    weight = 3
 
 +++
 
-## Design
-
-The testbed nodes were configured as described in the [Galera VMs]({{<baseurl>}}/galera-vms#design) section. The parallel put/get test was first run on the testbed without any additional latency introduced to the nodes and allowed to run for 6 hours. The next test involved introducing varying amounts of latency to each node using NetEm. The latency values were set as follows.
-
-- galera-1.edc.renci.org: 20 ms
-- galera-2.edc.renci.org: 120 ms
-- galera-3.edc.renci.org: 150 ms
-
-The parellel put/get scripts were again allowed to run against the nodes in this configuration for 6 hours.
-
-![iRODS Galera clients]({{<baseurl>}}/images/galeraclients.png)
-
-## Parallel iput / iget
+### parallel_put_get.sh
 
 This script required the installation of the **parallel** package ([parallel-20160222-1.el7.noarch](https://www.rpmfind.net/linux/RPM/epel/7/aarch64/p/parallel-20160222-1.el7.noarch.html)) to be installed on the CentOS 7 test VMs being used. The configuration shown below would generate 256 40 MB files and transfer them using 30 parallel job threads at a time performing either **iput** or **iget** commands against the target iRODS provider.
 
 The only modification made to this script in the CentOS 7 test environment was to modify the `TARGET_RESOURCE="demoResc"` to be either `galera1Resc`, `galera2Resc`, or `galera3Resc` depending on which node was being pointed at.
-
-
-### parallel_put_get.sh
 
 ```bash
 #!/bin/bash -e
