@@ -26,18 +26,23 @@ Initial requirements:
 
 The proof of concept solution being presented here uses MariaDB configured as a Galera cluster to decentralize the ICAT catalog database across all participating iRODS provider nodes.
 
-WAN replication will use ample latency values commensurate for an international WAN deployment.
+WAN replication will use ample latency values commensurate for an international WAN deployment. Example latency values would be something like:
 
 - Low nationally (RENCI/Chicago): 20ms
 - Medium nationally (Coast to coast: RENCI/SF): 60ms
-- International (Netherlands/RENCI):117 ms
-- International (Sydney/Netherlands): 300 ms
+- International (Netherlands/RENCI): 117 ms
 - International (Sydney/RENCI): 210ms
+- International (Sydney/Netherlands): 300 ms
 
 A proof of concept testbed comprised of three iRODS provider nodes has been stood up to form a single zone named **tempZone** within a MariaDB Galera cluster. Each node within the testbed is a single CentOS 7 VM, and can be configured to use differing latency values via [NetEm](http://man7.org/linux/man-pages/man8/tc-netem.8.html) to simulate the kind of network traffic that would be experienced in a WAN configuration.
 
 ![Galera testbed]({{<baseurl>}}/images/galeratestbed.png)
 
+## More
+
+Docker **[Usage]({{<baseurl>}}/usage)** and configuration
+
+Testbed deployment **[Proof of concept]({{<baseurl>}}/poc)** and metrics
 
 ## References
 

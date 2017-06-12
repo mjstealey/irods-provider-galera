@@ -1,548 +1,525 @@
-<!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.21" />
-    <meta name="description" content="default initialization log">
++++
+date = "2017-06-11T13:06:09-04:00"
+description = "init galera node log output"
+title = "init_galera.log"
 
+[menu]
 
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+  [menu.main]
+    identifier = "initgalera"
+    parent = "code"
+    weight = 11
 
-    <title>default_init.log :: iRODS - MariaDB Galera cluster</title>
-    <link href="/irods-provider-galera/css/nucleus.css" rel="stylesheet">
-    <link href="/irods-provider-galera/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/irods-provider-galera/css/hybrid.css" rel="stylesheet">
-    <link href="/irods-provider-galera/css/featherlight.min.css" rel="stylesheet">
-    <link href="/irods-provider-galera/css/horsey.css" rel="stylesheet">
-    <link href="/irods-provider-galera/css/theme.css" rel="stylesheet">
-    <link rel="stylesheet" href="/irods-provider-galera/css/bootstrap.min.css">
-    <script src="/irods-provider-galera/js/jquery-2.x.min.js"></script>
-    <style type="text/css">
-      :root #header + #content > #left > #rlblock_left {
-        display:none !important;
-      }
-    </style>
++++
 
-    
-    <link href="/irods-provider-galera/css/theme-blue.css" rel="stylesheet">
-    
-    
+Result from running `./init-galera && docker attach --sig-proxy=false irods-galera-1`.
 
-    
-
-  </head>
-  <body class="" data-url="/irods-provider-galera/init/">
-    
-<nav id="sidebar" class="showVisitedLinks">
-  <div id="header-wrapper">
-    <div id="header">
-       
-	<p><a href="https://mjstealey.github.io/irods-provider-galera/"><img src=https://mjstealey.github.io/irods-provider-galera//images/logo.png height="40"></a></p>
- 
-
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fa fa-search"></i></label>
-    <input data-search-input id="search-by" type="text" placeholder="Search...">
-    <span data-search-clear=""><i class="fa fa-close"></i></span>
-</div>
-<script type="text/javascript" src="/irods-provider-galera/js/lunr.min.js"></script>
-<script type="text/javascript" src="/irods-provider-galera/js/horsey.js"></script>
-<script type="text/javascript">
-    var baseurl = "https:\/\/mjstealey.github.io\/irods-provider-galera\/";
-</script>
-<script type="text/javascript" src="/irods-provider-galera/js/search.js"></script>
-
-    
-  </div>
-
-  <div class="highlightable">
-    <ul class="topics">
-        
-            <li data-nav-id="/irods-provider-galera/" class="dd-item">
-            <a href="/irods-provider-galera/"><i class="fa fa-fw fa-home"></i></a>
-            </li>
-        
-
-        
-        
-        
-        
-        
-            
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/background/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/background/">
-                <span>Background</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-        
-            
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/usage/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/usage/">
-                <span>Usage</span>
-                
-                    
-                        <i class="fa fa-angle-right fa-lg category-icon"></i>
-                    
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-                <ul>
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/basic/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/basic/">
-                <span>Basic usage</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/advanced/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/advanced/">
-                <span>Advanced usage</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                </ul>
-             
-        </li>
-    
-
-        
-            
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/poc/" class="dd-item 
-         
-        parent
-        "
-        >
-            <a href="/irods-provider-galera/poc/">
-                <span>Proof of concept</span>
-                
-                    
-                        <i class="fa fa-angle-down fa-lg category-icon"></i>
-                    
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-                
-                
-                
-                    
-                
-            
-            
-            
-                <ul>
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/galera-vms/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/galera-vms/">
-                <span>Galera cluster - VMs</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/lan-local/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/lan-local/">
-                <span>LAN - local machine</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/lan-vm/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/lan-vm/">
-                <span>LAN - virtual machines</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/wan-vm/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/wan-vm/">
-                <span>WAN - virtual machines</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/code/" class="dd-item 
-         
-        parent
-        "
-        >
-            <a href="/irods-provider-galera/code/">
-                <span>Code / Console log</span>
-                
-                    
-                        <i class="fa fa-angle-down fa-lg category-icon"></i>
-                    
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-                
-                
-                
-                    
-                
-            
-            
-            
-                <ul>
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/init/" class="dd-item 
-        active 
-        
-        "
-        >
-            <a href="/irods-provider-galera/init/">
-                <span>default_init.log</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-                
-                
-                
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/run-tests/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/run-tests/">
-                <span>run_tests.py</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/parallel-put-get/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/parallel-put-get/">
-                <span>parallel_put_get.sh</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/init-galera/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/init-galera/">
-                <span>init_galera.log</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                    
-    
-    
-    
-    
-        <li data-nav-id="/irods-provider-galera/ils/" class="dd-item 
-         
-        
-        "
-        >
-            <a href="/irods-provider-galera/ils/">
-                <span>ils - parallel put get</span>
-                
-                <i style="color:grey" class="fa fa-check read-icon"></i>
-            </a>
-            
-            
-            
-        </li>
-    
-
-                
-                </ul>
-             
-        </li>
-    
-
-                
-                </ul>
-             
-        </li>
-    
-
-        
-
-        
-
-        
-        
-        
-        <section id="shortcuts">
-            
-                <li class="" role="">
-                    <h3>More</h3>
-                    <a href="https://github.com/mjstealey/irods-provider-galera/"><i class='fa fa-github'></i> Github repository</a>
-                    
-                </li>
-            
-                <li class="" role="">
-                    
-                    <a href="https://irods.org/documentation/"><i class='fa fa-bookmark'></i> iRODS Documentation</a>
-                    
-                </li>
-            
-                <li class="" role="">
-                    
-                    <a href="https://mariadb.com/kb/en/mariadb/documentation/"><i class='fa fa-bookmark'></i> MariaDB Documentation</a>
-                    
-                </li>
-            
-        </section>    
-        
-        
-            <a class="" href="#" data-clear-history-toggle=""><i class="fa  fa-history"></i> Clear History</a>
-        
-
-        
-    </ul>
-    
-     
-    <section id="footer">
-      <center>
-
-<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download mjstealey/irods-provider-galera on GitHub">Download</a>
-
-
-<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera" data-icon="octicon-star" data-show-count="false" aria-label="Star mjstealey/irods-provider-galera on GitHub">Star</a>
-
-
-<a class="github-button" href="https://github.com/mjstealey/irods-provider-galera/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork mjstealey/irods-provider-galera on GitHub">Fork</a>
-
-</center>
-
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-    </section>
-  </div>
-</nav>
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-        
-          <div id="top-bar">
-            
-
-            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <span id="sidebar-toggle-span">
-                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                    <i class="fa fa-bars"></i>
-                  </a>
-                </span>
-                <span id="toc-menu"><a href=""><i class="fa fa-list-alt"></i></a></span>
-                <a href="https://mjstealey.github.io/irods-provider-galera/">
-                  <span class="fa fa-arrow-circle-right" style="font-size:larger" aria-hidden="true"></span>
-                  iRODS - MariaDB Galera cluster
-                </a>
-                
-                   / <a href='/irods-provider-galera/poc/'>Proof of concept</a> / <a href='/irods-provider-galera/code/'>Code / Console log</a> / <a href='/irods-provider-galera/init/'>default_init.log</a>
-                
-                
-            </div>
-            <div class="progress">
-    <div class="wrapper">
-
-    </div>
-</div>
-
-          </div>
-        
-        
-        <div id="body-inner">
-          
-            <h1>default_init.log</h1>
-          
-
-
-<p>Result of running <code>docker logs adoring_lamport</code>.</p>
-
-<pre><code class="language-console">$ docker logs adoring_lamport
-usermod: no changes
-usermod: no changes
-Starting MySQL.170610 16:56:36 mysqld_safe Logging to '/var/lib/mysql/a9890f386ece.err'.
-170610 16:56:36 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+```console
+$ ./init-galera && docker attach --sig-proxy=false irods-galera-1
+Error response from daemon: No such container: irods-galera-1
+Error response from daemon: No such container: irods-galera-1
+Unable to find image 'mjstealey/irods-provider-galera:latest' locally
+latest: Pulling from mjstealey/irods-provider-galera
+343b09361036: Pull complete
+608343e5b0d0: Pull complete
+91fb8ae89fb7: Pull complete
+9b44cff09138: Pull complete
+97f8885c0109: Pull complete
+98c739205832: Pull complete
+c00b8088a5b0: Pull complete
+aa14f35a131e: Pull complete
+eef6ac74c481: Pull complete
+05f7faacbe7b: Pull complete
+d1825e2b39bf: Pull complete
+ce53a734ec4c: Pull complete
+234f1b6d7574: Pull complete
+22cad25b9d82: Pull complete
+c75107fa70f4: Pull complete
+f0e8dae58db7: Pull complete
+Digest: sha256:eabb3b7f672403da5402d524b767bdb79db6cd66242600f192cc96369deaa67d
+Status: Downloaded newer image for mjstealey/irods-provider-galera:latest
+203fd120fd2a7169edfb265384b324516c50073a25203538a3d36f58db23c049
+./ib_logfile0
+./aria_log_control
+./test/
+./mysql/
+./mysql/innodb_index_stats.ibd
+./mysql/time_zone_transition.frm
+./mysql/procs_priv.frm
+./mysql/general_log.CSV
+./mysql/host.frm
+./mysql/table_stats.frm
+./mysql/servers.MYI
+./mysql/innodb_table_stats.frm
+./mysql/columns_priv.frm
+./mysql/proxies_priv.MYI
+./mysql/proc.MYD
+./mysql/column_stats.MYI
+./mysql/db.MYI
+./mysql/help_category.MYI
+./mysql/help_topic.frm
+./mysql/event.frm
+./mysql/proc.MYI
+./mysql/host.MYD
+./mysql/innodb_table_stats.ibd
+./mysql/help_relation.MYI
+./mysql/plugin.MYI
+./mysql/slow_log.CSM
+./mysql/help_relation.MYD
+./mysql/help_category.frm
+./mysql/time_zone_name.frm
+./mysql/proxies_priv.MYD
+./mysql/help_keyword.MYI
+./mysql/servers.frm
+./mysql/columns_priv.MYI
+./mysql/plugin.frm
+./mysql/index_stats.frm
+./mysql/func.MYI
+./mysql/tables_priv.frm
+./mysql/gtid_slave_pos.frm
+./mysql/time_zone_leap_second.MYD
+./mysql/host.MYI
+./mysql/help_topic.MYI
+./mysql/table_stats.MYD
+./mysql/procs_priv.MYI
+./mysql/help_keyword.MYD
+./mysql/tables_priv.MYD
+./mysql/roles_mapping.MYI
+./mysql/column_stats.MYD
+./mysql/procs_priv.MYD
+./mysql/help_category.MYD
+./mysql/user.MYD
+./mysql/time_zone_transition_type.MYI
+./mysql/index_stats.MYI
+./mysql/db.frm
+./mysql/func.MYD
+./mysql/time_zone_transition.MYD
+./mysql/columns_priv.MYD
+./mysql/roles_mapping.MYD
+./mysql/time_zone_transition_type.MYD
+./mysql/column_stats.frm
+./mysql/time_zone.frm
+./mysql/user.MYI
+./mysql/general_log.frm
+./mysql/help_keyword.frm
+./mysql/table_stats.MYI
+./mysql/plugin.MYD
+./mysql/tables_priv.MYI
+./mysql/time_zone_name.MYI
+./mysql/func.frm
+./mysql/gtid_slave_pos.ibd
+./mysql/slow_log.CSV
+./mysql/proc.frm
+./mysql/time_zone_name.MYD
+./mysql/time_zone_transition.MYI
+./mysql/time_zone_transition_type.frm
+./mysql/time_zone_leap_second.frm
+./mysql/db.MYD
+./mysql/slow_log.frm
+./mysql/general_log.CSM
+./mysql/index_stats.MYD
+./mysql/event.MYD
+./mysql/servers.MYD
+./mysql/proxies_priv.frm
+./mysql/help_topic.MYD
+./mysql/time_zone.MYD
+./mysql/roles_mapping.frm
+./mysql/help_relation.frm
+./mysql/time_zone.MYI
+./mysql/innodb_index_stats.frm
+./mysql/user.frm
+./mysql/time_zone_leap_second.MYI
+./mysql/event.MYI
+./aria_log.00000001
+./ibdata1
+./performance_schema/
+./performance_schema/db.opt
+/
+!!! populating /var/lib/irods with initial contents !!!
+./
+./scripts/
+./scripts/irods/
+./scripts/irods/upgrade_configuration.py
+./scripts/irods/setup_options.py
+./scripts/irods/core_file.py
+./scripts/irods/log.py
+./scripts/irods/paths.py
+./scripts/irods/json_validation.py
+./scripts/irods/database_upgrade.py
+./scripts/irods/test/
+./scripts/irods/test/rule_texts_for_tests.py
+./scripts/irods/test/test_irsync.py
+./scripts/irods/test/test_control_plane.py
+./scripts/irods/test/test_rulebase.py
+./scripts/irods/test/test_catalog.py
+./scripts/irods/test/test_federation.py
+./scripts/irods/test/command.py
+./scripts/irods/test/test_igroupadmin.py
+./scripts/irods/test/test_irodsctl.py
+./scripts/irods/test/test_iadmin.py
+./scripts/irods/test/test_all_rules.py
+./scripts/irods/test/test_load_balanced_suite.py
+./scripts/irods/test/test_chunkydevtest.py
+./scripts/irods/test/settings.py
+./scripts/irods/test/test_ils.py
+./scripts/irods/test/test_iphymv.py
+./scripts/irods/test/metaclass_unittest_test_case_generator.py
+./scripts/irods/test/test_quotas.py
+./scripts/irods/test/test_resource_types.py
+./scripts/irods/test/test_client_hints.py
+./scripts/irods/test/test_ireg.py
+./scripts/irods/test/test_native_rule_engine_plugin.py
+./scripts/irods/test/test_iput_options.py
+./scripts/irods/test/test_icommands_file_operations.py
+./scripts/irods/test/test_irmdir.py
+./scripts/irods/test/test_auth.py
+./scripts/irods/test/test_xmsg.py
+./scripts/irods/test/session.py
+./scripts/irods/test/resource_suite.py
+./scripts/irods/test/test_compatibility.py
+./scripts/irods/test/test_iscan.py
+./scripts/irods/test/test_iticket.py
+./scripts/irods/test/test_resource_tree.py
+./scripts/irods/test/test_ipasswd.py
+./scripts/irods/test/test_resource_configuration.py
+./scripts/irods/test/test_ichmod.py
+./scripts/irods/test/test_iquest.py
+./scripts/irods/test/test_imeta_set.py
+./scripts/irods/test/test_faulty_filesystem.py
+./scripts/irods/test/README
+./scripts/irods/test/__init__.py
+./scripts/irods/database_connect.py
+./scripts/irods/__init__.pyc
+./scripts/irods/convert_configuration_to_json.py
+./scripts/irods/exceptions.py
+./scripts/irods/six.py
+./scripts/irods/lib.py
+./scripts/irods/password_obfuscation.py
+./scripts/irods/paths.pyc
+./scripts/irods/pypyodbc.py
+./scripts/irods/configuration.py
+./scripts/irods/controller.py
+./scripts/irods/pyparsing.py
+./scripts/irods/__init__.py
+./scripts/irods/database_interface.py
+./scripts/irods/start_options.py
+./scripts/validate_json.py
+./scripts/rulebase_fastswap_test_2276.sh
+./scripts/chown_directories_for_postinstall.py
+./scripts/make_resource_tree.py
+./scripts/manual_cleanup.py
+./scripts/pid_age.py
+./scripts/find_shared_object.py
+./scripts/terminate_irods_processes.py
+./scripts/switchuser.py
+./scripts/irods_control.py
+./scripts/setup_irods.py
+./scripts/system_identification.py
+./scripts/run_coverage_test.sh
+./scripts/get_irods_version.py
+./scripts/cleanup_resource_tree.py
+./scripts/run_cppcheck.sh
+./scripts/kill_pid.py
+./scripts/run_tests.py
+./scripts/get_db_schema_version.py
+./VERSION.json.dist
+./test/
+./test/filesystem/
+./test/filesystem/teardown_fs.sh
+./test/filesystem/setup_fs.sh
+./test/filesystem/make_sector_mapping_table.py
+./test/filesystem/mapping.txt
+./test/test_framework_configuration.json
+./irodsctl
+./packaging/
+./packaging/sql/
+./packaging/sql/icatPurgeRecycleBin.sql
+./packaging/sql/mysql_functions.sql
+./packaging/sql/icatDropSysTables.sql
+./packaging/sql/icatSysTables.sql
+./packaging/sql/icatSysInserts.sql
+./packaging/hosts_config.json.template
+./packaging/irodsMonPerf.config.in
+./packaging/core.fnm.template
+./packaging/find_os.sh
+./packaging/core.dvm.template
+./packaging/server_config.json.template
+./packaging/host_access_control_config.json.template
+./packaging/upgrade-3.3.xto4.0.0.sql
+./packaging/postinstall.sh
+./packaging/server_setup_instructions.txt
+./packaging/connectControl.config.template
+./packaging/database_config.json.template
+./packaging/localhost_setup_mysql.input
+./packaging/preremove.sh
+./packaging/core.re.template
+./configuration_schemas/
+./configuration_schemas/v3/
+./configuration_schemas/v3/configuration_directory.json
+./configuration_schemas/v3/hosts_config.json
+./configuration_schemas/v3/server.json
+./configuration_schemas/v3/server_status.json
+./configuration_schemas/v3/resource.json
+./configuration_schemas/v3/client_hints.json
+./configuration_schemas/v3/VERSION.json
+./configuration_schemas/v3/rule_engine.json
+./configuration_schemas/v3/database_config.json
+./configuration_schemas/v3/plugin.json
+./configuration_schemas/v3/zone_bundle.json
+./configuration_schemas/v3/grid_status.json
+./configuration_schemas/v3/host_access_control_config.json
+./configuration_schemas/v3/server_config.json
+./configuration_schemas/v3/client_environment.json
+./configuration_schemas/v3/service_account_environment.json
+./msiExecCmd_bin/
+./msiExecCmd_bin/univMSSInterface.sh
+./msiExecCmd_bin/hello
+./msiExecCmd_bin/test_execstream.py
+./msiExecCmd_bin/irodsServerMonPerf
+./clients/
+./clients/icommands/
+./clients/icommands/test/
+./clients/icommands/test/misc/
+./clients/icommands/test/misc/devtestuser-account-ACL.txt
+./clients/icommands/test/misc/email.tag
+./clients/icommands/test/misc/sample.email
+./clients/icommands/test/misc/load-metadata.txt
+./clients/icommands/test/misc/load-usermods.txt
+./clients/icommands/test/rules/
+./clients/icommands/test/rules/rulemsiSetMultiReplPerResc.r
+./clients/icommands/test/rules/rulemsiCollRsync.r
+./clients/icommands/test/rules/rulemsiReadMDTemplateIntoTagStruct.r
+./clients/icommands/test/rules/rulemsiobjget_z3950.r
+./clients/icommands/test/rules/rulemsiIp2location.r
+./clients/icommands/test/rules/rulemsiGetUserInfo.r
+./clients/icommands/test/rules/rulemsiDataObjGet.r
+./clients/icommands/test/rules/rulemsiRegisterData.r
+./clients/icommands/test/rules/rulemsiQuota.r
+./clients/icommands/test/rules/rulemsiGetSessionVarValue.r
+./clients/icommands/test/rules/rulemsiGetUserACL.r
+./clients/icommands/test/rules/rulemsiCreateUser.r
+./clients/icommands/test/rules/rulemsiFlagInfectedObjs.r
+./clients/icommands/test/rules/rulemsiNoTrashCan.r
+./clients/icommands/test/rules/rulemsiSplitPath.r
+./clients/icommands/test/rules/rulemsiSetBulkPutPostProcPolicy.r
+./clients/icommands/test/rules/rulemsiGetCollectionContentsReport.r
+./clients/icommands/test/rules/rulemsiXmsgServerConnect.r
+./clients/icommands/test/rules/rulemsiRenameCollection.r
+./clients/icommands/test/rules/rulemsiSetDefaultResc.r
+./clients/icommands/test/rules/rulemsiImageConvert.r
+./clients/icommands/test/rules/rulemsiWriteRodsLog.r
+./clients/icommands/test/rules/rulemsiCollCreate.r
+./clients/icommands/test/rules/rulemsiAddConditionToGenQuery.r
+./clients/icommands/test/rules/testsuite3.r
+./clients/icommands/test/rules/rulemsiobjput_srb.r
+./clients/icommands/test/rules/rulemsiMakeGenQuery.r
+./clients/icommands/test/rules/rulemsiObjStat.r
+./clients/icommands/test/rules/rulemsiExecGenQuery.r
+./clients/icommands/test/rules/rulemsiAddSelectFieldToGenQuery.r
+./clients/icommands/test/rules/rulemsiSetNumThreads.r
+./clients/icommands/test/rules/rulemsiRecursiveCollCopy.r
+./clients/icommands/test/rules/rulemsiStrchop.r
+./clients/icommands/test/rules/rulemsiobjget_slink.r
+./clients/icommands/test/rules/rulemsiSendMail.r
+./clients/icommands/test/rules/rulemsiImageConvert-no-properties.r
+./clients/icommands/test/rules/rulemsiImageConvert-compression.r
+./clients/icommands/test/rules/rulemsiSubstr.r
+./clients/icommands/test/rules/rulemsiStrArray2String.r
+./clients/icommands/test/rules/rulemsiSysReplDataObj.r
+./clients/icommands/test/rules/rulegenerateBagIt.r
+./clients/icommands/test/rules/rulemsiPropertiesRemove.r
+./clients/icommands/test/rules/rulemsiPhyBundleColl.r
+./clients/icommands/test/rules/rulewriteXMsg.r
+./clients/icommands/test/rules/testsuite1.r
+./clients/icommands/test/rules/rulemsiDeleteUser.r
+./clients/icommands/test/rules/rulemsiDataObjUnlink.r
+./clients/icommands/test/rules/ruleintegrityExpiry.r
+./clients/icommands/test/rules/rulemsiTwitterPost.r
+./clients/icommands/test/rules/rulemsiGetCollectionSize.r
+./clients/icommands/test/rules/rulemsiDataObjOpen.r
+./clients/icommands/test/rules/rulemsiNoChkFilePathPerm.r
+./clients/icommands/test/rules/rulemsiPropertiesClear.r
+./clients/icommands/test/rules/rulemsiGetDataObjPSmeta.r
+./clients/icommands/test/rules/rulemsiGetObjType.r
+./clients/icommands/test/rules/rulemsiRmColl.r
+./clients/icommands/test/rules/rulemsiSetRandomScheme.r
+./clients/icommands/test/rules/rulemsiobjget_http.r
+./clients/icommands/test/rules/rulemsiGetDataObjAVUs.r
+./clients/icommands/test/rules/rulemsiGetDataObjAIP.r
+./clients/icommands/test/rules/ruleintegrityDataType.r
+./clients/icommands/test/rules/rulemsiPropertiesNew.r
+./clients/icommands/test/rules/rulemsiFreeBuffer.r
+./clients/icommands/test/rules/rulemsiSetDataObjPreferredResc.r
+./clients/icommands/test/rules/rulemsiPropertiesAdd.r
+./clients/icommands/test/rules/ruleTestChangeSessionVar.r
+./clients/icommands/test/rules/rulemsiDataObjRename.r
+./clients/icommands/test/rules/rulereadXMsg.r
+./clients/icommands/test/rules/rulemsiGetFormattedSystemTime.r
+./clients/icommands/test/rules/rulewritePosInt.r
+./clients/icommands/test/rules/rulemsiobjput_http.r
+./clients/icommands/test/rules/rulemsiSetRescQuotaPolicy.r
+./clients/icommands/test/rules/rulemsiPropertiesExists.r
+./clients/icommands/test/rules/rulemsiPrintGenQueryOutToBuffer.r
+./clients/icommands/test/rules/rulemsiObjByName.r
+./clients/icommands/test/rules/rulemsiAclPolicy.r
+./clients/icommands/test/rules/rulemsiSetPublicUserOpr.r
+./clients/icommands/test/rules/rulemsiApplyDCMetadataTemplate.r
+./clients/icommands/test/rules/rulemsiSetGraftPathScheme.r
+./clients/icommands/test/rules/rulemsiGetAuditTrailInfoByUserID.r
+./clients/icommands/test/rules/rulemsiRollback.r
+./clients/icommands/test/rules/rulemsiSetReServerNumProc.r
+./clients/icommands/test/rules/rulemsiSleep.r
+./clients/icommands/test/rules/rulemsiLoadMetadataFromXml.r
+./clients/icommands/test/rules/rulemsiSendXmsg.r
+./clients/icommands/test/rules/rulemsiz3950Submit.r
+./clients/icommands/test/rules/rulemsiSortDataObj.r
+./clients/icommands/test/rules/rulemsiXmsgServerDisConnect.r
+./clients/icommands/test/rules/rulemsiDataObjRsync.r
+./clients/icommands/test/rules/rulemsiGetCollectionACL.r
+./clients/icommands/test/rules/rulemsiTarFileCreate.r
+./clients/icommands/test/rules/rulemsiAssociateKeyValuePairsToObj.r
+./clients/icommands/test/rules/rulemsiGetDiffTime.r
+./clients/icommands/test/rules/rulemsiStructFileBundle.r
+./clients/icommands/test/rules/rulemsiListEnabledMS.r
+./clients/icommands/test/rules/ruleintegrityACL.r
+./clients/icommands/test/rules/rulemsiSetDataObjAvoidResc.r
+./clients/icommands/test/rules/rulemsiGetStdoutInExecCmdOut.r
+./clients/icommands/test/rules/rulemsiHumanToSystemTime.r
+./clients/icommands/test/rules/rulemsiPropertiesClone.r
+./clients/icommands/test/rules/rulemsiDeleteUnusedAVUs.r
+./clients/icommands/test/rules/rulemsiIsColl.r
+./clients/icommands/test/rules/rulemsiCommit.r
+./clients/icommands/test/rules/rulemsiDataObjRead.r
+./clients/icommands/test/rules/rulemsiGetMoreRows.r
+./clients/icommands/test/rules/rulemsiSysChksumDataObj.r
+./clients/icommands/test/rules/rulewriteKeyValPairs.r
+./clients/icommands/test/rules/rulemsiobjput_z3950.r
+./clients/icommands/test/rules/rulemsiMergeDataCopies.r
+./clients/icommands/test/rules/rulemsiServerMonPerf.r
+./clients/icommands/test/rules/rulemsiCopyAVUMetadata.r
+./clients/icommands/test/rules/rulemsiFlagDataObjwithAVU.r
+./clients/icommands/test/rules/rulemsiDataObjLseek.r
+./clients/icommands/test/rules/rulemsiStoreVersionWithTS.r
+./clients/icommands/test/rules/rulemsiExportRecursiveCollMeta.r
+./clients/icommands/test/rules/rulemsiGetCollectionPSmeta-null.r
+./clients/icommands/test/rules/rulemsiGetValByKey.r
+./clients/icommands/test/rules/rulemsiExit.r
+./clients/icommands/test/rules/rulemsiobjget_irods.r
+./clients/icommands/test/rules/rulemsiCheckAccess.r
+./clients/icommands/test/rules/rulemsiLoadUserModsFromDataObj.r
+./clients/icommands/test/rules/rulemsiExtractTemplateMDFromBuf.r
+./clients/icommands/test/rules/rulemsiCheckPermission.r
+./clients/icommands/test/rules/rulemsiPropertiesToString.r
+./clients/icommands/test/rules/rulemsiDoSomething.r
+./clients/icommands/test/rules/rulemsiGetAuditTrailInfoByKeywords.r
+./clients/icommands/test/rules/rulewriteString.r
+./clients/icommands/test/rules/rulemsiSetACL.r
+./clients/icommands/test/rules/rulemsiLoadMetadataFromDataObj.r
+./clients/icommands/test/rules/rulemsiSetResource.r
+./clients/icommands/test/rules/rulemsiIsData.r
+./clients/icommands/test/rules/rulemsiString2StrArray.r
+./clients/icommands/test/rules/rulewriteLine.r
+./clients/icommands/test/rules/rulemsiCheckOwner.r
+./clients/icommands/test/rules/rulemsiRcvXmsg.r
+./clients/icommands/test/rules/test_no_memory_error_patch_2242.r
+./clients/icommands/test/rules/rulemsiDataObjUnlink-trash.r
+./clients/icommands/test/rules/ruleintegrityFileSize.r
+./clients/icommands/test/rules/rulemsiobjget_srb.r
+./clients/icommands/test/rules/testsuite2.r
+./clients/icommands/test/rules/rulemsiPrintKeyValPair.r
+./clients/icommands/test/rules/rulemsiGetFormattedSystemTime-human.r
+./clients/icommands/test/rules/rulemsiCollRepl.r
+./clients/icommands/test/rules/rulemsiDeleteUsersFromDataObj.r
+./clients/icommands/test/rules/rulemsiDataObjPhymv.r
+./clients/icommands/test/rules/rulemsiSetNoDirectRescInp.r
+./clients/icommands/test/rules/rulemsiobjput_test.r
+./clients/icommands/test/rules/rulemsiPhyPathReg.r
+./clients/icommands/test/rules/rulemsiSetQuota.r
+./clients/icommands/test/rules/rulemsiGetDataObjACL.r
+./clients/icommands/test/rules/rulemsiDataObjClose.r
+./clients/icommands/test/rules/rulemsiDataObjTrim.r
+./clients/icommands/test/rules/rulemsiAddKeyVal.r
+./clients/icommands/test/rules/rulemsiPropertiesFromString.r
+./clients/icommands/test/rules/rulemsiDeleteDisallowed.r
+./clients/icommands/test/rules/rulemsiDataObjChksum.r
+./clients/icommands/test/rules/rulemsiImageGetProperties.r
+./clients/icommands/test/rules/rulemsiCollectionSpider.r
+./clients/icommands/test/rules/rulemsiStageDataObj.r
+./clients/icommands/test/rules/rulemsiExecStrCondQuery.r
+./clients/icommands/test/rules/rulemsiAddKeyValToMspStr.r
+./clients/icommands/test/rules/rulemsiDataObjCopy.r
+./clients/icommands/test/rules/rulemsiCreateUserAccountsFromDataObj.r
+./clients/icommands/test/rules/rulemsiSetReplComment.r
+./clients/icommands/test/rules/rulemsiAddUserToGroup.r
+./clients/icommands/test/rules/rulemsiGetQuote.r
+./clients/icommands/test/rules/rulemsiGetStderrInExecCmdOut.r
+./clients/icommands/test/rules/rulemsiSysMetaModify.r
+./clients/icommands/test/rules/rulemsiExecCmd.r
+./clients/icommands/test/rules/ruleintegrityAVU.r
+./clients/icommands/test/rules/rulemsiGetCollectionPSmeta.r
+./clients/icommands/test/rules/rulemsiCheckHostAccessControl.r
+./clients/icommands/test/rules/nqueens.r
+./clients/icommands/test/rules/rulemsiFtpGet.r
+./clients/icommands/test/rules/rulemsiGetObjectPath.r
+./clients/icommands/test/rules/rulemsiMakeQuery.r
+./clients/icommands/test/rules/rulemsiXmsgCreateStream.r
+./clients/icommands/test/rules/rulemsiGetSystemTime.r
+./clients/icommands/test/rules/rulemsiSdssImgCutout_GetJpeg.r
+./clients/icommands/test/rules/rulemsiDataObjRepl.r
+./clients/icommands/test/rules/rulemsiGoodFailure.r
+./clients/icommands/test/rules/rulemsiDataObjWrite.r
+./clients/icommands/test/rules/rulemsiGetAuditTrailInfoByObjectID.r
+./clients/icommands/test/rules/rulemsiStripAVUs.r
+./clients/icommands/test/rules/rulemsiTarFileExtract.r
+./clients/icommands/test/rules/rulemsiobjput_irods.r
+./clients/icommands/test/rules/rulemsiOprDisallowed.r
+./clients/icommands/test/rules/ruleprint_hello.r
+./clients/icommands/test/rules/testsuiteForLcov.r
+./clients/icommands/test/rules/rulemsiGetTaggedValueFromString.r
+./clients/icommands/test/rules/rulemsiPrintGenQueryInp.r
+./clients/icommands/test/rules/rulemsiRemoveKeyValuePairsFromObj.r
+./clients/icommands/test/rules/rulemsiXmlDocSchemaValidate.r
+./clients/icommands/test/rules/rulemsiLoadACLFromDataObj.r
+./clients/icommands/test/rules/rulemsiDigestMonStat.r
+./clients/icommands/test/rules/rulemsiobjget_test.r
+./clients/icommands/test/rules/rulemsiExtractNaraMetadata.r
+./clients/icommands/test/rules/rulemsiStrToBytesBuf.r
+./clients/icommands/test/rules/rulemsiSplitPathByKey.r
+./clients/icommands/test/rules/rulemsiSetRescSortScheme.r
+./clients/icommands/test/rules/rulemsiRenameLocalZone.r
+./clients/icommands/test/rules/rulemsiString2KeyValPair.r
+./clients/icommands/test/rules/rulewriteBytesBuf.r
+./clients/icommands/test/rules/rulemsiDataObjCreate.r
+./clients/icommands/test/rules/rulemsiConvertCurrency.r
+./clients/icommands/test/rules/rulemsiGetAuditTrailInfoByTimeStamp.r
+./clients/icommands/test/rules/rulemsiStrlen.r
+./clients/icommands/test/rules/rulemsiSetDataType.r
+./clients/icommands/test/rules/rulemsiGuessDataType.r
+./clients/icommands/test/rules/rulemsiXsltApply.r
+./clients/icommands/test/rules/rulemsiGetAuditTrailInfoByActionID.r
+./clients/icommands/test/rules/rulemsiStrCat.r
+./clients/icommands/test/rules/rulemsiDeleteCollByAdmin.r
+./clients/icommands/test/rules/rulemsiPropertiesGet.r
+./clients/icommands/test/rules/rulemsiFlushMonStat.r
+./clients/icommands/test/rules/rulemsiGetIcatTime.r
+./clients/icommands/test/rules/rulemsiSetDataTypeFromExt.r
+./clients/icommands/test/rules/ruleintegrityAVUvalue.r
+./clients/icommands/test/rules/rulemsiCreateXmsgInp.r
+./clients/icommands/test/rules/rulemsiPropertiesSet.r
+./clients/icommands/test/rules/rulemsiobjput_slink.r
+./clients/icommands/test/rules/rulemsiCreateCollByAdmin.r
+./clients/icommands/test/rules/rulemsiGetContInxFromGenQueryOut.r
+./clients/icommands/test/rules/rulemsiDataObjPut.r
+./clients/icommands/test/rules/ruleintegrityFileOwner.r
+./clients/bin/
+./clients/bin/genOSAuth
+./config/
+./config/lockFileDir/
+./config/packedRei/
+./log/
+/
+Starting MySQL.170611 16:59:51 mysqld_safe Logging to '/var/lib/mysql/galera-1.edc.renci.org.err'.
+170611 16:59:51 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
  SUCCESS!
 exec mysql_secure_installation
 
@@ -554,17 +531,17 @@ password for the root user.  If you've just installed MariaDB, and
 you haven't set the root password yet, the password will be blank,
 so you should just press enter here.
 
-Enter current password for root (enter for none):
 stty: standard input: Inappropriate ioctl for device
+Enter current password for root (enter for none):
 stty: standard input: Inappropriate ioctl for device
 OK, successfully used password, moving on...
 
 Setting the root password ensures that nobody can log into the MariaDB
 root user without the proper authorisation.
 
-Set root password? [Y/n] New password:
+Set root password? [Y/n] stty: standard input: Inappropriate ioctl for device
+New password:
 Re-enter new password:
-stty: standard input: Inappropriate ioctl for device
 stty: standard input: Inappropriate ioctl for device
 Password updated successfully!
 Reloading privilege tables..
@@ -638,7 +615,7 @@ checking the name lister (/usr/bin/nm -B) interface... BSD nm
 checking whether ln -s works... yes
 checking the maximum length of command line arguments... 1572864
 checking whether the shell understands some XSI constructs... yes
-checking whether the shell understands &quot;+=&quot;... yes
+checking whether the shell understands "+="... yes
 checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format... func_convert_file_noop
 checking how to convert x86_64-unknown-linux-gnu file names to toolchain format... func_convert_file_noop
 checking for /usr/bin/ld option to reload object files... -r
@@ -652,9 +629,9 @@ checking for strip... strip
 checking for ranlib... ranlib
 checking command to parse /usr/bin/nm -B output from gcc object... ok
 checking for sysroot... no
+./configure: line 6607: /usr/bin/file: No such file or directory
 checking for mt... no
 checking if : is a manifest tool... no
-./configure: line 6607: /usr/bin/file: No such file or directory
 checking how to run the C preprocessor... gcc -E
 checking for ANSI C header files... yes
 checking for sys/types.h... yes
@@ -683,19 +660,19 @@ checking if libtool supports shared libraries... yes
 checking whether to build shared libraries... yes
 checking whether to build static libraries... yes
 checking for gcc... (cached) gcc
-ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
-which: no mysqltest in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)
-dirname: missing operand
-Try 'dirname --help' for more information.
 checking whether we are using the GNU C compiler... (cached) yes
 checking whether gcc accepts -g... (cached) yes
 checking for gcc option to accept ISO C89... (cached) none needed
 checking dependency style of gcc... (cached) gcc3
-checking for mysqlbin... checking for mysql_config... /usr/bin/mysql_config
+checking for mysqlbin... ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+which: no mysqltest in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)
+dirname: missing operand
+Try 'dirname --help' for more information.
+checking for mysql_config... /usr/bin/mysql_config
 checking for MySQL libraries... yes
 configure: setting libdir to mysql plugin dir /usr/lib64/mysql/plugin
 checking for pcre-config... /usr/bin/pcre-config
-checking for PCRE - version &gt;= 1... 8.32
+checking for PCRE - version >= 1... 8.32
 checking for the pthreads library -lpthread... yes
 checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
 checking if more special flags are required for pthreads... no
@@ -712,10 +689,10 @@ config.status: creating doc/Makefile
 config.status: creating config.h
 config.status: executing depfiles commands
 config.status: executing libtool commands
-(CDPATH=&quot;${ZSH_VERSION+.}:&quot; &amp;&amp; cd . &amp;&amp; /bin/sh /lib_mysqludf_preg/config/missing autoheader)
+(CDPATH="${ZSH_VERSION+.}:" && cd . && /bin/sh /lib_mysqludf_preg/config/missing autoheader)
 rm -f stamp-h1
 touch config.h.in
-cd . &amp;&amp; /bin/sh ./config.status config.h
+cd . && /bin/sh ./config.status config.h
 config.status: creating config.h
 config.status: config.h is unchanged
 make  all-recursive
@@ -735,27 +712,27 @@ make[2]: Leaving directory `/lib_mysqludf_preg/doc'
 make[2]: Entering directory `/lib_mysqludf_preg'
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-preg.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg.Tpo -c -o lib_mysqludf_preg_la-preg.lo `test -f 'preg.c' || echo './'`preg.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg.Tpo -c preg.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-preg.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg.Tpo -c preg.c -o lib_mysqludf_preg_la-preg.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg.Tpo -c preg.c -o lib_mysqludf_preg_la-preg.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-preg.Tpo .deps/lib_mysqludf_preg_la-preg.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-preg_utils.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg_utils.Tpo -c -o lib_mysqludf_preg_la-preg_utils.lo `test -f 'preg_utils.c' || echo './'`preg_utils.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg_utils.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg_utils.Tpo -c preg_utils.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-preg_utils.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg_utils.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg_utils.Tpo -c preg_utils.c -o lib_mysqludf_preg_la-preg_utils.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-preg_utils.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-preg_utils.Tpo -c preg_utils.c -o lib_mysqludf_preg_la-preg_utils.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-preg_utils.Tpo .deps/lib_mysqludf_preg_la-preg_utils.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-ghmysql.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghmysql.Tpo -c -o lib_mysqludf_preg_la-ghmysql.lo `test -f 'ghmysql.c' || echo './'`ghmysql.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghmysql.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghmysql.Tpo -c ghmysql.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-ghmysql.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghmysql.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghmysql.Tpo -c ghmysql.c -o lib_mysqludf_preg_la-ghmysql.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghmysql.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghmysql.Tpo -c ghmysql.c -o lib_mysqludf_preg_la-ghmysql.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-ghmysql.Tpo .deps/lib_mysqludf_preg_la-ghmysql.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-ghfcns.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghfcns.Tpo -c -o lib_mysqludf_preg_la-ghfcns.lo `test -f 'ghfcns.c' || echo './'`ghfcns.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghfcns.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghfcns.Tpo -c ghfcns.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-ghfcns.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghfcns.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghfcns.Tpo -c ghfcns.c -o lib_mysqludf_preg_la-ghfcns.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-ghfcns.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-ghfcns.Tpo -c ghfcns.c -o lib_mysqludf_preg_la-ghfcns.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-ghfcns.Tpo .deps/lib_mysqludf_preg_la-ghfcns.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-from_php.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-from_php.Tpo -c -o lib_mysqludf_preg_la-from_php.lo `test -f 'from_php.c' || echo './'`from_php.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-from_php.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-from_php.Tpo -c from_php.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-from_php.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-from_php.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-from_php.Tpo -c from_php.c -o lib_mysqludf_preg_la-from_php.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-from_php.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-from_php.Tpo -c from_php.c -o lib_mysqludf_preg_la-from_php.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-from_php.Tpo .deps/lib_mysqludf_preg_la-from_php.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo `test -f 'lib_mysqludf_preg_capture.c' || echo './'`lib_mysqludf_preg_capture.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Tpo -c lib_mysqludf_preg_capture.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Tpo -c lib_mysqludf_preg_capture.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_capture.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Tpo -c lib_mysqludf_preg_capture.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_capture.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo `test -f 'lib_mysqludf_preg_check.c' || echo './'`lib_mysqludf_preg_check.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Tpo -c lib_mysqludf_preg_check.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_check.o
@@ -763,11 +740,11 @@ lib_mysqludf_preg_check.c: In function ‘preg_check’:
 lib_mysqludf_preg_check.c:174:9: warning: return makes integer from pointer without a cast [enabled by default]
          return NULL ;
          ^
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Tpo -c lib_mysqludf_preg_check.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_check.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Tpo -c lib_mysqludf_preg_check.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_check.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_check.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo `test -f 'lib_mysqludf_preg_info.c' || echo './'`lib_mysqludf_preg_info.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Tpo -c lib_mysqludf_preg_info.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_info.o
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Tpo -c lib_mysqludf_preg_info.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_info.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Tpo -c lib_mysqludf_preg_info.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_info.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_info.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo `test -f 'lib_mysqludf_preg_position.c' || echo './'`lib_mysqludf_preg_position.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Tpo -c lib_mysqludf_preg_position.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_position.o
@@ -775,15 +752,15 @@ lib_mysqludf_preg_position.c: In function ‘preg_position’:
 lib_mysqludf_preg_position.c:218:9: warning: return makes integer from pointer without a cast [enabled by default]
          return NULL ;
          ^
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Tpo -c lib_mysqludf_preg_position.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_position.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Tpo -c lib_mysqludf_preg_position.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_position.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_position.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo `test -f 'lib_mysqludf_preg_replace.c' || echo './'`lib_mysqludf_preg_replace.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Tpo -c lib_mysqludf_preg_replace.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.o
 lib_mysqludf_preg_replace.c: In function ‘preg_replace’:
 lib_mysqludf_preg_replace.c:298:26: warning: comparison between pointer and integer [enabled by default]
-         if (!s &amp;&amp; msg[0] != NULL) {
+         if (!s && msg[0] != NULL) {
                           ^
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Tpo -c lib_mysqludf_preg_replace.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_replace.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Tpo -c lib_mysqludf_preg_replace.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_replace.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.Plo
 /bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I.    -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Tpo -c -o lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo `test -f 'lib_mysqludf_preg_rlike.c' || echo './'`lib_mysqludf_preg_rlike.c
 libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Tpo -c lib_mysqludf_preg_rlike.c  -fPIC -DPIC -o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.o
@@ -791,13 +768,13 @@ lib_mysqludf_preg_rlike.c: In function ‘preg_rlike’:
 lib_mysqludf_preg_rlike.c:179:13: warning: return makes integer from pointer without a cast [enabled by default]
              return NULL ;
              ^
-libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Tpo -c lib_mysqludf_preg_rlike.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.o &gt;/dev/null 2&gt;&amp;1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql -I yes -g -O2 -MT lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo -MD -MP -MF .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Tpo -c lib_mysqludf_preg_rlike.c -o lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.o >/dev/null 2>&1
 mv -f .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Tpo .deps/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.Plo
 /bin/sh ./libtool  --tag=CC   --mode=link gcc -DSTANDARD -DMYSQL_SERVER -I/usr/include/mysql  -I yes    -g -O2 -module -avoid-version -lpcre -lpthread  -o lib_mysqludf_preg.la -rpath /usr/lib64/mysql/plugin lib_mysqludf_preg_la-preg.lo lib_mysqludf_preg_la-preg_utils.lo lib_mysqludf_preg_la-ghmysql.lo lib_mysqludf_preg_la-ghfcns.lo lib_mysqludf_preg_la-from_php.lo lib_mysqludf_preg_la-lib_mysqludf_preg_capture.lo lib_mysqludf_preg_la-lib_mysqludf_preg_check.lo lib_mysqludf_preg_la-lib_mysqludf_preg_info.lo lib_mysqludf_preg_la-lib_mysqludf_preg_position.lo lib_mysqludf_preg_la-lib_mysqludf_preg_replace.lo lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.lo
 libtool: link: gcc -shared  -fPIC -DPIC  .libs/lib_mysqludf_preg_la-preg.o .libs/lib_mysqludf_preg_la-preg_utils.o .libs/lib_mysqludf_preg_la-ghmysql.o .libs/lib_mysqludf_preg_la-ghfcns.o .libs/lib_mysqludf_preg_la-from_php.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_capture.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_check.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_info.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_position.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_replace.o .libs/lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.o   -lpcre -lpthread  -O2   -Wl,-soname -Wl,lib_mysqludf_preg.so -o .libs/lib_mysqludf_preg.so
 libtool: link: ar cru .libs/lib_mysqludf_preg.a  lib_mysqludf_preg_la-preg.o lib_mysqludf_preg_la-preg_utils.o lib_mysqludf_preg_la-ghmysql.o lib_mysqludf_preg_la-ghfcns.o lib_mysqludf_preg_la-from_php.o lib_mysqludf_preg_la-lib_mysqludf_preg_capture.o lib_mysqludf_preg_la-lib_mysqludf_preg_check.o lib_mysqludf_preg_la-lib_mysqludf_preg_info.o lib_mysqludf_preg_la-lib_mysqludf_preg_position.o lib_mysqludf_preg_la-lib_mysqludf_preg_replace.o lib_mysqludf_preg_la-lib_mysqludf_preg_rlike.o
 libtool: link: ranlib .libs/lib_mysqludf_preg.a
-libtool: link: ( cd &quot;.libs&quot; &amp;&amp; rm -f &quot;lib_mysqludf_preg.la&quot; &amp;&amp; ln -s &quot;../lib_mysqludf_preg.la&quot; &quot;lib_mysqludf_preg.la&quot; )
+libtool: link: ( cd ".libs" && rm -f "lib_mysqludf_preg.la" && ln -s "../lib_mysqludf_preg.la" "lib_mysqludf_preg.la" )
 make[2]: Leaving directory `/lib_mysqludf_preg'
 make[1]: Leaving directory `/lib_mysqludf_preg'
 Making install in test
@@ -831,7 +808,7 @@ libtool: install: /usr/bin/install -c .libs/lib_mysqludf_preg.lai /usr/lib64/mys
 libtool: install: /usr/bin/install -c .libs/lib_mysqludf_preg.a /usr/lib64/mysql/plugin/lib_mysqludf_preg.a
 libtool: install: chmod 644 /usr/lib64/mysql/plugin/lib_mysqludf_preg.a
 libtool: install: ranlib /usr/lib64/mysql/plugin/lib_mysqludf_preg.a
-libtool: finish: PATH=&quot;/sbin:/bin:/usr/sbin:/usr/bin:/sbin&quot; ldconfig -n /usr/lib64/mysql/plugin
+libtool: finish: PATH="/sbin:/bin:/usr/sbin:/usr/bin:/sbin" ldconfig -n /usr/lib64/mysql/plugin
 ----------------------------------------------------------------------
 Libraries have been installed in:
    /usr/lib64/mysql/plugin
@@ -854,11 +831,10 @@ make[2]: Nothing to be done for `install-data-am'.
 make[2]: Leaving directory `/lib_mysqludf_preg'
 make[1]: Leaving directory `/lib_mysqludf_preg'
 /
-Shutting down MySQL... SUCCESS!
-Starting MySQL.170610 16:56:44 mysqld_safe Logging to '/var/lib/mysql/a9890f386ece.err'.
-170610 16:56:44 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+Shutting down MySQL.. SUCCESS!
+Starting MySQL.170611 16:59:58 mysqld_safe Logging to '/var/lib/mysql/galera-1.edc.renci.org.err'.
+170611 16:59:58 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
  SUCCESS!
-Warning: Hostname `a9890f386ece` should be a fully qualified domain name.
 Updating /var/lib/irods/VERSION.json...
 The iRODS service account name needs to be defined.
 iRODS user [irods]:
@@ -877,7 +853,6 @@ iRODS server's role:
 2. consumer
 Please select a number or choose 0 to enter a new value [1]:
 Updating /etc/irods/server_config.json...
-Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
 
 +-----------------------------------------+
 | Configuring the database communications |
@@ -908,11 +883,8 @@ Please confirm [yes]:
 
 Updating /etc/irods/server_config.json...
 Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
-Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
-Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
-Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
-Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
 Listing database tables...
+Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
 
 Updating /etc/irods/server_config.json...
 
@@ -938,7 +910,8 @@ Schema validation base URI: file:///var/lib/irods/configuration_schemas
 iRODS server administrator: rods
 -------------------------------------------
 
-Please confirm [yes]:
+Please confirm [yes]: Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
+
 
 
 
@@ -948,6 +921,9 @@ Updating /etc/irods/server_config.json...
 | Setting up the client environment |
 +-----------------------------------+
 
+Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
+Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
+Warning: Cannot control echo output on the terminal (stdin is not a tty). Input may be echoed.
 
 
 
@@ -998,33 +974,34 @@ Success.
 | iRODS is installed and running |
 +--------------------------------+
 
-Shutting down MySQL.. SUCCESS!
+Shutting down MySQL... SUCCESS!
 set /etc/my.cnf.d/server.cnf
 $ cat /etc/my.cnf.d/server.cnf
 [galera]
 # Mandatory settings
 wsrep_on=ON
 wsrep_provider=/usr/lib64/galera/libgalera_smm.so
-wsrep_cluster_address=gcomm://
-wsrep_cluster_name=galera
-wsrep_node_address=localhost
-wsrep_node_name=galera1
+wsrep_provider_options='evs.keepalive_period=PT3S;evs.suspect_timeout=PT30S;evs.inactive_timeout=PT1M;evs.install_timeout=PT1M;evs.join_retrans_period=PT1.5S'
+wsrep_cluster_address='gcomm://172.25.8.171,172.25.8.172,172.25.8.173'
+wsrep_cluster_name='galera'
+wsrep_node_address='172.25.8.171'
+wsrep_node_name='galera-1'
 wsrep_sst_method=rsync
 
 binlog_format=row
 default_storage_engine=InnoDB
 innodb_autoinc_lock_mode=2
 bind-address=0.0.0.0
-Starting MySQL.170610 16:56:49 mysqld_safe Logging to '/var/lib/mysql/a9890f386ece.err'.
-170610 16:56:50 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+Starting MySQL.170611 17:00:04 mysqld_safe Logging to '/var/lib/mysql/galera-1.edc.renci.org.err'.
+170611 17:00:05 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
 . SUCCESS!
-[MySQL]&gt; SHOW VARIABLES LIKE 'wsrep%';
+[MySQL]> SHOW VARIABLES LIKE 'wsrep%';
 Variable_name	Value
 wsrep_osu_method	TOI
 wsrep_auto_increment_control	ON
 wsrep_causal_reads	OFF
 wsrep_certify_nonpk	ON
-wsrep_cluster_address	gcomm://
+wsrep_cluster_address	gcomm://172.25.8.171,172.25.8.172,172.25.8.173
 wsrep_cluster_name	galera
 wsrep_convert_lock_to_trx	OFF
 wsrep_data_home_dir	/var/lib/mysql/
@@ -1041,21 +1018,21 @@ wsrep_log_conflicts	OFF
 wsrep_max_ws_rows	0
 wsrep_max_ws_size	2147483647
 wsrep_mysql_replication_bundle	0
-wsrep_node_address	localhost
+wsrep_node_address	172.25.8.171
 wsrep_node_incoming_address	AUTO
-wsrep_node_name	galera1
+wsrep_node_name	galera-1
 wsrep_notify_cmd
 wsrep_on	ON
 wsrep_patch_version	wsrep_25.19
 wsrep_provider	/usr/lib64/galera/libgalera_smm.so
-wsrep_provider_options	base_dir = /var/lib/mysql/; base_host = localhost;
+wsrep_provider_options	base_dir = /var/lib/mysql/; base_host = 172.25.8.171;
 base_port = 4567; cert.log_conflicts = no; debug = no; evs.auto_evict = 0;
-evs.causal_keepalive_period = PT1S; evs.debug_log_mask = 0x1; evs.delay_margin
+evs.causal_keepalive_period = PT3S; evs.debug_log_mask = 0x1; evs.delay_margin
 = PT1S; evs.delayed_keep_period = PT30S; evs.inactive_check_period = PT0.5S;
-evs.inactive_timeout = PT15S; evs.info_log_mask = 0; evs.install_timeout =
-PT7.5S; evs.join_retrans_period = PT1S; evs.keepalive_period = PT1S;
+evs.inactive_timeout = PT1M; evs.info_log_mask = 0; evs.install_timeout = PT1M;
+evs.join_retrans_period = PT1.5S; evs.keepalive_period = PT3S;
 evs.max_install_timeouts = 3; evs.send_window = 4; evs.stats_report_period =
-PT1M; evs.suspect_timeout = PT5S; evs.use_aggregate = true;
+PT1M; evs.suspect_timeout = PT30S; evs.use_aggregate = true;
 evs.user_send_window = 2; evs.version = 0; evs.view_forget_timeout = P1D;
 gcache.dir = /var/lib/mysql/; gcache.keep_pages_size = 0; gcache.mem_size = 0;
 gcache.name = /var/lib/mysql//galera.cache; gcache.page_size = 128M;
@@ -1065,7 +1042,7 @@ gcs.max_packet_size = 64500; gcs.max_throttle = 0.25; gcs.recv_q_hard_limit =
 9223372036854775807; gcs.recv_q_soft_limit = 0.25; gcs.sync_donor = no;
 gmcast.listen_addr = tcp://0.0.0.0:4567; gmcast.mcast_addr = ; gmcast.mcast_ttl
 = 1; gmcast.peer_timeout = PT3S; gmcast.segment = 0; gmcast.time_wait = PT5S;
-gmcast.version = 0; ist.recv_addr = localhost; pc.announce_timeout = PT3S;
+gmcast.version = 0; ist.recv_addr = 172.25.8.171; pc.announce_timeout = PT3S;
 pc.checksum = false; pc.ignore_quorum = false; pc.ignore_sb = false; pc.linger
 = PT20S; pc.npvo = false; pc.recovery = true; pc.version = 0; pc.wait_prim =
 true; pc.wait_prim_timeout = PT30S; pc.weight = 1; protonet.backend = asio;
@@ -1094,232 +1071,4 @@ tcp    LISTEN     0      128       *:4567                  *:*
 tcp    LISTEN     0      50        *:1247                  *:*
 usermod: no changes
 usermod: no changes
-</code></pre>
-
-
-<footer class=" footline" >
-	
-	    <i class='fa fa-user'></i> <a href="mailto:michael.j.stealey@gmail.com">Michael J. Stealey</a>  <i class='fa fa-calendar'></i> 10/06/2017
-	    </div>
-	
-</footer>
-
-
-
-      </div>
-    </div>
-
-    
- 
-    
-
-    <div id="navigation">
-        
-        
-        
-            
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-        
-            
-            
-            
-                
-                    
-                
-                
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-            
-        
-        
-            
-            
-            
-                
-                    
-                
-                
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-                    
-            
-            
-                
-                    
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-                    
-            
-            
-                
-                    
-                
-                
-                
-            
-        
-                
-            
-        
-                
-            
-        
-          
-
-        
-
-
-        
-            <a class="nav nav-prev" href="/irods-provider-galera/code/" title="Code / Console log"> <i class="fa fa-chevron-left"></i></a>
-        
-        
-            <a class="nav nav-next" href="/irods-provider-galera/run-tests/" title="run_tests.py" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-        
-    </div>
-
-    </section>
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/irods-provider-galera/js/clipboard.min.js"></script>
-    <script src="/irods-provider-galera/js/jquery.sticky-kit.min.js"></script>
-    <script src="/irods-provider-galera/js/featherlight.min.js"></script>
-    <script src="/irods-provider-galera/js/html5shiv-printshiv.min.js"></script>
-    <script src="/irods-provider-galera/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/irods-provider-galera/js/modernizr.custom.71422.js"></script>
-    <script src="/irods-provider-galera/js/learn.js"></script>
-    <script src="/irods-provider-galera/js/hugo-learn.js"></script>
-
-    
-    <link href="/irods-provider-galera/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
-    <script src="/irods-provider-galera/mermaid/mermaid.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
-    
-
-    
-
-  </body>
-</html>
-
+```

@@ -352,7 +352,7 @@ Waiting for irods-galera-node-3 ..........
 | R_ZONE_MAIN             | BASE TABLE |
 +-------------------------+------------+
 ```
-
+{{% panel theme="success" header="PASSED" %}}
 Example docker status:
 
 ```console
@@ -362,3 +362,4 @@ b51fcb1501ec        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..
 654b094fc554        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..."   45 minutes ago      Up 45 minutes       1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   irods-galera-node-2
 cc51c3413306        mjstealey/irods-provider-galera:4.2.1   "/docker-entrypoin..."   45 minutes ago      Up 45 minutes       1247-1248/tcp, 3306/tcp, 4444/tcp, 4567-4568/tcp, 20000-20199/tcp   irods-galera-node-1
 ```
+{{% /panel %}}

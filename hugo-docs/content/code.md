@@ -14,8 +14,12 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
 +++
 
-**default_init.log**:
+**[default_init.log]({{<baseurl>}}/init)**: Resultant output from running the irods-provider-galera container with default settings
 
-**run_tests.log**:
+**[run_tests.log]({{<baseurl>}}/run-tests)**: Console output from running `python run_tests.py --run_python_suite`
 
-**parallel_put_get.sh**:
+**[parallel_put_get.sh]({{<baseurl>}}/parallel-put-get)**: Parallel iput / iget script used for testing all nodes simultaneously
+
+**[init_galera.log]({{<baseurl>}}/init-galera)**: Resultant output from running `./init-galera && docker attach --sig-proxy=false irods-galera-1` in the testbed
+
+**[ils - parallel put get]({{<baseurl>}}/ils)**: Contents of `ils -lr` while running parallel tests from one of the testbed nodes

@@ -14,13 +14,11 @@ creatordisplayname = "Michael J. Stealey" creatoremail = "michael.j.stealey@gmai
 
 +++
 
-## Deployment
+## Testbed Deployment
 
-Three CentOS Linux release 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named **galera** which has rights to run Docker and not much else.
+Three CentOS 7.3.1611 (Core) virtual machines (VMs) were stood up to establish an iRODS provider Galera cluster testbed. Each VM is configured with a user account named **galera** which has rights to run Docker and not much else. [Complete testbed information]({{<baseurl>}}/galera-vms)
 
 ![Galera testbed]({{<baseurl>}}/images/galeratestbed.png)
-
-Complete testbed information is found [here]({{<baseurl>}}/galera-vms).
 
 ## Testing methods
 
