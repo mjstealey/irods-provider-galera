@@ -12,7 +12,8 @@ Based on: [mjstealey/mariadb-galera](https://github.com/mjstealey/mariadb-galera
 
 ## Supported tags and respective Dockerfile links
 
-- 4.2.0, latest ([4.2.0/Dockerfile](https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.0/Dockerfile))
+- 4.2.1, latest ([4.2.1/Dockerfile](https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.1/Dockerfile))
+- 4.2.0 ([4.2.0/Dockerfile](https://github.com/mjstealey/irods-provider-galera/blob/master/4.2.0/Dockerfile))
 
 ### Pull image from dockerhub
 
@@ -26,7 +27,7 @@ docker pull mjstealey/irods-provider-galera:4.2.0
 
 ```
 $ git clone https://github.com/mjstealey/irods-provider-galera.git
-$ cd irods-provider-galera/4.2.0/
+$ cd irods-provider-galera/4.2.1/
 $ docker build -t irods-provider-galera .
 ```
 
